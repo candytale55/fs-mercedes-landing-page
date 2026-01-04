@@ -31,8 +31,79 @@
     <link rel="stylesheet" href="src/css/sections/footer.css" />
   </head>
   <body>
+    <!-- ===== Header ===== -->
+    <header class="header">
+      <div class="container gutter header-layout">
+        <!-- Primary Navigation -->
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a class="logo-link" href="#">
+            <img
+              class="logo"
+              src="./src/images/icon-mercedes.svg"
+              alt="Mercedes-Benz logo"
+            />
+          </a>
 
-    <h1>I am index</h1>
+          <button
+            class="nav-toggle btn-icon"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="primary-menu"
+          >
+            <img
+              class="icon"
+              src="./src/images/burger-menu-icon.svg"
+              alt="Open menu"
+            />
+          </button>
+
+          <ul id="primary-menu" class="main-nav-list">
+            <li>
+              <button class="nav-close btn-icon" type="button" aria-label="Close menu">
+                <!-- TODO: Add close icon image -->
+              </button>
+            </li>
+            <li>
+              <a class="nav-link" href="#">Electric</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">Maybach</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">Accessories</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">Stories</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Secondary Navigation -->
+        <nav class="secondary-nav" aria-label="Account and shopping">
+          <ul class="secondary-nav-list">
+            <li>
+              <a class="icon-link" href="#">
+                <img
+                  class="icon"
+                  src="./src/images/user-icon.png"
+                  alt="User account"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="icon-link" href="#">
+                <img
+                  class="icon"
+                  src="./src/images/shopping-bag-icon.png"
+                  alt="Shopping bag"
+                />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
     <script src="src/js/main.js"></script>
   </body>
