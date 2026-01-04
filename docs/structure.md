@@ -191,3 +191,14 @@ section.section.features
          └─ a.btn[href="#"] "More Info"
 ```
 
+## Maybach Red Section
+
+```md
+section.section.maybach-red
+├─ img.hero-image
+│  ├─ src="./src/images/mercedes-maybach-red-luxury-sedan.png"
+│  └─ alt="Red Mercedes-Benz Maybach luxury sedan parked near a modern seaside terrace, rear-side view."
+└─ div.container.gutter.stack
+   ├─ h2.subtitle "Red as tentation"
+   └─ p "Good design is what drives us, and we're proud to share that Mercedes-Maybach has already won the prestigious Best Design Award 2023, as judged by the world's best product designers."
+```
