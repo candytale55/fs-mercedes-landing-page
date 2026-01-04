@@ -79,3 +79,17 @@ header.header
                   ├─ src="./src/images/shopping-bag-icon.png"
                   └─ alt="Shopping bag"
 ```
+
+## Main 
+<!-- TODO: Add Structure once all sections are built -->
+
+## Hero Section
+
+```md
+section.section.section-flush.hero[aria-label="Hero"]
+└─ div.container.gutter.stack
+   ├─ h2.subtitle.hero-title "New Mercedes CLS"
+   └─ p.hero-tagline "The power in your hands"
+```
+
+
