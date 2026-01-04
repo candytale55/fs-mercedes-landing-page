@@ -150,7 +150,7 @@ section.section.car-gallery
                └─ span.color-dot.red
 ```
 
-## Dealerships
+## Dealerships Section
 
 ```md
 section.section.dealerships
@@ -162,5 +162,32 @@ section.section.dealerships
       └─ div.dealer-card.card.stack
          ├─ h3.dealer-title "Discover your local Mercedes partner store"
          └─ a.btn.btn-wide[href="#"] "Find a partner store near you"
+```
+
+## Features Section
+
+```md
+section.section.features
+└─ div.container.gutter
+   ├─ h2.sr-only "Features"
+   └─ div.features-track.h-scroll
+      ├─ article.card.feature-card.stack
+      │  ├─ h3.card-title "Comfort"
+      │  ├─ img.card-media
+      │  │  ├─ src="./src/images/mercedes-benz-interior-comfort.jpg"
+      │  │  └─ alt="Luxurious Mercedes-Benz interior with wide digital display and ambient lighting, showcasing comfort features."
+      │  └─ a.btn[href="#"] "More Info"
+      ├─ article.card.feature-card.stack
+      │  ├─ h3.card-title "Technology"
+      │  ├─ img.card-media
+      │  │  ├─ src="./src/images/mercedes-benz-led-headlight-technology.png"
+      │  │  └─ alt="Close-up of a Mercedes-Benz LED headlight with modern lighting technology."
+      │  └─ a.btn[href="#"] "More Info"
+      └─ article.card.feature-card.stack
+         ├─ h3.card-title "Accessories"
+         ├─ img.card-media
+         │  ├─ src="./src/images/mercedes-benz-rear-seat-accessories.jpg"
+         │  └─ alt="Rear-seat tablet holder accessory mounted on a Mercedes-Benz headrest."
+         └─ a.btn[href="#"] "More Info"
 ```
 
