@@ -216,3 +216,27 @@ section.section.maybach-wheels
    └─ a.btn.btn-dark.uppercase[href="#"] "Learn More"
 ```
 
+## Appointment Only Section
+
+```md
+section.section.section-tight.appointment
+└─ div.container.gutter.stack
+   ├─ h2.sr-only "Appointment only"
+   ├─ p "Ready to own the car of your dreams? Mercedes-Maybach are now available at our dealers by appointment only."
+   └─ a.btn.uppercase[href="#"] "Contact Now"
+
+```
+
+## Newsletter Sign-up
+
+<!-- TODO: Include the actual input tags needed -->
+
+```md
+section.section.newsletter-signup
+└─ div.container.gutter.stack
+   ├─ h2.subtitle "Sign up for our newsletter"
+   └─ form.newsletter-form[aria-label="Newsletter sign-up"]
+      ├─ div.form-group
+      │   └─ !-- Placeholder for input and label elements --
+      └─ button.btn.btn-submit[type="submit"] "Subscribe"
+```
