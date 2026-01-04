@@ -240,3 +240,69 @@ section.section.newsletter-signup
       │   └─ !-- Placeholder for input and label elements --
       └─ button.btn.btn-submit[type="submit"] "Subscribe"
 ```
+
+## Footer
+
+Social Media and Footer Menu
+
+```md
+footer.footer
+└─ div.container.gutter
+   ├─ div.social
+   │  └─ ul.social-list[aria-label="Social media"]
+   │     ├─ li
+   │     │  └─ a.icon-link[href="#"]
+   │     │     └─ img
+   │     │        ├─ src="./src/images/icon-facebook.svg"
+   │     │        └─ alt="Facebook"
+   │     ├─ li
+   │     │  └─ a.icon-link[href="#"]
+   │     │     └─ img
+   │     │        ├─ src="./src/images/icon-instagram.svg"
+   │     │        └─ alt="Instagram"
+   │     ├─ li
+   │     │  └─ a.icon-link[href="#"]
+   │     │     └─ img
+   │     │        ├─ src="./src/images/icon-youtube.svg"
+   │     │        └─ alt="YouTube"
+   │     ├─ li
+   │     │  └─ a.icon-link[href="#"]
+   │     │     └─ img
+   │     │        ├─ src="./src/images/icon-linkedin.svg"
+   │     │        └─ alt="LinkedIn"
+   │     └─ li
+   │        └─ a.icon-link[href="#"]
+   │           └─ img
+   │              ├─ src="./src/images/icon-tiktok.svg"
+   │              └─ alt="TikTok"
+   └─ div.footer-nav-grid
+      ├─ nav.footer-nav[aria-label="Explorer"]
+      │  ├─ h3.footer-title "Explorer"
+      │  └─ ul
+      │     ├─ li └─ a.link[href="#"] "Electric Bikes"
+      │     ├─ li └─ a.link[href="#"] "City Bikes"
+      │     ├─ li └─ a.link[href="#"] "Kids' Bikes"
+      │     ├─ li └─ a.link[href="#"] "Accessories"
+      │     ├─ li └─ a.link[href="#"] "Outlet"
+      │     ├─ li └─ a.link[href="#"] "Business"
+      │     ├─ li └─ a.link[href="#"] "Insurance Electric"
+      │     └─ li └─ a.link[href="#"] "Size Guide"
+      ├─ nav.footer-nav[aria-label="About"]
+      │  ├─ h3.footer-title "About"
+      │  └─ ul
+      │     ├─ li └─ a.link[href="#"] "About Us"
+      │     ├─ li └─ a.link[href="#"] "Journal"
+      │     ├─ li └─ a.link[href="#"] "Reviews"
+      │     ├─ li └─ a.link[href="#"] "Press"
+      │     └─ li └─ a.link[href="#"] "Jobs"
+      └─ nav.footer-nav[aria-label="Help"]
+         ├─ h3.footer-title "Help"
+         └─ ul
+            ├─ li └─ a.link[href="#"] "Contact"
+            ├─ li └─ a.link[href="#"] "FAQ"
+            ├─ li └─ a.link[href="#"] "Delivery"
+            ├─ li └─ a.link[href="#"] "Assembly & manuals"
+            ├─ li └─ a.link[href="#"] "Payment options"
+            ├─ li └─ a.link[href="#"] "Privacy policy"
+            └─ li └─ a.link[href="#"] "Terms & conditions"
+```
