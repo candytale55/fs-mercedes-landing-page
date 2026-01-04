@@ -92,4 +92,60 @@ section.section.section-flush.hero[aria-label="Hero"]
    └─ p.hero-tagline "The power in your hands"
 ```
 
+## Car Gallery Section
 
+```md
+section.section.car-gallery
+└─ div.container.gutter
+   ├─ h2.sr-only "Vehicle gallery"
+   └─ div.card-grid.gallery-grid
+      ├─ article.card.product-card
+      │  ├─ h3.card-title "Electric"
+      │  ├─ p.card-subtitle "Mercedes E450 Cabriolet"
+      │  ├─ img.card-media
+      │  │  ├─ src="./src/images/mercedes-benz-silver-convertible.png"
+      │  │  └─ alt="Mercedes-Benz convertible in silver, front-side view."
+      │  └─ div.card-footer
+      │     ├─ a.btn[href="#"] "More Info"
+      │     └─ div.color-dots[aria-label="Available colors"]
+      │        ├─ span.color-dot.gray
+      │        ├─ span.color-dot.red
+      │        ├─ span.color-dot.blue
+      │        └─ span.color-dot.black
+      ├─ article.card.product-card
+      │  ├─ h3.card-title "Hybrid"
+      │  ├─ p.card-subtitle "Mercedes GLC SUV"
+      │  ├─ img.card-media
+      │  │  ├─ src="./src/images/mercedes-benz-black-suv.png"
+      │  │  └─ alt="Black Mercedes-Benz SUV, front-side view."
+      │  └─ div.card-footer
+      │     ├─ a.btn[href="#"] "More Info"
+      │     └─ div.color-dots[aria-label="Available colors"]
+      │        ├─ span.color-dot.black
+      │        ├─ span.color-dot.yellow
+      │        └─ span.color-dot.red
+      ├─ article.card.product-card
+      │  ├─ h3.card-title "Hybrid"
+      │  ├─ p.card-subtitle "Mercedes-Benz G-Class"
+      │  ├─ img.card-media
+      │  │  ├─ src="./src/images/mercedes-benz-black-offroad-suv.png"
+      │  │  └─ alt="Black Mercedes-Benz off-road SUV, front-side view."
+      │  └─ div.card-footer
+      │     ├─ a.btn[href="#"] "More Info"
+      │     └─ div.color-dots[aria-label="Available colors"]
+      │        ├─ span.color-dot.black
+      │        ├─ span.color-dot.slate-blue
+      │        └─ span.color-dot.muted-red
+      └─ article.card.product-card
+         ├─ h3.card-title "Electric"
+         ├─ p.card-subtitle "Mercedes GLC SUV"
+         ├─ img.card-media
+         │  ├─ src="./src/images/mercedes-benz-silver-sports-coupe.png"
+         │  └─ alt="Silver Mercedes-Benz sports coupe, front-side view."
+         └─ div.card-footer
+            ├─ a.btn[href="#"] "More Info"
+            └─ div.color-dots[aria-label="Available colors"]
+               ├─ span.color-dot.black
+               ├─ span.color-dot.yellow
+               └─ span.color-dot.red
+```
