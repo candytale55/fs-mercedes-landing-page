@@ -202,3 +202,17 @@ section.section.maybach-red
    ├─ h2.subtitle "Red as tentation"
    └─ p "Good design is what drives us, and we're proud to share that Mercedes-Maybach has already won the prestigious Best Design Award 2023, as judged by the world's best product designers."
 ```
+
+## Maybach Wheels Section
+
+```md
+section.section.maybach-wheels
+└─ div.container.gutter.stack
+   ├─ h2.subtitle "The Mercedes-Maybach wheel programme"
+   ├─ img
+   │  ├─ src="./src/images/maybach-multispoke-wheel.png"
+   │  └─ alt="Close-up of a Mercedes-Maybach wheel with intricate multi-spoke rim design."
+   ├─ p "The exclusive Mercedes-Maybach wheel programme, e.g. with optional 53.3 cm (21\") Maybach forged wheels in multi-spoke design."
+   └─ a.btn.btn-dark.uppercase[href="#"] "Learn More"
+```
+
