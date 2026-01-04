@@ -149,3 +149,18 @@ section.section.car-gallery
                ├─ span.color-dot.yellow
                └─ span.color-dot.red
 ```
+
+## Dealerships
+
+```md
+section.section.dealerships
+├─ div.container.gutter.stack
+│  ├─ h2.subtitle "Find your nearest Mercedes dealer"
+│  └─ p "Browse over 1000 dealers worldwide, and find the one that best suits your situation."
+└─ div.dealer-map[aria-label="Dealer locator map"]
+   └─ div.container.gutter
+      └─ div.dealer-card.card.stack
+         ├─ h3.dealer-title "Discover your local Mercedes partner store"
+         └─ a.btn.btn-wide[href="#"] "Find a partner store near you"
+```
+
