@@ -52,6 +52,7 @@
      SPACING (LAYOUT PRIMITIVES ONLY)
      ===================================================== */
 
+     /* TODO: Remove unused spacing variables */
   --spacing-12: 0.75rem; /* 12px */
   --spacing-20: 1.25rem; /* 20px */
 
