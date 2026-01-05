@@ -12,7 +12,7 @@
   --font-size-body: 1rem; /* 16px */
   --line-height-body: 1.6;
   --line-height-heading: 1.2;
-  --line-height-tight: .9;
+  --line-height-tight: 0.9;
 
   /* =====================================================
      NAMED COLORS (RAW VALUES)
@@ -54,16 +54,19 @@
      SPACING (LAYOUT PRIMITIVES ONLY)
      ===================================================== */
 
-  /* TODO: Remove unused spacing variables */
-  --spacing-12: 0.75rem; /* 12px */
-  --spacing-20: 1.25rem; /* 20px */
+  /* Spacing tokens (intent-based) */
 
-  --spacing-content-inset: 0.65rem; /* 10.4px */
+  /* horizontal page/content inset */
+  --spacing-page: 0.65rem; /* ~10.4px  */
 
-  --spacing-gutter: 1.5rem; /* 24px */
-  --spacing-section-vertical: 3rem; /* 48px */
-  --spacing-section-vertical-tight: 2rem; /* 32px */
-  --spacing-stack-gap: 1rem; /* 16px */
+  /* — vertical rhythm inside content */
+  --spacing-flow: 1rem; /*  16px */
+
+  /* vertical space between sections */
+  --spacing-section: 3rem; /* 48px  */
+
+  /* compact sections */
+  --spacing-section-tight: 2rem; /* 32px */
 
   /* =====================================================
      TRANSITIONS
