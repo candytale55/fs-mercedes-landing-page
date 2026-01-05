@@ -18,7 +18,7 @@
 }
 
 .btn-dark {
-  background-color: var(--color-text-primary);
+  background-color: var(--color-btn-dark);
   color: var(--color-btn-primary);
 }
 

@@ -1,1 +1,6 @@
 /* Card styles */
+
+.card {
+    background-color: var(--color-background-cards);
+    border-radius: var(--border-radius-medium);
+}   

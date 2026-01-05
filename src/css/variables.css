@@ -31,16 +31,16 @@
      ===================================================== */
 
   --color-background-page: var(--light-gray);
-  --color-background-surface: var(--medium-gray);
+  --color-background-cards: var(--medium-gray);
   --color-background-footer: var(--black);
-  --color-background-cta-strip: var(--dark-gray);
+  --color-background-appointment: var(--dark-gray);
 
   --color-text-primary: var(--near-black);
   --color-text-inverse: var(--white);
   --color-text-inverse-muted: var(--white-muted);
 
   --color-btn-primary: var(--white);
-
+  --color-btn-dark: var(--near-black);
   
   /* =====================================================
      BORDER RADIUS

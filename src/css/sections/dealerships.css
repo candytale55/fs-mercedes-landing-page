@@ -1,0 +1,8 @@
+
+.dealerships {
+    border: solid 2px blue; 
+}   
+
+.dealer-card {
+    background-image: url(../../images/usa-night-map-background.png);
+}
