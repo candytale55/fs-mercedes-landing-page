@@ -23,6 +23,12 @@ body {
 }
 
 
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 /* ========== Links ========== */
 
 ul {
@@ -76,6 +82,18 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
+/* ========== Typography ========== */
 
+
+.subtitle {
+  font-family: var(--font-family-heading);
+  font-weight: 400;
+  
+}
+
+
+
+
+/* ========== Spacing - General ========== */
 
 

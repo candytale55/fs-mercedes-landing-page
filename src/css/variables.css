@@ -12,6 +12,7 @@
   --font-size-body: 1rem; /* 16px */
   --line-height-body: 1.6;
   --line-height-heading: 1.2;
+  --line-height-tight: .9;
 
   /* =====================================================
      NAMED COLORS (RAW VALUES)
@@ -41,7 +42,7 @@
 
   --color-btn-primary: var(--white);
   --color-btn-dark: var(--near-black);
-  
+
   /* =====================================================
      BORDER RADIUS
      ===================================================== */
@@ -53,9 +54,11 @@
      SPACING (LAYOUT PRIMITIVES ONLY)
      ===================================================== */
 
-     /* TODO: Remove unused spacing variables */
+  /* TODO: Remove unused spacing variables */
   --spacing-12: 0.75rem; /* 12px */
   --spacing-20: 1.25rem; /* 20px */
+
+  --spacing-content-inset: 0.65rem; /* 10.4px */
 
   --spacing-gutter: 1.5rem; /* 24px */
   --spacing-section-vertical: 3rem; /* 48px */

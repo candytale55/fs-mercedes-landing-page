@@ -1,4 +1,26 @@
+
 .hero {
-    background-image: url(../../images/mercedes-benz-coupe-hero.jpeg);
+    position: relative;
+    color: var(--color-text-inverse)
 }
 
+/* TODO: Add clamp or something to block the image from getting too small */
+
+.hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-content {
+    position: absolute;
+    z-index: 1;  /* todo: do I really need this? */
+    bottom: 0;
+    left: 0;
+    margin-bottom: var(--spacing-stack-gap);
+}
+
+.hero-tagline {
+    letter-spacing: 1px;
+    line-height: .09
+}
