@@ -4,3 +4,6 @@
     color: var(--color-text-inverse);
 }
 
+.appointment .container {
+    text-align: center;
+}
