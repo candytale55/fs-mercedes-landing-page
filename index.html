@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="src/css/components/cards.css" />
     <link rel="stylesheet" href="src/css/components/nav.css" />
     <link rel="stylesheet" href="src/css/components/forms.css" />
+    <link rel="stylesheet" href="src/css/components/modal.css" />
     <link rel="stylesheet" href="src/css/sections/hero.css" />
     <link rel="stylesheet" href="src/css/sections/gallery.css" />
     <link rel="stylesheet" href="src/css/sections/dealerships.css" />
@@ -319,15 +320,46 @@
       </section>
 
       <!-- ===== Newsletter Signup ===== -->
-      <!-- TODO: Include the actual input tags needed -->
-      <section class="section newsletter-signup">
+
+      <section
+        class="section newsletter-signup"
+        id="newsletter"
+        aria-labelledby="newsletter-title"
+      >
         <div class="container gutter stack">
-          <h2 class="section-title">Sign up for our newsletter</h2>
-          <form class="newsletter-form" aria-label="Newsletter sign-up">
+          <p class="newsletter-kicker">Join the Power</p>
+
+          <h2 class="section-title" id="newsletter-title">
+            Sign up for our newsletter
+          </h2>
+
+          <form class="newsletter-form" id="newsletter-form" novalidate>
             <div class="form-group">
-              <!-- Placeholder for input and label elements -->
+              <label for="newsletter-email">Email address</label>
+              <input
+                id="newsletter-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                required
+              />
             </div>
-            <button class="btn btn-submit" type="submit">Subscribe</button>
+            <div class="form-check">
+              <input
+                id="newsletter-consent"
+                name="consent"
+                type="checkbox"
+                required
+              />
+              <label for="newsletter-consent">
+                By signing up, I agree to the
+                <a class="link" href="#newsletter">privacy policy</a>.
+              </label>
+            </div>
+
+            <button class="btn" type="submit">Subscribe</button>
+
           </form>
         </div>
       </section>
@@ -444,6 +476,36 @@
         </div>
       </div>
     </footer>
+
+    <!-- ===== Modal: Newsletter confirmation ===== -->
+    <div
+      class="modal-overlay"
+      id="newsletter-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="newsletter-modal-title"
+      aria-describedby="newsletter-modal-desc"
+    >
+      <div class="modal-card stack" tabindex="-1">
+        <button
+          class="btn-icon modal-close"
+          type="button"
+          aria-label="Close dialog"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+
+        <h2 class="section-title" id="newsletter-modal-title">
+          Check your inbox
+        </h2>
+        <p id="newsletter-modal-desc">
+          Please confirm your subscription using the link we sent you.
+        </p>
+
+        <button class="btn btn-dark modal-ok" type="button">OK</button>
+      </div>
+    </div>
 
     <script src="src/js/main.js"></script>
   </body>

@@ -1,0 +1,43 @@
+/* ========== Modal (global component) ========== */
+
+/* Centered overlay modal for success messages.
+   Visibility controlled by .is-visible class via JavaScript. */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;      /* top, right, bottom, left: 0 */
+  display: none;           /* Hidden by default */
+  place-items: center;    /* Centers modal card */
+  padding: var(--spacing-page);
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent backdrop */
+}
+
+.modal-overlay.is-visible {
+  display: grid; /* Show modal when JS adds class */
+}
+
+.modal-card {
+  position: relative;
+  width: min(32rem, 100%); /* Max 32rem, never wider than viewport */
+  padding: var(--spacing-section-tight);
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-background-page);
+  color: var(--color-text-primary);
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--spacing-page);
+  right: var(--spacing-page);
+}
+
+/* Remove default focus outline (card receives focus for keyboard users) */
+.modal-card:focus {
+  outline: none;
+}
+
+/* Custom focus indicator for keyboard navigation */
+.modal-card:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
