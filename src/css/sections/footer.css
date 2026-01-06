@@ -39,3 +39,11 @@ footer {
 }
 
 /* TODO: Center orphan item when grid wraps to 2 rows */
+
+
+/* Footer mutted links */
+
+.footer .link {
+    color: var(--white-muted);
+    font-size: var(--font-size-small);
+}

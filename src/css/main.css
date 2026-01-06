@@ -32,6 +32,20 @@ body {
   line-height: var(--line-height-heading);
 }
 
+.card-title {
+  font-size: var(--font-size-title);
+  font-weight: 400;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: var(--font-size-subheading);
+  font-weight: 400;
+  line-height: var(--line-height-heading);
+  text-align: center;
+  margin-bottom: var(--spacing-flow);
+}
+
 p {
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
