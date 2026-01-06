@@ -6,9 +6,9 @@
   padding-inline: 1.25rem; /* 20px */
   background-color: var(--white);
   color: var(--color-text-primary);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-small);
   font-family: inherit;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
   letter-spacing: 0.5px;
   border: none;

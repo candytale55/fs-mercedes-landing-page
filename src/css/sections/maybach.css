@@ -1,60 +1,26 @@
 /* Maybach section styles */
 
-.maybach {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    position: relative;
+/* ======= Maybach Red ======= */
+
+
+.maybach-red .section-title {
+    font-family: var(--font-family-body);
+    padding-top: var(--spacing-flow);
+    text-align: center;
 }
 
-.maybach-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
+/* ======= Maybach Wheels ======= */
+
+.maybach-wheels {
+    background-color: var(--color-background-light-surface);
 }
 
-.maybach-content {
-    padding: var(--spacing-xl);
+.maybach-wheels .section-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-title);
+    text-align: center;
 }
 
-.maybach-subtitle {
-    font-size: var(--font-size-small);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--color-accent);
-    margin-bottom: var(--spacing-sm);
-}
-
-.maybach-title {
-    font-size: var(--font-size-h1);
-    margin-bottom: var(--spacing-md);
-}
-
-.maybach-description {
-    font-size: var(--font-size-large);
-    line-height: 1.8;
-    margin-bottom: var(--spacing-xl);
-    opacity: 0.9;
-}
-
-.maybach-features {
-    list-style: none;
-    margin-bottom: var(--spacing-xl);
-}
-
-.maybach-features li {
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.maybach-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-@media (max-width: 768px) {
-    .maybach-container {
-        grid-template-columns: 1fr;
-    }
+.maybach-wheels .card-media {
+    border-radius: var(--border-radius-medium);
 }
