@@ -44,6 +44,6 @@ footer {
 /* Footer mutted links */
 
 .footer .link {
-    color: var(--white-muted);
+    color: var(--color-text-inverse-muted);
     font-size: var(--font-size-small);
 }
