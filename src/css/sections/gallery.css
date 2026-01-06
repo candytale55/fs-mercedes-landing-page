@@ -1,4 +1,76 @@
-.car-gallery {
-    border: solid 2px red; 
+/* ===== Car Gallery layout ===== */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-flow);
 }
 
+
+/* ===== Car Gallery cards ===== */
+
+
+.product-card {
+  aspect-ratio: 1 / 1; /* Square cards */
+  display: grid;
+  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; /* TODO: FIX THE RATIO FOR CAR IMAGES TO LOOK GOOD */
+  row-gap: var(--spacing-flow);
+  min-height: 0; /* important for grid children */
+  padding: var(--spacing-flow);
+}
+
+.product-card .card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  object-position: center 60%;
+  min-height: 0; /* key: lets the image shrink instead of forcing the track */
+}
+
+/* ===== Car Color options ===== */
+
+.gray {
+  background-color: #c5c5c5;
+}
+.red {
+  background-color: #b20000;
+}
+.blue {
+  background-color: #0010a1;
+}
+.black {
+  background-color: #000000;
+}
+.yellow {
+  background-color: #e2c324;
+}
+.slate-blue {
+  background-color: #515f91;
+}
+.muted-red {
+  background-color: #ae3f3f;
+}
+
+
+/* 2 per row */
+
+@media (min-width: 42rem) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* TODO: DECIDE IF YOU WANT 4 PER ROW IN WIDESCREENS */
+/* 4 per row */
+/* 
+@media (min-width: 76rem) {
+    .car-gallery .container {
+        max-width: none;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+ */

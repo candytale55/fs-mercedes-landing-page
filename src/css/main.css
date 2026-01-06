@@ -24,7 +24,7 @@ body {
 }
 
 .container {
-  max-width: 70rem;  /* 1120px */
+  max-width: 72rem;  /* 1152px */
   margin-inline: auto;
 }
 
@@ -64,6 +64,8 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+
 
 /* ========== Links ========== */
 

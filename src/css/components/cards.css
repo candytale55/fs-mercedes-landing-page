@@ -1,6 +1,10 @@
 /* Card styles */
 
+/* Car Gallery and Feature Cards share this style */
+
 .card {
     background-color: var(--color-background-cards);
     border-radius: var(--border-radius-medium);
 }   
+
+/* For the particular styling of car gallery and feature cards check gallery.css and features.css */
