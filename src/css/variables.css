@@ -62,11 +62,12 @@
   /* — vertical rhythm inside content */
   --spacing-flow: 1rem; /*  16px */
 
-  /* vertical space between sections */
+  /* vertical space between sections / children */
   --spacing-section: 3rem; /* 48px  */
 
-  /* compact sections */
   --spacing-section-tight: 2rem; /* 32px */
+
+  --spacing-section-large: 4rem; /* 64px */
 
   /* =====================================================
      TRANSITIONS

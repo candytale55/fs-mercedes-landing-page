@@ -4,3 +4,38 @@ footer {
   background-color: var(--color-background-footer);
   color: var(--color-text-inverse);
 }
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-section-large);
+}
+
+/* Social Media - 
+(Note: icons/links are in main.css) */
+
+.social-list {
+  display: flex;
+  width: 100%;
+  max-width: 18.75rem; /* 300px */
+  margin-inline: auto;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+
+
+/* Navigation menus */
+
+
+.footer-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, max-content)); 
+    justify-content: center;  
+    column-gap: var(--spacing-section);
+    row-gap: var(--spacing-section-large);
+    text-align: center;
+}
+
+/* TODO: Center orphan item when grid wraps to 2 rows */
