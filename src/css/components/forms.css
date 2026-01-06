@@ -1,6 +1,41 @@
-/* Form styles */
+/* ========== Forms (global component) ========== */
+/* Newsletter signup form styles.
+   Form is styled separately from section container to keep layout flexible. */
+
+/* Newsletter Section Container */
 
 .newsletter-signup {
     background-color: var(--color-background-footer);
     color: var(--color-text-inverse);
+}
+
+.newsletter-signup .container {
+  text-align: center;
+}
+
+
+/* Newsletter Form Layout */
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-flow);
+    margin-inline: auto; /* Center form within container */
+}
+
+.newsletter-form .btn {
+    align-self: center; /* Center button independently of input field width */
+}
+
+
+/* Form Typography */
+
+.newsletter-kicker {
+    font-size: var(--font-size-subheading);
+}
+
+/* Override default section-title styling for newsletter context */
+.newsletter-signup .section-title {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-small);
 }
