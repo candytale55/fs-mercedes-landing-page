@@ -2,4 +2,5 @@
 
 .newsletter-signup {
     background-color: var(--color-background-footer);
+    color: var(--color-text-inverse);
 }

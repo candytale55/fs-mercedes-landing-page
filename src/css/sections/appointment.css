@@ -1,4 +1,6 @@
 
 .appointment {
     background-color: var(--color-background-appointment);
+    color: var(--color-text-inverse);
 }
+

@@ -22,6 +22,21 @@ body {
   background-color: var(--color-background-page);
 }
 
+/* ========== Typography ========== */
+
+
+/* .section-title only to be used for the section title, not other subtitles */
+.section-title {
+  font-family: var(--font-family-heading);
+  font-weight: 400;
+  line-height: var(--line-height-heading);
+}
+
+p {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
 /* ========== Images ========== */
 
 img {
@@ -82,15 +97,6 @@ a:focus-visible {
 .icon-link:focus-visible {
   outline: 2px solid var(--white);
   outline-offset: 2px;
-}
-
-/* ========== Typography ========== */
-
-
-.subtitle {
-  font-family: var(--font-family-heading);
-  font-weight: 400;
-  
 }
 
 

@@ -5,7 +5,7 @@
   padding-block: 0.75rem; /* 12px */
   padding-inline: 1.25rem; /* 20px */
   background-color: var(--white);
-  color: inherit;
+  color: var(--color-text-primary);
   font-size: var(--font-size-base);
   font-family: inherit;
   font-weight: 600;
