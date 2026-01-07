@@ -5,6 +5,12 @@
   gap: var(--spacing-section-tight);
   align-items: stretch;
   justify-content: flex-start;
+
+  overflow-x: auto; /* ← this enables the scrollbar */
+  overflow-y: hidden;
+  padding-bottom: var(--spacing-flow); /* room so scrollbar doesn’t overlap */
+
+  scroll-snap-type: x mandatory;
 }
 
 .feature-card {
@@ -15,10 +21,13 @@
   display: grid;
   grid-template-rows: auto minmax(10rem, 1fr) auto;
   gap: var(--spacing-flow);
+
+  scroll-snap-align: start;
 }
 
+
 .feature-card .btn {
-    justify-self: center;
+  justify-self: center;
 }
 
 /* media inside feature cards */
@@ -27,4 +36,12 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* wider: rectangular */
+@media (min-width: 32rem) {
+  .feature-card {
+    aspect-ratio: 4 / 3; /* or 16/9 if you want more horizontal */
+    flex-basis: 22rem; /* optional: slightly wider cards */
+  }
 }
