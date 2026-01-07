@@ -1,4 +1,8 @@
-/* ===== Features (horizontal track) ===== */
+/* ========== Features Section ========== */
+/* Horizontal scrolling track for feature cards (accessories, offers, etc.).
+   Uses scroll-snap for smooth navigation between cards. */
+
+/* Horizontal Scrolling Container */
 
 .features-track {
   display: flex;
@@ -6,42 +10,46 @@
   align-items: stretch;
   justify-content: flex-start;
 
-  overflow-x: auto; /* ← this enables the scrollbar */
+  overflow-x: auto; /* Enable horizontal scrolling */
   overflow-y: hidden;
-  padding-bottom: var(--spacing-flow); /* room so scrollbar doesn’t overlap */
+  padding-bottom: var(
+    --spacing-flow
+  ); /* Prevent scrollbar from overlapping content */
 
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory; /* Snap cards into view when scrolling */
 }
 
+/* Feature Cards */
+
 .feature-card {
-  flex: 0 0 18rem; /* 288px */
-  aspect-ratio: 1 / 1;
+  flex: 0 0 18rem; /* Don't grow/shrink, fixed 288px base width */
+  aspect-ratio: 1 / 1; /* Square cards on mobile */
   padding: var(--spacing-section-tight);
 
+  /* Grid layout: heading → image → button */
   display: grid;
   grid-template-rows: auto minmax(10rem, 1fr) auto;
   gap: var(--spacing-flow);
 
-  scroll-snap-align: start;
+  scroll-snap-align: start; /* Snap to card's left edge */
 }
-
 
 .feature-card .btn {
-  justify-self: center;
+  justify-self: center; /* Center button within grid cell */
 }
 
-/* media inside feature cards */
+/* Card Media */
 .feature-card .card-media {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Fill available space while preserving aspect ratio */
   display: block;
 }
 
-/* wider: rectangular */
+/* Larger Screens: Wider Cards */
 @media (min-width: 32rem) {
   .feature-card {
-    aspect-ratio: 4 / 3; /* or 16/9 if you want more horizontal */
-    flex-basis: 22rem; /* optional: slightly wider cards */
+    aspect-ratio: 4 / 3; /* Rectangular cards for more content visibility */
+    flex-basis: 22rem; /* Slightly wider cards */
   }
 }
