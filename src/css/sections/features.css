@@ -1,0 +1,30 @@
+/* ===== Features (horizontal track) ===== */
+
+.features-track {
+  display: flex;
+  gap: var(--spacing-section-tight);
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.feature-card {
+  flex: 0 0 18rem; /* 288px */
+  aspect-ratio: 1 / 1;
+  padding: var(--spacing-section-tight);
+
+  display: grid;
+  grid-template-rows: auto minmax(10rem, 1fr) auto;
+  gap: var(--spacing-flow);
+}
+
+.feature-card .btn {
+    justify-self: center;
+}
+
+/* media inside feature cards */
+.feature-card .card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
