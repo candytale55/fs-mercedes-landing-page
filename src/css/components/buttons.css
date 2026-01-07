@@ -42,3 +42,25 @@
   opacity: 0.9;
 }
 
+
+/* Button icon styles */
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;           
+  line-height: 1;        /* helps glyph buttons */
+  font-size: 1.75rem;    /* 28px */
+  color: var(--color-text-primary);
+}
+
+.btn-icon:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.btn-icon:hover {
+  transform: scale(1.1);
+}
+

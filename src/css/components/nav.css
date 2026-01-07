@@ -5,9 +5,7 @@
     grid-template-columns: 1fr auto; 
     align-items: center;
     gap: var(--nav-section-gap);
-
 }
-
 
 
 
@@ -17,7 +15,6 @@
     display: flex;
     align-items: center;
     gap: var(--nav-section-gap);
-
 }
 
 /* Hide primary menu on mobile */
@@ -28,6 +25,12 @@
 
 
 /* Secondary nav: icons + burger aligned right */
+
+.secondary-nav {
+    flex: 0 0 auto; /* prevent shrinking and growing */
+    justify-self: end; /* align to right edge of grid cell */
+    white-space: nowrap; /* prevent wrapping of icons */
+}
 
 .secondary-nav-list {
     display: flex; 
@@ -43,3 +46,17 @@
 
 /* ===== Mobile nav overlay (default) ===== */
 
+
+/* ===== Desktop nav overlay ===== */
+
+@media (min-width: 550px) {
+    /* Show primary menu on desktop */
+    #primary-menu.main-nav-list {
+        display: flex;
+        align-items: center; 
+        gap: var(--nav-section-gap);
+
+    }
+
+
+}

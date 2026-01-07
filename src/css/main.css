@@ -92,6 +92,11 @@ a:focus-visible {
 
 /* Logo, Navbar and Social Media icons */
 
+.logo-link { 
+  flex: 0 0 auto; 
+}
+
+
 .icon {
   height: 24px;  
   width: auto;
