@@ -78,6 +78,7 @@
   --spacing-section-medium: 2.5rem; /* 40px */
   --spacing-section: 3rem;          /* 48px  */
   --spacing-section-large: 4rem;    /* 64px */
+  --nav-section-gap: var(--spacing-flow);
 
   /* =====================================================
      TRANSITIONS

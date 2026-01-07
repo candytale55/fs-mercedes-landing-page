@@ -45,20 +45,6 @@
             />
           </a>
 
-          <button
-            class="nav-toggle btn-icon"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="primary-menu"
-          >
-            <img
-              class="icon"
-              src="./src/images/burger-menu-icon.svg"
-              alt="Open menu"
-            />
-          </button>
-
           <ul id="primary-menu" class="main-nav-list">
             <li>
               <button
@@ -66,7 +52,7 @@
                 type="button"
                 aria-label="Close menu"
               >
-                <!-- TODO: Add close icon image -->
+                <span aria-hidden="true">×</span>
               </button>
             </li>
             <li>
@@ -104,6 +90,22 @@
                   alt="Shopping bag"
                 />
               </a>
+            </li>
+            <li>
+              <!-- Burger Menu Button -->
+              <button
+                class="nav-toggle btn-icon"
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="primary-menu"
+              >
+                <img
+                  class="icon"
+                  src="./src/images/burger-menu-icon.svg"
+                  alt="Open menu"
+                />
+              </button>
             </li>
           </ul>
         </nav>
@@ -246,7 +248,13 @@
                 src="./src/images/mercedes-benz-interior-comfort.jpg"
                 alt="Luxurious Mercedes-Benz interior with wide digital display and ambient lighting, showcasing comfort features."
               />
-              <a class="btn" href="#">More Info</a>
+              <a
+                class="btn"
+                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features-interior"
+                target="_blank"
+                rel="noopener noreferrer"
+                >More Info</a
+              >
             </article>
 
             <!-- Technology Feature -->
@@ -257,7 +265,13 @@
                 src="./src/images/mercedes-benz-led-headlight-technology.png"
                 alt="Close-up of a Mercedes-Benz LED headlight with modern lighting technology."
               />
-              <a class="btn" href="#">More Info</a>
+              <a
+                class="btn"
+                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features"
+                target="_blank"
+                rel="noopener noreferrer"
+                >More Info</a
+              >
             </article>
 
             <!-- Accessories Feature -->
@@ -268,7 +282,13 @@
                 src="./src/images/mercedes-benz-rear-seat-accessories.jpg"
                 alt="Rear-seat tablet holder accessory mounted on a Mercedes-Benz headrest."
               />
-              <a class="btn" href="#">More Info</a>
+              <a
+                class="btn"
+                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features-multimedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                >More Info</a
+              >
             </article>
           </div>
         </div>
@@ -360,7 +380,6 @@
             </div>
 
             <button class="btn" type="submit">Subscribe</button>
-
           </form>
         </div>
       </section>

@@ -1,1 +1,45 @@
 /* Navigation styles */
+
+.header-layout {
+    display: grid;
+    grid-template-columns: 1fr auto; 
+    align-items: center;
+    gap: var(--nav-section-gap);
+
+}
+
+
+
+
+/* Primary nav: logo + (desktop) links */
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--nav-section-gap);
+
+}
+
+/* Hide primary menu on mobile */
+#primary-menu.main-nav-list {
+    display: none;  
+}
+
+
+
+/* Secondary nav: icons + burger aligned right */
+
+.secondary-nav-list {
+    display: flex; 
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: var(--nav-section-gap);
+}
+
+
+
+
+
+/* ===== Mobile nav overlay (default) ===== */
+
