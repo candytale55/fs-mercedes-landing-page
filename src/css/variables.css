@@ -18,6 +18,10 @@
    /* footer titles (slightly bigger than body) */
   --font-size-subheading: 1.25rem; /* 20px */
 
+
+  /* Hidden navigation menu on mobile */
+  --font-size-mobile-menu: var(--font-size-title);
+
   --line-height-body: 1.6;
   --line-height-heading: 1.2;
   --line-height-tight: 0.9;
