@@ -11,13 +11,16 @@
 
   --font-size-body: 1rem; /* 16px */
   --font-size-small: 0.875rem; /* 14px */
+  --font-size-medium: 1.50rem; /* 24px */
 
   /* card titles (big, short words) */
   --font-size-title: 2rem; /* 32px  */
 
+
+  --font-size-large-title: 4.35rem; /* px */
+
    /* footer titles (slightly bigger than body) */
   --font-size-subheading: 1.25rem; /* 20px */
-
 
   /* Hidden navigation menu on mobile */
   --font-size-mobile-menu: var(--font-size-title);

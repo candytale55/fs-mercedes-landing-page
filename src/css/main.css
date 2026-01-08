@@ -24,7 +24,7 @@ body {
 }
 
 .container {
-  max-width: 72rem;  /* 1152px */
+  max-width: 80rem;  /* 1280px */
   margin-inline: auto;
 }
 
@@ -146,4 +146,8 @@ a:focus-visible {
 
 .section-tight {
   padding-block: var(--spacing-section-tight);
+}
+
+.section-compact {
+  padding-block: var(--spacing-flow); /* Even tighter than .section-tight */
 }

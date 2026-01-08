@@ -1,8 +1,50 @@
+/* ========== Dealer Introduction Section ========== */
 
-.dealerships {
-    border: solid 2px blue; 
-}   
+.dealer-intro {
+  text-align: center;
+  padding-block: var(--spacing-flow); /* Internal padding for the content */
+  border: solid 2px blue; /* dev only */
+}
+
+.dealer-intro .section-title {
+  font-size: var(--font-size-title);
+}
+
+/* Force title to stack on multiple lines for better mobile readability */
+.dealer-intro .section-title span {
+  display: block;
+}
+
+.dealer-intro p {
+  font-size: var(--font-size-body-large);
+}
+
+@media (min-width: 550px) {
+
+.dealer-intro {
+    text-align: left;
+    
+    }
+
+  .dealer-intro .section-title {
+    font-size: var(--font-size-large-title);
+    line-height: var(--line-height-tight);
+  }
+
+  .dealer-intro p span {
+    display: block;
+    font-size: var(--font-size-medium);
+    line-height: var(--line-height-tight);
+}
+}
+
+
+/* ========== Dealer Map Section ========== */
+
+.dealer-map {
+  border: solid 2px red; /* dev only */
+}
 
 .dealer-card {
-    background-image: url(../../images/usa-night-map-background.png);
+  background-image: url(../../images/usa-night-map-background.png);
 }
