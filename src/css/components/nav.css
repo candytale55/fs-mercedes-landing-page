@@ -53,30 +53,42 @@
 
     /* "closed" state */
     transform: translateX(100%);
-    opacity: 0;
     visibility: hidden;
     pointer-events: none; /* prevent interaction when closed */
 
-    transition: transform var(--transition-speed) var(--transition-timing),
-      opacity var(--transition-speed) var(--transition-timing),
-      visibility var(--transition-speed) var(--transition-timing);
+    /* Only animate transform and visibility, NOT opacity */
+    transition:
+      transform var(--transition-speed) var(--transition-timing),
+      visibility 0s var(--transition-speed);
   }
+
+  /* Hide content when menu is closed */
+  #primary-menu.main-nav-list > * {
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+  }
+
   /* Open menu */
   #primary-menu.main-nav-list.is-open {
     transform: translateX(0);
-    opacity: 1;
     visibility: visible;
     pointer-events: auto; /* Restore interaction when open */
+    transition-delay: 0s;
+  }
+
+  /* Show content when menu is open (with slight delay) */
+  #primary-menu.main-nav-list.is-open > * {
+    opacity: 1;
+    transition-delay: 0.2s; /* Wait for menu slide to nearly finish */
   }
 
   /* Bigger link text only in overlay */
-  #primary-menu.main-nav-list.is-open .nav-link {
+  .nav-link {
     font-size: var(--font-size-mobile-menu);
   }
 
   /* Close button */
-
-  #primary-menu .nav-close {
+  .nav-close {
     position: absolute;
     top: var(--spacing-page);
     right: var(--spacing-page);

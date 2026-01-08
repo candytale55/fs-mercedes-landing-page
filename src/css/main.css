@@ -114,13 +114,14 @@ a:focus-visible {
   transition: all var(--transition-speed) var(--transition-timing);
 }
 
-/* TODO: ADD CORRECT RULES */
+.icon-link img {
+  transition: transform var(--transition-speed) var(--transition-timing);
+}
 
 .icon-link img:hover {
   transform: scale(1.1);
 }
  
-/* TODO: ADD CORRECT RULES */
 .icon-link:focus-visible {
   outline: 2px solid var(--white);
   outline-offset: 2px;
