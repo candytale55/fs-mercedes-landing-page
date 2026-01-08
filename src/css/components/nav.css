@@ -7,58 +7,6 @@
   gap: var(--nav-section-gap);
 }
 
-/* ===== Mobile overlay menu (closed by default) ===== */
-
-#primary-menu.main-nav-list {
-  position: fixed;
-  inset: 0; /* top/right/bottom/left: 0 */
-  z-index: 1000; /* above other content */
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-section-medium);
-  align-items: center;
-
-  margin: 0;
-  padding: var(--spacing-section-large) 0;
-
-  background-color: var(--color-background-page);
-  color: var(--color-text-primary);
-
-  /* "closed" state */
-  transform: translateX(100%);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none; /* prevent interaction when closed */
-
-  transition: transform var(--transition-speed) var(--transition-timing),
-    opacity var(--transition-speed) var(--transition-timing),
-    visibility var(--transition-speed) var(--transition-timing);
-}
-
-/* Open menu */
-#primary-menu.main-nav-list.is-open {
-  transform: translateX(0);
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto; /* Restore interaction when open */
-}
-
-/* Bigger link text only in overlay */
-#primary-menu.main-nav-list.is-open .nav-link {
-  font-size: var(--font-size-mobile-menu);
-}
-
-/* Close button */
-
-#primary-menu .nav-close {
-  position: absolute;
-  top: var(--spacing-page);
-  right: var(--spacing-page);
-  font-size: var(--font-size-mobile-menu);
-  line-height: 1;
-}
-
 /* ==== Primary nav: logo + Secondary nav  ==== */
 
 .main-nav {
@@ -83,16 +31,74 @@
   gap: var(--nav-section-gap);
 }
 
+
+/* ===== Mobile overlay menu (closed by default) ===== */
+
+@media (max-width: 549px) {
+  #primary-menu.main-nav-list {
+    position: fixed;
+    inset: 0; /* top/right/bottom/left: 0 */
+    z-index: 1000; /* above other content */
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-section-medium);
+    align-items: center;
+
+    margin: 0;
+    padding: var(--spacing-section-large) 0;
+
+    background-color: var(--color-background-page);
+    color: var(--color-text-primary);
+
+    /* "closed" state */
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* prevent interaction when closed */
+
+    transition: transform var(--transition-speed) var(--transition-timing),
+      opacity var(--transition-speed) var(--transition-timing),
+      visibility var(--transition-speed) var(--transition-timing);
+  }
+  /* Open menu */
+  #primary-menu.main-nav-list.is-open {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Restore interaction when open */
+  }
+
+  /* Bigger link text only in overlay */
+  #primary-menu.main-nav-list.is-open .nav-link {
+    font-size: var(--font-size-mobile-menu);
+  }
+
+  /* Close button */
+
+  #primary-menu .nav-close {
+    position: absolute;
+    top: var(--spacing-page);
+    right: var(--spacing-page);
+    font-size: var(--font-size-mobile-menu);
+    line-height: 1;
+  }
+}
+
+
+
+
 /* ===== Desktop nav overlay ===== */
 
 @media (min-width: 550px) {
   /* Show primary menu on desktop */
   #primary-menu.main-nav-list {
-    position: unset;
-    padding: unset;
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: var(--nav-section-gap);
+
+    transition: none;
   }
 
   /* Hide mobile nav toggles on desktop */
