@@ -42,8 +42,9 @@
 
 
 /* TODO: DECIDE IF YOU WANT 4 PER ROW IN WIDESCREENS */
+
 /* 4 per row */
-/* 
+ 
 @media (min-width: 76rem) {
     .car-gallery .container {
         max-width: none;
@@ -52,8 +53,7 @@
         grid-template-columns: repeat(4, 1fr);
     }
 }
- */
-
+ 
 
  
 
