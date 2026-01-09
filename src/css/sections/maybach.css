@@ -2,25 +2,35 @@
 
 /* ======= Maybach Red ======= */
 
-
 .maybach-red .section-title {
-    font-family: var(--font-family-body);
-    padding-top: var(--spacing-flow);
-    text-align: center;
+  font-family: var(--font-family-body);
+  padding-top: var(--spacing-flow);
+  text-align: center;
 }
 
 /* ======= Maybach Wheels ======= */
 
 .maybach-wheels {
-    background-color: var(--color-background-light-surface);
+  background-color: var(--color-background-light-surface);
 }
 
 .maybach-wheels .section-title {
-    color: var(--color-text-primary);
-    font-size: var(--font-size-title);
-    text-align: center;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-title);
+  text-align: center;
+}
+
+.maybach-wheels .section-title span {
+  display: block;
 }
 
 .maybach-wheels .card-media {
-    border-radius: var(--border-radius-medium);
+  border-radius: var(--border-radius-medium);
+}
+
+/* Center button horizontally (inline-block needs margin-inline: auto) */
+.maybach-wheels .btn {
+  display: block;
+  width: fit-content; /* Prevent button from expanding to full width */
+  margin-inline: auto;
 }

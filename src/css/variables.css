@@ -15,9 +15,8 @@
 
   /* card titles (big, short words) */
   --font-size-title: 2rem; /* 32px  */
-
-
-  --font-size-large-title: 4.35rem; /* px */
+  --font-size-medium-title: 3.125rem; /* 50px */
+  --font-size-large-title: 4.35rem; /* 70px */
 
    /* footer titles (slightly bigger than body) */
   --font-size-subheading: 1.25rem; /* 20px */
