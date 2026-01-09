@@ -58,12 +58,12 @@
       "content image";
     align-items: center;
   }
-  
+
   /* Fine-tune vertical alignment */
   .maybach-wheels .section-title {
     align-self: end; /* Push title to bottom of its cell */
   }
-  
+
   .maybach-wheels .maybach-content {
     align-self: start; /* Push content to top of its cell */
   }
