@@ -148,6 +148,23 @@ a:focus-visible {
   padding-block: var(--spacing-section-tight);
 }
 
+.section-spacious {
+  padding-block: var(--spacing-section-large); /* More spacing than default */
+}
+
 .section-compact {
   padding-block: var(--spacing-flow); /* Even tighter than .section-tight */
+}
+
+/* Split layout: stacked on mobile, side-by-side on desktop */
+.split-layout {
+  display: grid;
+  gap: var(--spacing-section);
+}
+
+@media (min-width: 768px) {
+  .split-layout {
+    grid-template-columns: 1fr 1fr; /* Equal columns */
+    align-items: center; /* Vertically center content */
+  }
 }
