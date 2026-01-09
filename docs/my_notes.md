@@ -171,10 +171,13 @@ window.addEventListener("resize", () => {
 ## Maybach Wheels Split Layout Issue
 
 ### Problem Description
+
 When implementing a split layout (text left, image right) for the Maybach Wheels section on desktop, the mobile layout broke. The button appeared on top of the image instead of below it. The initial approach used a wrapper div (`.maybach-left`) which disrupted the natural grid flow.
 
 ### Root Cause
+
 The solution attempted to wrap the title and content in a container to control desktop layout, but this created a 2-item grid instead of a 3-item grid on mobile:
+
 - Grid had: `.maybach-left` (wrapper) + image (2 items)
 - Needed: title, image, content (3 separate items)
 
@@ -183,6 +186,7 @@ The wrapper prevented proper mobile stacking (title → image → content).
 ### Why This Is a Perfect Use Case for Grid Template Areas
 
 **Advantages:**
+
 1. ✅ **Visual mapping:** CSS shows layout structure literally
 2. ✅ **Easy reordering:** Change layout between breakpoints without HTML changes
 3. ✅ **Semantic naming:** Descriptive area names (title, image, content)
@@ -193,6 +197,7 @@ The wrapper prevented proper mobile stacking (title → image → content).
 ### Recommended Solution: CSS Grid Template Areas
 
 #### HTML Structure (Remove `.maybach-left` wrapper)
+
 ```html
 <section class="section maybach-wheels">
   <div class="container gutter split-layout">
@@ -201,25 +206,28 @@ The wrapper prevented proper mobile stacking (title → image → content).
       <span>The Mercedes-Maybach </span>
       <span>wheel programme</span>
     </h2>
-    
+
     <img
       class="card-media"
       src="./src/images/maybach-multispoke-wheel.png"
       alt="Close-up of a Mercedes-Maybach wheel with intricate multi-spoke rim design."
     />
-    
+
     <div class="maybach-content">
       <p>
-        The exclusive Mercedes-Maybach wheel programme, e.g. with optional
-        53.3 cm (21") Maybach forged wheels in multi-spoke design.
+        The exclusive Mercedes-Maybach wheel programme, e.g. with optional 53.3
+        cm (21") Maybach forged wheels in multi-spoke design.
       </p>
-      <a class="btn btn-dark uppercase" href="..." target="_blank">Learn More</a>
+      <a class="btn btn-dark uppercase" href="..." target="_blank"
+        >Learn More</a
+      >
     </div>
   </div>
 </section>
 ```
 
 #### CSS Implementation
+
 ```css
 /* ======= Maybach Wheels ======= */
 
@@ -271,12 +279,12 @@ The wrapper prevented proper mobile stacking (title → image → content).
       "content image";
     align-items: center;
   }
-  
+
   /* Fine-tune vertical alignment */
   .maybach-wheels .section-title {
     align-self: end; /* Push title to bottom of its cell */
   }
-  
+
   .maybach-wheels .maybach-content {
     align-self: start; /* Push content to top of its cell */
   }
@@ -290,6 +298,7 @@ The wrapper prevented proper mobile stacking (title → image → content).
 ### How It Works
 
 **Mobile Layout:**
+
 ```
 +-------+
 | title |
@@ -301,6 +310,7 @@ The wrapper prevented proper mobile stacking (title → image → content).
 ```
 
 **Desktop Layout:**
+
 ```
 +-------+-------+
 | title | image |
@@ -310,6 +320,7 @@ The wrapper prevented proper mobile stacking (title → image → content).
 ```
 
 ### Benefits
+
 - **No wrapper divs needed:** Cleaner HTML structure
 - **Visual grid in CSS:** Template areas literally show the layout
 - **Flexible:** Easy to adjust without touching HTML
@@ -317,17 +328,21 @@ The wrapper prevented proper mobile stacking (title → image → content).
 - **Reusable pattern:** Can apply to Appointment and Dealerships sections
 
 ### Current Status
+
 - ⚠️ **Not yet implemented** - proposed solution documented for review
 - 📝 Ready to apply when approved
 
 ### Pattern Reusability
+
 This same pattern can be applied to:
+
 1. **Appointment section** (call-to-action with image)
 2. **Dealerships map section** (info + map background)
 
 ---
 
 ## References
+
 - File: [`src/css/sections/maybach.css`](../src/css/sections/maybach.css)
 - File: [`index.html`](../index.html) (Maybach Wheels section)
 - Related: `.split-layout` primitive in [`src/css/main.css`](../src/css/main.css)

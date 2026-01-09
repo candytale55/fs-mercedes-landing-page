@@ -14,7 +14,18 @@
   background-color: var(--color-background-light-surface);
 }
 
+/* Mobile: Title → Image → Content (stacked vertically) */
+.maybach-wheels .split-layout {
+  display: grid;
+  gap: var(--spacing-flow);
+  grid-template-areas:
+    "title"
+    "image"
+    "content";
+}
+
 .maybach-wheels .section-title {
+  grid-area: title;
   color: var(--color-text-primary);
   font-size: var(--font-size-title);
   text-align: center;
@@ -25,12 +36,39 @@
 }
 
 .maybach-wheels .card-media {
+  grid-area: image;
   border-radius: var(--border-radius-medium);
 }
 
-/* Center button horizontally (inline-block needs margin-inline: auto) */
+.maybach-wheels .maybach-content {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-flow);
+  align-items: center;
+}
+
+/* Desktop: Two columns, title and content on left, image on right */
+@media (min-width: 768px) {
+  .maybach-wheels .split-layout {
+    gap: var(--spacing-section);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title   image"
+      "content image";
+    align-items: center;
+  }
+  
+  /* Fine-tune vertical alignment */
+  .maybach-wheels .section-title {
+    align-self: end; /* Push title to bottom of its cell */
+  }
+  
+  .maybach-wheels .maybach-content {
+    align-self: start; /* Push content to top of its cell */
+  }
+}
+
 .maybach-wheels .btn {
-  display: block;
-  width: fit-content; /* Prevent button from expanding to full width */
-  margin-inline: auto;
+  width: fit-content;
 }
