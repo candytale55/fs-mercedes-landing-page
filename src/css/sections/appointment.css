@@ -1,3 +1,4 @@
+/* ========== Appointment Section ========== */
 
 .appointment {
     background-color: var(--color-background-appointment);
@@ -6,4 +7,23 @@
 
 .appointment .container {
     text-align: center;
+}
+
+/* Mobile: stacked vertically */
+.appointment .split-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-flow);
+    align-items: center; /* Center all children including button */
+}
+
+/* Desktop: Two columns (content expands, button stays compact) */
+@media (min-width: 768px) {
+    .appointment .split-layout {
+        display: grid;
+        grid-template-columns: 1fr auto; /* Content expands, button stays compact */
+        align-items: center; /* Vertically center button with text */
+        gap: var(--spacing-section);
+        text-align: left;
+    }
 }

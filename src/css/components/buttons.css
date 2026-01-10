@@ -2,6 +2,7 @@
 
 .btn {
   display: inline-block;
+  width: fit-content; /* Buttons only as wide as their content */
   padding-block: 0.75rem; /* 12px */
   padding-inline: 1.25rem; /* 20px */
   background-color: var(--white);

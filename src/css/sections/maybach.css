@@ -1,4 +1,4 @@
-/* Maybach section styles */
+/* ========== Maybach Sections ========== */
 
 /* ======= Maybach Red ======= */
 
@@ -31,6 +31,7 @@
   text-align: center;
 }
 
+/* Force title to stack on multiple lines for better mobile readability */
 .maybach-wheels .section-title span {
   display: block;
 }
@@ -42,10 +43,14 @@
 
 .maybach-wheels .maybach-content {
   grid-area: content;
+}
+
+/* Center button within content using flexbox parent */
+.maybach-wheels .maybach-content.stack {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-flow);
-  align-items: center;
+  align-items: center; /* Centers button via flexbox */
 }
 
 /* Desktop: Two columns, title and content on left, image on right */
@@ -67,8 +72,4 @@
   .maybach-wheels .maybach-content {
     align-self: start; /* Push content to top of its cell */
   }
-}
-
-.maybach-wheels .btn {
-  width: fit-content;
 }
