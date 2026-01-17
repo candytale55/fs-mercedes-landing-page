@@ -1,14 +1,15 @@
 .hero {
   position: relative;
   color: var(--color-text-inverse);
-  /* Small mobile: Shorter height */
-  min-height: clamp(250px, 75vh, 300px);
   overflow: hidden;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-end; /* Push content to bottom on mobile */
   align-items: flex-start; /* Align left */
+
+  /* Small mobile: Match image height to prevent gap */
+  min-height: clamp(200px, 30vh, 300px);
 }
 
 .hero-img {
@@ -21,29 +22,57 @@
   left: 0;
   z-index: 0;
 
-  /* Small mobile (<350px): Fixed responsive height */
+  /* Small mobile: Matches hero container height */
   height: clamp(200px, 30vh, 300px);
 }
 
 .hero-content {
   position: relative;
   z-index: 1; /* Above hero image */
-  padding-bottom: var(--spacing-section-large); /* 64px */
+
+  /* Override .container centering - keep content left-aligned */
+  margin-inline: 0;
+
+  /* Mobile: Minimal bottom padding */
+  padding-bottom: var(--spacing-flow); /* 1rem / 16px */
+}
+
+.hero-subtitle {
+  font-size: clamp(1.25rem, 5vw, 2rem); /* Fluid 20px → 32px */
+  line-height: var(--line-height-heading);
+  font-weight: 300;
 }
 
 .hero-tagline {
+  font-size: clamp(0.75rem, 3vw, 1.125rem); /* Fluid 12px → 18px */
   letter-spacing: 1px;
-  line-height: 0.09;
+  line-height: 0.9; /* Fixed: was 0.09 */
+  text-transform: capitalize;
 }
 
-/* ========== Larger Mobile (350px+) ========== */
+/* ========== Larger Mobile (400px+) ========== */
 @media (min-width: 400px) {
+  .hero {
+    min-height: clamp(300px, 50vh, 500px); /* Taller container */
+  }
+
   .hero-img {
     height: 100%; /* Fill hero container */
   }
+
+  .hero-content {
+    padding: var(
+      --spacing-section-tight
+    ); /* 2rem / 32px - more bottom spacing */
+  }
+
+  .hero-tagline,
+  .hero-subtitle {
+    letter-spacing: 1.5px;
+  }
 }
 
-/* ========== Desktop (768px+) ========== */
+/* ========== Desktop (900px+) ========== */
 @media (min-width: 900px) {
   .hero {
     min-height: clamp(600px, 75vh, 900px);
@@ -51,7 +80,9 @@
   }
 
   .hero-content {
-    padding-top: var(--spacing-section-large); /* Top spacing on desktop */
+    padding-top: var(
+      --spacing-section-large
+    ); /* 4rem / 64px - larger top padding */
     padding-bottom: 0; /* Remove bottom spacing */
   }
 }

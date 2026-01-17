@@ -157,6 +157,10 @@ a:focus-visible {
   padding-block: var(--spacing-flow); /* Even tighter than .section-tight */
 }
 
+.section-flush {
+  padding-block: 0; /* No vertical padding - for full-bleed sections like hero */
+}
+
 /* Split layout: stacked on mobile, side-by-side on desktop */
 .split-layout {
   display: grid;
