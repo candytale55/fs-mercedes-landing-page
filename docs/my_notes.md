@@ -942,3 +942,307 @@ The hero section required complex responsive behavior: full-width background ima
 - HTML: [`index.html`](../index.html) - Line 115 (hero section)
 - Project rules: [`agents.md`](../agents.md) - Mobile-first, layout primitives, spacing strategy
 - Related: Dealerships section uses similar full-bleed background pattern
+
+---
+
+## Car Gallery (Product Cards) System
+
+### Overview
+
+The car gallery displays vehicle cards in a responsive grid that transitions from 1 column (mobile) → 2 columns (tablet) → 4 columns (wide desktop). Each card uses CSS Grid for internal layout with square aspect ratio and tightly controlled spacing.
+
+### Architecture
+
+#### Gallery Container (`.gallery-grid`)
+
+```css
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile: 1 column */
+  gap: var(--spacing-flow); /* 1rem between cards */
+}
+```
+
+**Purpose:**
+
+- Controls card layout across viewport sizes
+- Provides spacing between cards (not within cards)
+- Mobile-first: starts with single column
+
+**Responsive behavior:**
+
+- **< 530px:** 1 column
+- **530px+:** 2 columns (`repeat(2, 1fr)`)
+- **1200px+:** 4 columns (`repeat(4, 1fr)`) + removes `.container` max-width for full-width display
+
+---
+
+#### Product Card (`.product-card`)
+
+```css
+.product-card {
+  aspect-ratio: 1 / 1; /* Square cards */
+  display: grid;
+  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto;
+  row-gap: 0.2rem; /* 3.2px - Tight spacing */
+  min-height: 0; /* Allows grid children to shrink */
+  min-width: 280px; /* Prevents cards from becoming too small */
+  padding: var(--spacing-flow); /* Internal padding */
+}
+```
+
+**Key Design Decisions:**
+
+1. **Square aspect ratio (`1/1`)**
+
+   - Consistent card dimensions
+   - Works well in multi-column grids
+   - Maintains visual harmony
+
+2. **Grid template rows breakdown:**
+
+   - Row 1: `auto` - Card title (e.g., "Electric")
+   - Row 2: `auto` - Card subtitle (e.g., "Mercedes E450 Cabriolet")
+   - Row 3: `minmax(0, clamp(12rem, 40vw, 16rem))` - Car image (flexible, responsive)
+   - Row 4: `auto` - Card footer (button + color dots)
+
+3. **Image row uses `minmax(0, clamp())`:**
+
+   - `minmax(0, ...)` - Allows row to shrink below content size if needed
+   - `clamp(12rem, 40vw, 16rem)` - Image height scales: 192px min → 40% viewport → 256px max
+   - Responsive without media queries
+
+4. **Tight row-gap (0.2rem / 3.2px):**
+
+   - Reduced from default `var(--spacing-flow)` (1rem)
+   - Brings title and subtitle closer together
+   - Still uses `gap` (follows agents.md layout primitive strategy)
+   - Better visual hierarchy
+
+5. **`min-height: 0` on container:**
+
+   - Critical for grid children to respect `minmax(0, ...)`
+   - Without this, children can't shrink below their content size
+   - Prevents grid blowout
+
+6. **`min-width: 280px`:**
+   - Prevents cards from becoming unreadable on very small screens
+   - Ensures button text doesn't wrap awkwardly
+   - Works with body `min-width: 320px` to enable horizontal scroll if needed
+
+---
+
+#### Card Image (`.product-card .card-media`)
+
+```css
+.product-card .card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Show entire car, no cropping */
+  display: block;
+  object-position: center 60%; /* Slightly lower than center */
+  min-height: 0; /* Key: lets image shrink instead of forcing track */
+}
+```
+
+**Why `object-fit: contain`:**
+
+- Shows entire car (no cropping)
+- Maintains car's aspect ratio
+- Better than `cover` for product photography
+
+**Why `object-position: center 60%`:**
+
+- Centers horizontally
+- Positions slightly below vertical center (60% from top)
+- Gives more "breathing room" above car
+- Prevents cars from feeling "floating"
+
+**Why `min-height: 0`:**
+
+- Allows image to shrink below natural dimensions
+- Works with parent's `minmax(0, ...)` to create flexible sizing
+- Without this, image would force grid track to expand
+
+---
+
+#### Card Footer (`.product-card .card-footer`)
+
+```css
+.product-card .card-footer {
+  display: flex;
+  justify-content: center; /* Mobile: center button */
+  align-items: center;
+  gap: var(--spacing-flow);
+}
+```
+
+**Responsive behavior:**
+
+- **Mobile (< 620px):**
+  - Button centered
+  - Color dots hidden (`display: none`)
+- **Desktop (620px+):**
+  - `justify-content: space-between` (button left, dots right)
+  - Color dots visible in flex row with 0.75rem gap
+
+---
+
+#### Color Dots System
+
+**Base styles (utility classes):**
+
+```css
+.gray {
+  background-color: #c5c5c5;
+}
+.red {
+  background-color: #b20000;
+}
+.blue {
+  background-color: #0010a1;
+}
+/* etc... */
+```
+
+**Dot component:**
+
+```css
+.color-dot {
+  width: 1.65rem; /* 26.4px */
+  aspect-ratio: 1 / 1; /* Perfect circle */
+  border-radius: 50%;
+  border: 2px solid var(--color-text-inverse); /* White border */
+  display: inline-block;
+}
+```
+
+**Pattern:**
+
+- Color classes are **utility classes** (reusable)
+- Applied to `.color-dot` elements: `<span class="color-dot gray"></span>`
+- Hidden on mobile, shown on 620px+
+
+---
+
+### Responsive Breakpoints Summary
+
+| Breakpoint     | Gallery Grid           | Card Text | Color Dots             |
+| -------------- | ---------------------- | --------- | ---------------------- |
+| **< 530px**    | 1 column               | Center    | Hidden                 |
+| **530-619px**  | 2 columns              | Center    | Hidden                 |
+| **620-899px**  | 2 columns              | Center    | Visible, space-between |
+| **900-1199px** | 2 columns              | Left      | Visible, space-between |
+| **1200px+**    | 4 columns (full-width) | Left      | Visible, space-between |
+
+### Key Technical Patterns
+
+1. **Nested Grid:**
+
+   - `.gallery-grid` (outer grid) - Controls card layout
+   - `.product-card` (inner grid) - Controls card internal structure
+   - Clean separation of concerns
+
+2. **Aspect ratio + Grid tracks:**
+
+   - Aspect ratio enforces square cards
+   - Grid rows control internal proportions
+   - Image track is flexible, text tracks are auto
+
+3. **`minmax(0, clamp())` Pattern:**
+
+   - Allows content to shrink below natural size
+   - Provides min/preferred/max sizing in one declaration
+   - Responsive without media queries
+
+4. **`min-height: 0` Critical Rule:**
+
+   - Required on both `.product-card` AND `.card-media`
+   - Allows grid children to shrink
+   - Without it, grid won't respect `minmax(0, ...)`
+
+5. **Progressive disclosure:**
+   - Color dots hidden on mobile (reduce visual clutter)
+   - Revealed on larger screens when space allows
+   - Footer layout shifts from centered to space-between
+
+### Common Pitfalls & Solutions
+
+#### Issue: Cards Not Shrinking on Small Screens
+
+**Symptom:** Images overflow or cards become too large on mobile
+
+**Cause:** Missing `min-height: 0` on grid containers
+
+**Solution:**
+
+```css
+.product-card {
+  min-height: 0; /* On parent grid */
+}
+
+.product-card .card-media {
+  min-height: 0; /* On image child */
+}
+```
+
+#### Issue: Title and Subtitle Too Far Apart
+
+**Symptom:** Large gap between "Electric" and "Mercedes E450"
+
+**Cause:** Default `row-gap: var(--spacing-flow)` (1rem) too large
+
+**Solution:**
+
+```css
+.product-card {
+  row-gap: 0.2rem; /* Reduced from 1rem */
+}
+```
+
+**Why not remove gap entirely:**
+
+- Violates agents.md (should use `gap` for layout spacing)
+- Fragile (breaks if typography changes)
+- Not explicit (unclear if omission is intentional)
+
+#### Issue: Cards Becoming Unreadably Small
+
+**Symptom:** On very small screens, text wraps, images tiny
+
+**Cause:** No minimum card width
+
+**Solution:**
+
+```css
+.product-card {
+  min-width: 280px; /* Prevents shrinking below readable size */
+}
+
+body {
+  min-width: 320px; /* Page-level minimum */
+}
+```
+
+**Effect:** Below 320px viewport, horizontal scroll appears (graceful degradation)
+
+### Implementation Status
+
+- ✅ Responsive 1-2-4 column layout
+- ✅ Square cards with aspect-ratio
+- ✅ Flexible image sizing with clamp()
+- ✅ Tight title/subtitle spacing (0.2rem)
+- ✅ Progressive color dot visibility
+- ✅ Minimum width constraints (280px cards, 320px body)
+- ✅ Mobile-first approach
+- ✅ Follows agents.md spacing strategy (uses gap, not margins)
+- ✅ Clean separation of layout vs content concerns
+
+### References
+
+- File: [`src/css/sections/gallery.css`](../src/css/sections/gallery.css)
+- HTML: [`index.html`](../index.html) - Car gallery section
+- File: [`src/css/components/cards.css`](../src/css/components/cards.css) - Base card styles
+- File: [`src/css/components/buttons.css`](../src/css/components/buttons.css) - CTA buttons
+- Project rules: [`agents.md`](../agents.md) - Layout primitives, spacing strategy, no BEM
+- Related: Features section uses similar card pattern with horizontal scroll
