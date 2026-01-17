@@ -118,3 +118,9 @@
     margin-top: 0;
   }
 }
+
+@media (min-width: 900px) {
+    .dealerships.section {
+    padding-block: var(--spacing-section-large);
+    }
+}
