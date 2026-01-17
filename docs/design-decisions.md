@@ -148,6 +148,106 @@ This document tracks key design decisions made during the development of the Mer
 
 ---
 
+#### Newsletter Form Pill Design
+
+**Decision:** Use a unified "pill" design for the newsletter signup form, where the email input and submit button are combined into a single rounded container.
+
+**Visual Design:**
+
+```
+┌─────────────────────────────────────┐
+│  email input field  │  [Subscribe]  │
+└─────────────────────────────────────┘
+       ← Single pill container →
+```
+
+**Implementation:**
+
+```css
+/* Outer pill container */
+.newsletter-sign-up-pill {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--color-text-inverse);
+  border-radius: var(--border-radius-pill);
+}
+
+.newsletter-form input[type="email"] {
+  color: var(--color-text-inverse);
+  flex: 1; /* Input expands, pushing button to the right */
+  border: none;
+  border-radius: var(--border-radius-pill);
+  background-color: transparent;
+  padding: var(--spacing-page);
+  outline: none;
+}
+```
+
+**Why This Approach:**
+
+1. **Visual Cohesion**
+
+   - Input and button appear as a single unified component
+   - Pill shape (`border-radius-pill`) creates modern, friendly appearance
+   - Consistent with button styling elsewhere on the page
+
+2. **Flexbox for Layout**
+
+   - `flex: 1` on input allows it to grow and fill available space
+   - Button naturally sits at the end without absolute positioning
+   - Responsive: container shrinks/grows with viewport
+
+3. **Transparent Background + Border**
+   - Input has `background-color: transparent` to show section background through it
+   - Border on container (not input) creates clean single outline
+   - Maintains visual hierarchy against dark footer background
+
+**Browser Compatibility Fix:**
+
+Chrome and Safari apply default yellow/white backgrounds to autofilled inputs. This breaks the transparent design:
+
+```css
+/* Override autofill styling */
+.newsletter-form input:-webkit-autofill,
+.newsletter-form input:-webkit-autofill:hover,
+.newsletter-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text-inverse);
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+```
+
+**How this works:**
+
+- `-webkit-box-shadow` with large inset creates a "fake" transparent background that covers the autofill color
+- `transition: background-color 5000s` delays the default background change for 5000 seconds (effectively forever)
+- `-webkit-text-fill-color` ensures text remains visible against dark background
+
+**Design Rationale:**
+
+1. **User Experience**
+
+   - Single visual unit is easier to understand than separate fields
+   - Pill shape suggests "completeness" and encourages action
+   - No visual disconnect between input and submit action
+
+2. **Aesthetic Consistency**
+
+   - Matches pill-shaped buttons used throughout the site
+   - Reinforces Mercedes-Benz's modern, premium brand aesthetic
+   - Border color matches text color (white on dark background)
+
+3. **Technical Simplicity**
+   - Simple flexbox layout (no complex positioning)
+   - Minimal CSS overrides
+   - Responsive without media queries
+
+**Applied in:**
+
+- Newsletter signup section (footer area)
+
+---
+
 #### Responsive Design
 
 - Mobile-first methodology

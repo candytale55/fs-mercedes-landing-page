@@ -17,8 +17,9 @@
 /* Newsletter Form Layout */
 
 .newsletter-form {
-    display: flex;
     flex-direction: column;
+    display: flex;
+    align-items: center;
     gap: var(--spacing-flow);
     margin-inline: auto; /* Center form within container */
 }
@@ -27,6 +28,38 @@
     align-self: center; /* Center button independently of input field width */
 }
 
+
+
+/* 1. This becomes the "Outer Pill" */
+.newsletter-sign-up-pill {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--color-text-inverse);
+    border-radius: var(--border-radius-pill);
+}
+
+.newsletter-form input[type="email"] {
+    color: var(--color-text-inverse);
+    flex: 1; /* Allows input to take up space and push button to the right */
+
+    border: none;
+    border-radius: var(--border-radius-pill);
+    width: 100%;
+    max-width: 40rem; /* 640px  */
+    background-color: transparent;
+    padding: var(--spacing-page);
+    outline: none;
+}
+
+/* 2. Fix the "Autofill" background (Chrome/Safari default behavior) */
+/* This stops the input from turning white/yellow when the browser suggests an email */
+.newsletter-form input:-webkit-autofill,
+.newsletter-form input:-webkit-autofill:hover, 
+.newsletter-form input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-text-inverse);
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
 
 /* Form Typography */
 

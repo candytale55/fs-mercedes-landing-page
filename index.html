@@ -334,8 +334,9 @@
             <!-- Content -->
             <div class="maybach-content stack">
               <p>
-                The exclusive Mercedes-Maybach wheel programme, e.g. with optional
-                53.3 cm (21") Maybach forged wheels in multi-spoke design.
+                The exclusive Mercedes-Maybach wheel programme, e.g. with
+                optional 53.3 cm (21") Maybach forged wheels in multi-spoke
+                design.
               </p>
               <a
                 class="btn btn-dark uppercase"
@@ -361,12 +362,12 @@
               </p>
             </div>
             <a
-                class="btn uppercase"
-                href="https://www.mercedes-benz.es/passengercars/test-drive.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Contact Now</a
-              >
+              class="btn uppercase"
+              href="https://www.mercedes-benz.es/passengercars/test-drive.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Contact Now</a
+            >
           </div>
         </div>
       </section>
@@ -386,31 +387,39 @@
           </h2>
 
           <form class="newsletter-form" id="newsletter-form">
+            <!-- Visual Wrapper for the Pill Input -->
+
             <div class="form-group">
-              <label for="newsletter-email">Email address</label>
-              <input
-                id="newsletter-email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                placeholder="you@example.com"
-                required
-              />
+              <div class="newsletter-sign-up-pill">
+                <label for="newsletter-email" class="sr-only"
+                  >Email address</label
+                >
+                <input
+                  id="newsletter-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                  required
+                  aria-required="true"
+                />
+                <button class="btn" type="submit">Subscribe</button>
+              </div>
             </div>
+
             <div class="form-check">
               <input
                 id="newsletter-consent"
                 name="consent"
                 type="checkbox"
                 required
+                aria-required="true"
               />
               <label for="newsletter-consent">
                 By signing up, I agree to the
                 <a class="link" href="#newsletter">privacy policy</a>.
               </label>
             </div>
-
-            <button class="btn" type="submit">Subscribe</button>
           </form>
         </div>
       </section>
