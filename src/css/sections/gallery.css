@@ -13,8 +13,7 @@
 .product-card {
   aspect-ratio: 1 / 1; /* Square cards */
   display: grid;
-  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; /* TODO: FIX THE RATIO FOR CAR IMAGES TO LOOK GOOD */
-  row-gap: var(--spacing-flow);
+  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; 
   min-height: 0; /* important for grid children */
   min-width: 280px; /* Prevent cards from becoming too small */
   padding: var(--spacing-flow);
@@ -35,12 +34,14 @@
 
 /* 2 per row */
 
-@media (min-width: 630px) {
+@media (min-width: 530px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .product-card .card-subtitle {
+@media (min-width: 900px) {
+    .product-card .card-subtitle {
     text-align: left;
   }
 
@@ -50,11 +51,9 @@
 }
 
 
-/* TODO: DECIDE IF YOU WANT 4 PER ROW IN WIDESCREENS */
-
 /* 4 per row */
  
-@media (min-width: 76rem) {
+@media (min-width: 1200px) { 
     .car-gallery .container {
         max-width: none;
     }
@@ -117,7 +116,7 @@
     display: inline-block;
 }
 
-@media (min-width: 26rem) {
+@media (min-width: 620px) {
 
     .product-card .card-footer {
         justify-content: space-between;
@@ -129,7 +128,6 @@
     }
 
   .product-card .color-dot {
-    display: inline-block; /* shown on desktop */    
+    display: inline-block; /* shown on desktop */     
   }
-
 }
