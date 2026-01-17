@@ -29,15 +29,23 @@
   min-height: 0; /* key: lets the image shrink instead of forcing the track */
 }
 
-
-
-
+.product-card .card-subtitle {
+    text-align: center;
+}
 
 /* 2 per row */
 
-@media (min-width: 42rem) {
+@media (min-width: 630px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-card .card-subtitle {
+    text-align: left;
+  }
+
+  .product-card .card-title {
+    text-align: left;
   }
 }
 
