@@ -23,13 +23,14 @@
 
 .feature-card {
   flex: 0 0 18rem; /* Don't grow/shrink, fixed 288px base width */
-  aspect-ratio: 1 / 1; /* Square cards on mobile */
+  aspect-ratio: 16 / 9;
   padding: var(--spacing-section-tight);
 
   /* Grid layout: heading → image → button */
   display: grid;
   grid-template-rows: auto minmax(10rem, 1fr) auto;
   gap: var(--spacing-flow);
+  text-align: center;
 
   scroll-snap-align: start; /* Snap to card's left edge */
 }
@@ -47,9 +48,9 @@
 }
 
 /* Larger Screens: Wider Cards */
-@media (min-width: 32rem) {
+@media (min-width: 512px) {
   .feature-card {
-    aspect-ratio: 4 / 3; /* Rectangular cards for more content visibility */
+    aspect-ratio: 16 / 9;
     flex-basis: 22rem; /* Slightly wider cards */
   }
 }
