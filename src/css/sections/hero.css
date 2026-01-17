@@ -1,26 +1,57 @@
-
 .hero {
-    position: relative;
-    color: var(--color-text-inverse)
+  position: relative;
+  color: var(--color-text-inverse);
+  /* Small mobile: Shorter height */
+  min-height: clamp(250px, 75vh, 300px);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Push content to bottom on mobile */
+  align-items: flex-start; /* Align left */
 }
 
-/* TODO: Add clamp or something to block the image from getting too small and to fill the whole section*/
-
 .hero-img {
-    width: 100%;
-    height: auto;
-    display: block;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  /* Small mobile (<350px): Fixed responsive height */
+  height: clamp(200px, 30vh, 300px);
 }
 
 .hero-content {
-    position: absolute;
-    z-index: 1;  /* todo: do I really need this? */
-    bottom: 0;
-    left: 0;
-    margin-bottom: 4rem; /* 64px */
+  position: relative;
+  z-index: 1; /* Above hero image */
+  padding-bottom: var(--spacing-section-large); /* 64px */
 }
 
 .hero-tagline {
-    letter-spacing: 1px;
-    line-height: .09
+  letter-spacing: 1px;
+  line-height: 0.09;
+}
+
+/* ========== Larger Mobile (350px+) ========== */
+@media (min-width: 400px) {
+  .hero-img {
+    height: 100%; /* Fill hero container */
+  }
+}
+
+/* ========== Desktop (768px+) ========== */
+@media (min-width: 900px) {
+  .hero {
+    min-height: clamp(600px, 75vh, 900px);
+    justify-content: flex-start; /* Push content to top */
+  }
+
+  .hero-content {
+    padding-top: var(--spacing-section-large); /* Top spacing on desktop */
+    padding-bottom: 0; /* Remove bottom spacing */
+  }
 }
