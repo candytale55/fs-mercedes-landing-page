@@ -35,6 +35,10 @@
   }
 }
 
+
+
+
+
 /* ========== Dealer Map Section ========== */
 
 .dealer-map {
@@ -45,20 +49,18 @@
   background-repeat: no-repeat;
 
   display: grid;
-
-  /* Vertical alignment stays constant: always centered */
   align-items: center;
-
-  /* Horizontal alignment: starts centered for mobile */
   justify-items: center;
 
-  /* Vertical padding ensures the card doesn't touch the map edges */
+  /* ensures the card doesn't touch the map edges */
   padding-block: var(--spacing-section);
 
   /* Fluid Height: Grows from 400px up to 900px based on screen height */
   min-height: clamp(400px, 65vh, 900px);
 
 }
+
+
 
 .dealer-card {
   /* Use RGBA for transparency so text stays 100% opaque */
@@ -70,7 +72,7 @@
 
   display: flex;
   flex-direction: column;
-  min-width: 280px; /* Prevent button text from wrapping too early */
+
   width: 100%;
   max-width: 32rem; /* 512px */
   margin-inline: auto; /* Safe margin for mobile if grid fails */
@@ -101,27 +103,31 @@
   margin-inline: auto;
 }
 
-/* ========== Responsive Transition ========== */
 
-@media (min-width: 512px) {
+@media (min-width: 768px) {
+  /* We DON'T change .dealer-map alignment here to keep the container centered */
   .dealer-map {
-    /* Unlock the horizontal axis: move the container to the left */
-    justify-items: start;
-  }
+    display: grid;
+    justify-content: start;
+    align-items: center;
 
-  .dealer-card {
-    /* Align text to the left for the widescreen "Mercedes" look */
-    text-align: left;
-    margin-inline: 0;
-  }
-
-  .dealer-card .btn {
-    /* Ensure the button also snaps to the left */
-    margin-top: var(--spacing-flow);
+    /* Desktop: Much taller map (600px → 80vh → 1000px) */
+    min-height: clamp(600px, 80vh, 1000px);
   }
 
   .dealer-title {
-    padding-inline: var(--spacing-section);
+    text-align: left;
+    font-size: 2rem;
+  }
+
+    .dealer-card {
+     padding-inline: var(--spacing-section-tight);
+    }
+
+.dealer-card .btn {
+    margin-top: 0;
   }
 
 }
+
+
