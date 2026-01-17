@@ -626,3 +626,319 @@ grid-template-areas: "content contact-button";
 - File: [`src/css/sections/features.css`](../src/css/sections/features.css)
 - Project rules: [`agents.md`](../agents.md) - "Prefer clarity, semantics, and consistency over abstraction"
 - Design documentation: [`design-decisions.md`](design-decisions.md) - Button Centering Strategy section
+
+---
+
+## Hero Section Implementation & Troubleshooting
+
+### Overview
+
+The hero section required complex responsive behavior: full-width background image with text overlay that repositions from bottom-left (mobile) to upper-left (desktop). Multiple issues encountered with image sizing, text positioning, and smooth transitions across breakpoints.
+
+### Issues Encountered & Solutions
+
+#### Issue 1: Image Not Covering Container
+
+**Problem:**
+
+- Hero image showing at natural size (not filling container)
+- Empty space below/around image on mobile
+- Car not prominently displayed
+
+**Root Cause:**
+
+- Used `height: auto` which respects image's natural dimensions
+- No `object-fit` property to control how image fills space
+
+**Solution:**
+
+```css
+.hero-img {
+  object-fit: cover; /* Fill container, crop edges */
+  object-position: center center; /* Keep car centered */
+  position: absolute;
+  height: 100%; /* Fill hero container */
+}
+```
+
+**Why this works:**
+
+- `object-fit: cover` makes image fill entire container while maintaining aspect ratio
+- `object-position: center` ensures car stays visible (crops top/bottom or left/right equally)
+- Absolute positioning removes image from document flow, allowing text overlay
+
+---
+
+#### Issue 2: Empty Space Below Hero Image on Mobile
+
+**Problem:**
+
+- Image displayed correctly but large gap underneath on small screens
+- Hero container taller than image height
+
+**Root Cause:**
+
+- `.hero` container: `min-height: clamp(250px, 75vh, 300px)`
+- `.hero-img`: `height: clamp(200px, 30vh, 300px)`
+- **Height mismatch:** When image was 200px but container was 250px → 50px gap
+
+**Solution:**
+
+```css
+/* Mobile: Container matches image height */
+.hero {
+  min-height: clamp(200px, 30vh, 300px); /* Same as image */
+}
+
+.hero-img {
+  height: clamp(200px, 30vh, 300px); /* Matches container */
+}
+
+/* Larger mobile: Image fills container */
+@media (min-width: 400px) {
+  .hero {
+    min-height: clamp(300px, 50vh, 500px); /* Taller */
+  }
+
+  .hero-img {
+    height: 100%; /* Now fills taller container */
+  }
+}
+```
+
+**Why this works:**
+
+- Container and image have identical dimensions on small mobile (no gap)
+- At 400px+, image switches to `height: 100%` to fill any container size
+- Responsive scaling handled by container's `clamp()`, image follows
+
+---
+
+#### Issue 3: Text Content Misaligned (Not Bottom-Left)
+
+**Problem:**
+
+- Text appearing centered or too far right
+- Not sticking to bottom-left corner on mobile
+
+**Root Cause:**
+
+- `.hero-content` has `.container` class which adds `margin-inline: auto` (centers content)
+- Flexbox `align-items: flex-start` was fighting against this centering
+
+**Solution:**
+
+```css
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Bottom alignment */
+  align-items: flex-start; /* Left alignment */
+}
+
+.hero-content {
+  margin-inline: 0; /* Override .container centering */
+  padding-bottom: var(--spacing-flow); /* 1rem bottom spacing */
+}
+```
+
+**Why this works:**
+
+- Flexbox on `.hero` controls vertical/horizontal positioning
+- Overriding `margin-inline: auto` allows true left alignment
+- Still benefits from `.gutter` class for edge padding
+- No `position: absolute` needed (cleaner, more maintainable)
+
+---
+
+#### Issue 4: Awkward Typography Scaling on Small Screens
+
+**Problem:**
+
+- Text too large on tiny screens (< 350px)
+- Subtitle and tagline not scaling proportionally
+- Relationship between text sizes inconsistent
+
+**Root Cause:**
+
+- Initial clamp ranges too aggressive (24px-40px subtitle, 14px-20px tagline)
+- Different viewport-relative scaling (5vw vs 2.5vw) created uneven growth
+
+**Solution:**
+
+```css
+.hero-subtitle {
+  font-size: clamp(1.25rem, 5vw, 2rem); /* 20px → 32px */
+}
+
+.hero-tagline {
+  font-size: clamp(0.75rem, 3vw, 1.125rem); /* 12px → 18px */
+}
+```
+
+**Why this works:**
+
+- Smaller minimums (20px, 12px) prevent overwhelming tiny screens
+- Tagline grows faster (3vw vs 5vw) to maintain proportion with subtitle
+- Consistent ~1.67:1 ratio across all viewport sizes
+
+---
+
+#### Issue 5: No Smooth Transition Between Mobile and Desktop Layouts
+
+**Problem:**
+
+- Content abruptly jumped from bottom (mobile) to top (desktop) at 900px
+- Large gap (400px-900px) with no intermediate positioning
+
+**Root Cause:**
+
+- Only two breakpoints defined (400px for sizing, 900px for position)
+- Removed intermediate 630px breakpoint during testing
+
+**Solution:**
+
+```css
+/* Mobile: Bottom positioning */
+.hero {
+  justify-content: flex-end;
+}
+
+.hero-content {
+  padding-bottom: var(--spacing-flow); /* 1rem */
+}
+
+/* Tablet (630px+): Move to top with moderate padding */
+@media (min-width: 630px) {
+  .hero {
+    justify-content: flex-start; /* Top alignment */
+  }
+
+  .hero-content {
+    padding-top: var(--spacing-section); /* 3rem */
+    padding-bottom: 0;
+  }
+}
+
+/* Desktop (900px+): Larger padding */
+@media (min-width: 900px) {
+  .hero-content {
+    padding-top: var(--spacing-section-large); /* 4rem */
+  }
+}
+```
+
+**Why this works:**
+
+- Three-stage transition: bottom → upper-left → top-left
+- Progressive padding increase (1rem → 3rem → 4rem)
+- Smoother UX, less jarring layout shift
+
+---
+
+#### Issue 6: Letter-Spacing Inconsistency
+
+**Problem:**
+
+- At 400px+ breakpoint, `letter-spacing: 1.5px` applied to BOTH subtitle and tagline
+- Subtitle didn't have letter-spacing in base styles
+- Inconsistent typography treatment
+
+**Root Cause:**
+
+- Used grouped selector `.hero-tagline, .hero-subtitle`
+- Unintentionally applied property to both elements
+
+**Solution:**
+
+```css
+/* Base: Only tagline has letter-spacing */
+.hero-tagline {
+  letter-spacing: 1px;
+}
+
+/* 400px+: Increase tagline spacing only */
+@media (min-width: 400px) {
+  .hero-tagline {
+    letter-spacing: 1.5px;
+  }
+}
+```
+
+**Why this works:**
+
+- Subtitle stays clean (no letter-spacing at any breakpoint)
+- Tagline progressively widens (1px → 1.5px)
+- Clearer typographic hierarchy
+
+---
+
+### Key Learnings
+
+1. **`object-fit: cover` + `object-position`** are essential for background-style images using `<img>` tags
+
+   - Better for accessibility (alt text) than CSS backgrounds
+   - More control than `background-size: cover`
+
+2. **Match container and content dimensions** on small screens to avoid gaps
+
+   - Use identical `clamp()` values initially
+   - Switch to `height: 100%` at breakpoints where container grows
+
+3. **Override layout primitive defaults when needed**
+
+   - `.container` adds `margin-inline: auto` (centering)
+   - Override with `margin-inline: 0` for left-aligned content
+   - Document overrides with comments
+
+4. **Flexbox for positioning, avoid absolute positioning**
+
+   - `justify-content` controls vertical position (flex-end/flex-start)
+   - `align-items` controls horizontal position (flex-start for left)
+   - Cleaner than absolute positioning, easier to maintain
+
+5. **Progressive breakpoints create smoother transitions**
+
+   - Three-stage approach better than two-stage jump
+   - 400px (sizing), 630px (position), 900px (refinement)
+   - Match padding progression to layout changes
+
+6. **Typography scaling requires careful ratio management**
+
+   - Use consistent multipliers (e.g., 1.67:1 subtitle:tagline)
+   - Test on smallest supported viewport (320px)
+   - Adjust minimum values to prevent overwhelming small screens
+
+7. **`.section-flush` utility class pattern**
+   - Follows agents.md layout primitives strategy
+   - Reusable for any full-bleed section
+   - Declarative: HTML shows intent (no vertical padding)
+   - Similar to `.section-tight`, `.section-compact` modifiers
+
+### Implementation Status
+
+- ✅ Hero image covers container at all breakpoints
+- ✅ No empty space gaps on mobile
+- ✅ Text positioned bottom-left (mobile) → upper-left (630px+) → top-left (900px+)
+- ✅ Typography scales proportionally across all viewports
+- ✅ Smooth three-stage transition with progressive padding
+- ✅ Letter-spacing only on tagline (subtitle clean)
+- ✅ Flexbox-based layout (no absolute positioning for text)
+- ✅ Follows agents.md principles (semantic, maintainable, clear)
+
+### Final Responsive Behavior
+
+| Viewport Width | Hero Height | Image Coverage    | Content Position           | Subtitle Size | Tagline Size |
+| -------------- | ----------- | ----------------- | -------------------------- | ------------- | ------------ |
+| **< 400px**    | 200-300px   | Matches container | Bottom-left (1rem padding) | 20-32px       | 12-18px      |
+| **400-629px**  | 300-500px   | Fills container   | Bottom-left (1rem padding) | 20-32px       | 12-18px      |
+| **630-899px**  | 300-500px   | Fills container   | Upper-left (3rem padding)  | 20-32px       | 12-18px      |
+| **900px+**     | 600-900px   | Fills container   | Top-left (4rem padding)    | 20-32px       | 12-18px      |
+
+### References
+
+- File: [`src/css/sections/hero.css`](../src/css/sections/hero.css)
+- File: [`src/css/main.css`](../src/css/main.css) - `.section-flush` utility
+- HTML: [`index.html`](../index.html) - Line 115 (hero section)
+- Project rules: [`agents.md`](../agents.md) - Mobile-first, layout primitives, spacing strategy
+- Related: Dealerships section uses similar full-bleed background pattern
