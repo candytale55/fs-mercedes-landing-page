@@ -61,14 +61,22 @@
   }
 
   .hero-content {
-    padding: var(
-      --spacing-section-tight
-    ); /* 2rem / 32px - more bottom spacing */
+    padding-bottom: var(--spacing-flow);
   }
 
-  .hero-tagline,
-  .hero-subtitle {
-    letter-spacing: 1.5px;
+  .hero-tagline {
+    letter-spacing: 1.5px; /* Slightly wider spacing on larger screens */
+  }
+}
+
+@media (min-width: 630px) {
+  .hero {
+    justify-content: flex-start; /* Move to top */
+  }
+
+  .hero-content {
+    padding-top: var(--spacing-section); /* 3rem / 48px */
+    padding-bottom: 0;
   }
 }
 
@@ -84,5 +92,9 @@
       --spacing-section-large
     ); /* 4rem / 64px - larger top padding */
     padding-bottom: 0; /* Remove bottom spacing */
+  }
+
+  .hero-subtitle {
+    font-size: clamp(2rem, 4vw, 3rem); /* Fluid 32px → 48px */
   }
 }
