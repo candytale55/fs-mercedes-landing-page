@@ -3,7 +3,6 @@
 .dealer-intro {
   text-align: center;
   padding-block: var(--spacing-flow); /* Internal padding for the content */
-  border: solid 2px blue; /* dev only */
 }
 
 .dealer-intro .section-title {
@@ -19,12 +18,10 @@
   font-size: var(--font-size-body-large);
 }
 
-@media (min-width: 550px) {
-
-.dealer-intro {
+@media (min-width: 512px) {
+  .dealer-intro {
     text-align: left;
-    
-    }
+  }
 
   .dealer-intro .section-title {
     font-size: var(--font-size-large-title);
@@ -35,16 +32,89 @@
     display: block;
     font-size: var(--font-size-medium);
     line-height: var(--line-height-tight);
+  }
 }
-}
-
 
 /* ========== Dealer Map Section ========== */
 
 .dealer-map {
-  border: solid 2px red; /* dev only */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(../../images/usa-night-map-background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  /* ensures the card doesn't touch the map edges */
+  padding: var(--spacing-flow);
+
+  /* Fluid Height */
+  min-height: clamp(400px, 65vh, 600px);
 }
 
 .dealer-card {
-  background-image: url(../../images/usa-night-map-background.png);
+  /* Use RGBA for transparency so text stays 100% opaque */
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.dealer-title {
+  color: var(--color-text-inverse);
+
+  font-size: clamp(
+    var(--font-size-title),
+    5vw,
+    var(--font-size-medium-title)
+  ); /* Fluid typography */
+  line-height: var(--line-height-heading);
+  font-weight: 400;
+  font-family: var(--font-family-base);
+
+  padding: var(--spacing-section-tight);
+}
+
+.dealer-title span {
+  display: block;
+}
+
+.dealer-card .btn {
+  margin: var(--spacing-flow) auto var(--spacing-section-tight);
+  width: fit-content;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  /* We DON'T change .dealer-map alignment here to keep the container centered */
+  .dealer-map {
+    display: grid;
+    justify-content: start;
+    align-items: center;
+
+    /* Desktop: Much taller map (600px → 80vh → 1000px) */
+    min-height: clamp(600px, 80vh, 1000px);
+  }
+
+  .dealer-title {
+    text-align: left;
+    font-size: 2rem;
+  }
+
+  .dealer-card {
+    padding-inline: var(--spacing-section-tight);
+  }
+
+  .dealer-card .btn {
+    margin-top: 0;
+  }
 }

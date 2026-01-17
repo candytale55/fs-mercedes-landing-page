@@ -16,6 +16,7 @@
   grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; /* TODO: FIX THE RATIO FOR CAR IMAGES TO LOOK GOOD */
   row-gap: var(--spacing-flow);
   min-height: 0; /* important for grid children */
+  min-width: 280px; /* Prevent cards from becoming too small */
   padding: var(--spacing-flow);
 }
 

@@ -20,7 +20,7 @@
 
 .btn-dark {
   background-color: var(--color-btn-dark);
-  color: var(--color-btn-primary);
+  color: var(--color-text-inverse); /* White text */
 }
 
 .btn:hover,
@@ -35,7 +35,6 @@
   outline-offset: 2px;
 }
 
-
 .btn-dark:hover,
 .btn-dark:focus {
   background-color: var(--color-text-primary);
@@ -43,16 +42,15 @@
   opacity: 0.9;
 }
 
-
 /* Button icon styles */
 
 .btn-icon {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;           
-  line-height: 1;        /* helps glyph buttons */
-  font-size: 1.75rem;    /* 28px */
+  padding: 0;
+  line-height: 1; /* helps glyph buttons */
+  font-size: 1.75rem; /* 28px */
   color: var(--color-text-primary);
 }
 
@@ -64,4 +62,3 @@
 .btn-icon:hover {
   transform: scale(1.1);
 }
-
