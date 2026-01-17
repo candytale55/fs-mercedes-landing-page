@@ -3,7 +3,6 @@
 .dealer-intro {
   text-align: center;
   padding-block: var(--spacing-flow); /* Internal padding for the content */
-  border: solid 2px blue; /* dev only */
 }
 
 .dealer-intro .section-title {
@@ -19,12 +18,10 @@
   font-size: var(--font-size-body-large);
 }
 
-@media (min-width: 550px) {
-
-.dealer-intro {
+@media (min-width: 512px) {
+  .dealer-intro {
     text-align: left;
-    
-    }
+  }
 
   .dealer-intro .section-title {
     font-size: var(--font-size-large-title);
@@ -35,16 +32,96 @@
     display: block;
     font-size: var(--font-size-medium);
     line-height: var(--line-height-tight);
+  }
 }
-}
-
 
 /* ========== Dealer Map Section ========== */
 
 .dealer-map {
-  border: solid 2px red; /* dev only */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(../../images/usa-night-map-background.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: grid;
+
+  /* Vertical alignment stays constant: always centered */
+  align-items: center;
+
+  /* Horizontal alignment: starts centered for mobile */
+  justify-items: center;
+
+  /* Vertical padding ensures the card doesn't touch the map edges */
+  padding-block: var(--spacing-section);
+
+  /* Fluid Height: Grows from 400px up to 900px based on screen height */
+  min-height: clamp(400px, 65vh, 900px);
+
 }
 
 .dealer-card {
-  background-image: url(../../images/usa-night-map-background.png);
+  /* Use RGBA for transparency so text stays 100% opaque */
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; /* Prevent button text from wrapping too early */
+  width: 100%;
+  max-width: 32rem; /* 512px */
+  margin-inline: auto; /* Safe margin for mobile if grid fails */
+}
+
+.dealer-title {
+  color: var(--color-text-inverse);
+
+  font-size: clamp(
+    var(--font-size-title),
+    5vw,
+    var(--font-size-medium-title)
+  ); /* Fluid typography */
+  line-height: var(--line-height-heading);
+  font-weight: 400;
+  font-family: var(--font-family-base);
+
+  padding: var(--spacing-section-tight);
+}
+
+.dealer-title span {
+  display: block;
+}
+
+.dealer-card .btn {
+  margin: var(--spacing-flow) auto var(--spacing-section-tight);
+  width: fit-content;
+  margin-inline: auto;
+}
+
+/* ========== Responsive Transition ========== */
+
+@media (min-width: 512px) {
+  .dealer-map {
+    /* Unlock the horizontal axis: move the container to the left */
+    justify-items: start;
+  }
+
+  .dealer-card {
+    /* Align text to the left for the widescreen "Mercedes" look */
+    text-align: left;
+    margin-inline: 0;
+  }
+
+  .dealer-card .btn {
+    /* Ensure the button also snaps to the left */
+    margin-top: var(--spacing-flow);
+  }
+
+  .dealer-title {
+    padding-inline: var(--spacing-section);
+  }
+
 }

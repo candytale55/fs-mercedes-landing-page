@@ -1,24 +1,23 @@
 /* CSS Variables */
 
 :root {
-  /* =====================================================
-     TYPOGRAPHY
-     ===================================================== */
+  /* ========== TYPOGRAPHY ========== */
 
   --font-family-base: "ABeeZee", system-ui, -apple-system, "Segoe UI", Roboto,
     Arial, sans-serif;
   --font-family-heading: "Abhaya Libre", Georgia, Garamond, serif;
 
-  --font-size-body: 1rem; /* 16px */
   --font-size-small: 0.875rem; /* 14px */
-  --font-size-medium: 1.50rem; /* 24px */
+  --font-size-body: 1rem; /* 16px */
+  --font-size-medium: 1.5rem; /* 24px */
 
   /* card titles (big, short words) */
   --font-size-title: 2rem; /* 32px  */
+  --font-size-small-title: 2.5rem; /* 40px */
   --font-size-medium-title: 3.125rem; /* 50px */
   --font-size-large-title: 4.35rem; /* 70px */
 
-   /* footer titles (slightly bigger than body) */
+  /* footer titles (slightly bigger than body) */
   --font-size-subheading: 1.25rem; /* 20px */
 
   /* Hidden navigation menu on mobile */
@@ -28,9 +27,7 @@
   --line-height-heading: 1.2;
   --line-height-tight: 0.9;
 
-  /* =====================================================
-     NAMED COLORS (RAW VALUES)
-     ===================================================== */
+  /* ========== NAMED COLORS (RAW VALUES) ========== */
 
   --light-gray: #eeeeee;
   --medium-gray: #d9d9d9;
@@ -41,9 +38,7 @@
   --white: #ffffff;
   --white-muted: #ffffff99;
 
-  /* =====================================================
-     COLORS (ROLE-BASED)
-     ===================================================== */
+  /* ========== COLORS (ROLE-BASED) ========== */
 
   --color-background-page: var(--light-gray);
   --color-background-cards: var(--medium-gray);
@@ -53,21 +48,17 @@
 
   --color-text-primary: var(--near-black);
   --color-text-inverse: var(--white);
-  --color-text-inverse-muted: var(--white-muted);
+  --color-text-muted: var(--white-muted);
 
   --color-btn-primary: var(--white);
   --color-btn-dark: var(--near-black);
 
-  /* =====================================================
-     BORDER RADIUS
-     ===================================================== */
+  /* ========== BORDER RADIUS ========== */
 
   --border-radius-medium: 15px;
   --border-radius-pill: 999px;
 
-  /* =====================================================
-     SPACING (LAYOUT PRIMITIVES ONLY)
-     ===================================================== */
+  /* ========== SPACING (LAYOUT PRIMITIVES ONLY) ========== */
 
   /* Spacing tokens (intent-based) */
 
@@ -79,16 +70,13 @@
 
   /* vertical space between sections / children */
 
-
-  --spacing-section-tight: 2rem;    /* 32px */
+  --spacing-section-tight: 2rem; /* 32px */
   --spacing-section-medium: 2.5rem; /* 40px */
-  --spacing-section: 3rem;          /* 48px  */
-  --spacing-section-large: 4rem;    /* 64px */
+  --spacing-section: 3rem; /* 48px  */
+  --spacing-section-large: 4rem; /* 64px */
   --nav-section-gap: var(--spacing-flow);
 
-  /* =====================================================
-     TRANSITIONS
-     ===================================================== */
+  /* ========== TRANSITIONS ========== */
 
   --transition-speed: 0.3s;
   --transition-timing: ease-in-out;
