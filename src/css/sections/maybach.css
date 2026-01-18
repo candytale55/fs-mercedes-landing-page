@@ -2,6 +2,33 @@
 
 /* ======= Maybach Red ======= */
 
+/* Mobile: Image and text stack with matching heights */
+.maybach-red {
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* Equal height rows - grow/shrink together */
+  min-height: calc(
+    clamp(200px, 30vh, 350px) * 2
+  ); /* Minimum for both sections combined */
+  overflow: hidden; /* Contain scaled image */
+}
+
+/* Image matches text area height */
+.maybach-red .hero-image {
+  width: 100%; /* Fill container */
+  height: 100%; /* Fills grid cell (matches text height) */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.15); /* Zoom to show ~80% of image width */
+}
+
+/* Text area - no separate min-height needed (handled by grid container) */
+.maybach-red .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically within its equal-height space */
+}
+
 .maybach-red .section-title {
   font-family: var(--font-family-body);
   padding-top: var(--spacing-flow);
