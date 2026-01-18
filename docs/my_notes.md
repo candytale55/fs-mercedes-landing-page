@@ -1246,3 +1246,238 @@ body {
 - File: [`src/css/components/buttons.css`](../src/css/components/buttons.css) - CTA buttons
 - Project rules: [`agents.md`](../agents.md) - Layout primitives, spacing strategy, no BEM
 - Related: Features section uses similar card pattern with horizontal scroll
+
+---
+
+## Features Section (Horizontal Scrolling Cards)
+
+### Architecture Overview
+
+The features section displays accessory/offer cards in a **horizontal scrolling container** with smooth snap behavior. Unlike the gallery's vertical grid, this uses a single-row flexbox with overflow scrolling.
+
+**Core Pattern:**
+
+```
+.features-track (flex container, overflow-x: auto)
+  └── .feature-card (fixed width, 16:9 aspect ratio)
+        ├── heading
+        ├── image (.card-media)
+        └── button (.btn)
+```
+
+### Key Implementation Details
+
+#### 1. Horizontal Scroll with Snap
+
+```css
+.features-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-inline: var(--spacing-page); /* Edge whitespace */
+}
+
+.feature-card {
+  flex: 0 0 18rem; /* Fixed width, no grow/shrink */
+  scroll-snap-align: start; /* Snap to left edge */
+}
+```
+
+**Why:** Creates touch-friendly horizontal scrolling with cards snapping into view like a carousel, but native and performant.
+
+#### 2. Aspect Ratio Control
+
+```css
+.feature-card {
+  aspect-ratio: 16 / 9; /* Wide landscape cards */
+}
+```
+
+**Why:** 16:9 provides optimal space for both image and text content while maintaining visual consistency. Originally tried 1:1 (square) and 4:3, but 16:9 matches modern screen proportions better.
+
+#### 3. Grid Layout Inside Cards
+
+```css
+.feature-card {
+  display: grid;
+  grid-template-rows: auto minmax(10rem, 1fr) auto;
+  /* heading → flexible image → button */
+}
+```
+
+**Why:** Grid ensures proper vertical distribution with image taking available space between heading and button.
+
+#### 4. Progressive Card Width
+
+- **Mobile (base):** `flex: 0 0 18rem` (288px)
+- **Tablet (600px+):** `flex-basis: 22rem` (352px)
+- **Desktop (1200px+):** `flex-basis: 24rem` (384px)
+
+**Why:** Cards grow wider at larger viewports to fill space better while maintaining scrollability.
+
+#### 5. Why `flex` and `flex-basis` (Not `width`)
+
+**The `flex` shorthand breakdown:**
+
+```css
+flex: 0 0 18rem;
+/* flex-grow: 0   → Don't grow to fill extra space */
+/* flex-shrink: 0 → Don't shrink below basis (CRITICAL for scroll) */
+/* flex-basis: 18rem → Starting size (like width, but flex-aware) */
+```
+
+**Why not use `width: 18rem`?**
+
+1. **`flex-basis` respects flex context** - It's the "ideal size" before flexbox distributes space. With `overflow-x: auto`, items keep their basis size and create scrollable overflow.
+
+2. **`width` can be overridden by flexbox** - If you set `width: 18rem` but leave default `flex-shrink: 1`, cards will shrink below 18rem to fit the container. `flex-basis` with `flex-shrink: 0` prevents this.
+
+3. **Clearer intent** - `flex: 0 0 18rem` explicitly says "fixed size, no flexibility" which is exactly what we want for consistent card dimensions in a scrollable track.
+
+**Why `flex-shrink: 0` is critical:**
+
+Without it, browsers try to fit all cards in the viewport by shrinking them, breaking the scroll behavior. `flex-shrink: 0` forces overflow, which activates `overflow-x: auto` scrolling.
+
+**Progressive sizing strategy:**
+
+Instead of changing the entire `flex` shorthand at breakpoints, we only update `flex-basis`:
+
+```css
+/* Mobile base */
+.feature-card {
+  flex: 0 0 18rem;
+}
+
+/* Tablet - only change basis */
+@media (min-width: 600px) {
+  .feature-card {
+    flex-basis: 22rem; /* Grow/shrink values inherited from base */
+  }
+}
+```
+
+This keeps the "no grow/shrink" behavior while adjusting card width at larger screens.
+
+### Problems & Solutions
+
+#### Problem 1: Content Alignment
+
+**Initial request:** "Center the elements in the section"
+
+**First attempt:** Added `justify-content: center` to `.features-track`
+
+**Issue:** This broke horizontal scrolling - users couldn't scroll left to see the first cards because centering clips content at the edges.
+
+**Solution:** Reverted to `justify-content: flex-start` (default) and used `text-align: center` on `.feature-card` to center content within cards instead.
+
+**Lesson:** With `overflow-x: auto`, always use `flex-start` or `flex-end` for `justify-content`. Centering is incompatible with scrolling.
+
+---
+
+#### Problem 2: Cards Taking Full Width
+
+**Initial request:** "Cards should take all the row, get longer not higher, whitespace around them"
+
+**First attempt:** Changed `flex: 0 0 18rem` to `flex: 1 1 auto` (grow to fill space)
+
+**Issue:** Cards became different sizes and images distorted because flexbox stretched them unevenly.
+
+**Solution:** Kept fixed widths (`flex: 0 0 18rem`) with progressive increases via breakpoints. Added `padding-inline: var(--spacing-page)` to container for edge whitespace.
+
+**Lesson:** Fixed-width cards maintain consistency in horizontal scroll layouts. Use `flex-basis` increases at breakpoints rather than flexible sizing.
+
+---
+
+#### Problem 3: Image Distortion
+
+**Symptom:** Images inside cards appeared stretched or cropped inconsistently
+
+**Cause:** Initially used `object-fit: cover` which crops images to fill space
+
+**Consideration:** Tried `object-fit: contain` to preserve full image, but created awkward whitespace
+
+**Final:** Kept `object-fit: cover` because it ensures visual consistency across cards even if product images have different aspect ratios
+
+**Lesson:** For grid/scrolling layouts, `object-fit: cover` provides better visual uniformity than `contain`, but requires careful image selection.
+
+---
+
+#### Problem 4: Inconsistent Breakpoint (512px)
+
+**Found during code review:** Used `@media (min-width: 512px)` which doesn't match project's breakpoint system
+
+**Project breakpoints:** 400px, 549px, 600px, 620px, 630px, 768px, 900px, 1200px
+
+**Solution:** Changed to `600px` for consistency
+
+**Lesson:** Always use project-defined breakpoints from agents.md. One-off breakpoints create maintenance burden.
+
+---
+
+#### Problem 5: Centering at Desktop (1200px+)
+
+**Issue discovered:** At 1200px, code had `justify-content: center` which:
+
+- Prevents scrolling left if content overflows
+- Creates awkward snap behavior
+- Breaks if more cards added later
+
+**Solution:** Removed the centering override, kept `justify-content: flex-start` at all breakpoints
+
+**Lesson:** Design for scalability - if layout might have 3 cards today and 6 tomorrow, keep scrolling functional.
+
+---
+
+#### Problem 6: Missing Edge Padding
+
+**Found during code review:** Cards touched viewport edges on mobile
+
+**Solution:** Added `padding-inline: var(--spacing-page)` to `.features-track`
+
+**Why:** Follows agents.md spacing strategy (use `.gutter` pattern or equivalent padding for edge protection)
+
+---
+
+#### Problem 7: Redundant CSS
+
+**Found:**
+
+- `aspect-ratio: 16 / 9` repeated in 600px breakpoint (already in base)
+- Duplicate comments "Larger Screens: Wider Cards"
+- Missing space before `{` in 1200px rule
+
+**Solution:** Removed redundancies, updated comments to "Tablet" vs "Desktop"
+
+**Lesson:** Code reviews catch accumulation of edits - clean up after iterations.
+
+### Implementation Checklist
+
+- ✅ Horizontal scroll with snap behavior
+- ✅ 16:9 aspect ratio cards
+- ✅ Fixed card widths with progressive sizing (18rem → 22rem → 24rem)
+- ✅ Edge padding (`padding-inline: var(--spacing-page)`)
+- ✅ Centered text content within cards
+- ✅ Grid layout for internal card structure
+- ✅ `object-fit: cover` for consistent image display
+- ✅ Scrolling works at all breakpoints
+- ✅ Uses project-standard breakpoints (600px, 1200px)
+- ✅ Follows agents.md (uses `gap`, CSS variables, mobile-first)
+- ✅ Clean code without redundancies
+
+### Key Takeaways for Future Self
+
+1. **Horizontal scroll + centering = incompatible** - Always use `flex-start` or `flex-end` with `overflow-x: auto`
+2. **Fixed widths work better than flexible** for horizontal scroll consistency
+3. **object-fit: cover** provides visual uniformity in card grids even if source images vary
+4. **Always use project breakpoints** - don't introduce one-off values like 512px
+5. **Pad the container, not the cards** - `padding-inline` on `.features-track` creates edge whitespace without breaking card sizing
+6. **Scroll-snap is native and performant** - no JS needed for carousel-like behavior
+7. **Design for scalability** - if layout might grow from 3 to 6+ cards, keep scrolling functional at all sizes
+
+### References
+
+- File: [`src/css/sections/features.css`](../src/css/sections/features.css)
+- HTML: [`index.html`](../index.html) - Features section
+- Project rules: [`agents.md`](../agents.md) - Spacing strategy, breakpoints
+- Related: Gallery section uses similar card pattern with vertical grid
+- Related: Card components defined in [`src/css/components/cards.css`](../src/css/components/cards.css)

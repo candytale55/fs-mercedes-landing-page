@@ -12,6 +12,7 @@
 
   overflow-x: auto; /* Enable horizontal scrolling */
   overflow-y: hidden;
+  padding-inline: var(--spacing-page); /* Whitespace at edges */
   padding-bottom: var(
     --spacing-flow
   ); /* Prevent scrollbar from overlapping content */
@@ -47,10 +48,16 @@
   display: block;
 }
 
-/* Larger Screens: Wider Cards */
-@media (min-width: 512px) {
+/* Tablet: Wider Cards */
+@media (min-width: 600px) {
   .feature-card {
-    aspect-ratio: 16 / 9;
-    flex-basis: 22rem; /* Slightly wider cards */
+    flex-basis: 22rem;
+  }
+}
+
+/* Desktop: Maximum Card Width */
+@media (min-width: 1200px) {
+  .feature-card {
+    flex-basis: 24rem;
   }
 }
