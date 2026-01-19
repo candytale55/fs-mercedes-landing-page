@@ -7,7 +7,7 @@
   padding-inline: 1.25rem; /* 20px */
   background-color: var(--white);
   color: var(--color-text-primary);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-button);
   font-family: inherit;
   font-weight: 400;
   text-align: center;

@@ -24,6 +24,7 @@
 
   /* Hidden navigation menu on mobile */
   --font-size-mobile-menu: var(--font-size-title);
+  --font-size-button: 0.875rem; /* 14px */
 
   --line-height-body: 1.6;
   --line-height-heading: 1.2;
