@@ -5,7 +5,7 @@
 /* Mobile: Image and text stack with matching heights */
 .maybach-red {
   display: grid;
-  grid-template-rows: 1fr 1fr; /* Equal height rows - grow/shrink together */
+  grid-template-rows: 1fr auto; /* Image row flexible, text row sized to content */
   min-height: calc(
     clamp(200px, 30vh, 350px) * 2
   ); /* Minimum for both sections combined */
@@ -22,11 +22,10 @@
   transform: scale(1.15); /* Zoom to show ~80% of image width */
 }
 
-/* Text area - no separate min-height needed (handled by grid container) */
+/* Text area - sized by content */
 .maybach-red .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Center content vertically within its equal-height space */
+  padding-block: var(--spacing-flow);
+  /* No fixed height or flexbox - natural content sizing */
 }
 
 .maybach-red .section-title {
@@ -35,13 +34,23 @@
   text-align: center;
 }
 
+@media (min-width: 450px) {
+  .maybach-red .container {
+    padding-inline: var(--spacing-section);
+    padding-top: var(--spacing-section);
+  }
+
+  .maybach-red .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem); /* Fluid from 400px+ (24px → 32px) */
+  }
+}
+
 /* Tablet/Desktop: Overlay layout */
 @media (min-width: 768px) {
   .maybach-red {
     position: relative;
     display: block; /* Let image drive height */
     overflow: hidden; /* Crop horizontal overflow */
-    /* No min-height - image determines container height */
   }
 
   .maybach-red .hero-image {
@@ -57,30 +66,29 @@
     left: 0; /* Position at left */
     z-index: 1; /* Above image */
     margin-left: var(--spacing-section);
-    margin-bottom: var(--spacing-section-large);
+    margin-bottom: var(--spacing-flow);
   }
 
   .maybach-red .section-title {
     text-align: left;
     color: var(--color-text-inverse);
-    font-size: var(--font-size-small-title);
+    font-size: clamp(2rem, 3vw, 2.5rem); /* Fluid from 768px+ (24px → 40px) */
+    line-height: var(--line-height-heading);
   }
-  
-  .maybach-red p {  
+
+  .maybach-red p {
     color: var(--color-text-inverse);
-    font-size: var(--font-size-small);
-    max-width: 18rem; /* Limit content width */
+    font-size: clamp(0.6rem, 1vw, 1.2rem); /* Fluid from 768px+ (14px → 20px) */
+    line-height: var(--line-height-body);
+    max-width: clamp(14rem, 25vw, 18rem); /* Fluid max-width too */
   }
 }
-
-
-
-
 
 /* ======= Maybach Wheels ======= */
 
 .maybach-wheels {
   background-color: var(--color-background-light-surface);
+  padding-inline: var(--spacing-page);
 }
 
 /* Mobile: Title → Image → Content (stacked vertically) */
@@ -114,6 +122,8 @@
   grid-area: content;
 }
 
+
+
 /* Center button within content using flexbox parent */
 .maybach-wheels .maybach-content.stack {
   display: flex;
@@ -123,7 +133,7 @@
 }
 
 /* Desktop: Two columns, title and content on left, image on right */
-@media (min-width: 768px) {
+@media (min-width: 650px) {
   .maybach-wheels .split-layout {
     gap: var(--spacing-section);
     grid-template-columns: 1fr 1fr;
@@ -135,10 +145,34 @@
 
   /* Fine-tune vertical alignment */
   .maybach-wheels .section-title {
-    align-self: end; /* Push title to bottom of its cell */
+    align-self: center;
+    font-family: var(--font-family-body);
+    font-size: clamp(1rem, 3.5vw, 2rem);
+    text-align: left;
   }
 
   .maybach-wheels .maybach-content {
     align-self: start; /* Push content to top of its cell */
+    text-align: left;
   }
+
+  .maybach-content .btn {
+    align-self: flex-start; /* Align button to left */
+  }
+}
+
+@media (min-width: 900px) {
+
+.maybach-wheels .section-title {
+    font-size: clamp(2rem, 3.5vw, 5rem);
+    text-align: left;
+  }
+
+  .maybach-content p {
+    align-self: start; /* Push content to top of its cell */
+    font-size: var(--font-size-medium);
+  }
+
+  
+
 }
