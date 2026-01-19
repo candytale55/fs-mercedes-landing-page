@@ -1481,3 +1481,367 @@ This keeps the "no grow/shrink" behavior while adjusting card width at larger sc
 - Project rules: [`agents.md`](../agents.md) - Spacing strategy, breakpoints
 - Related: Gallery section uses similar card pattern with vertical grid
 - Related: Card components defined in [`src/css/components/cards.css`](../src/css/components/cards.css)
+
+---
+
+## Maybach Sections (Red Luxury & Wheels)
+
+### Architecture Overview
+
+The Maybach sections showcase luxury vehicles through two distinct layouts:
+
+1. **Maybach Red** - Full-width hero with image-text stacking on mobile, overlay on desktop
+2. **Maybach Wheels** - Split layout with title, image, and content in responsive grid
+
+Both sections required complex responsive strategies to handle image sizing, text positioning, and layout transitions across breakpoints.
+
+### Maybach Red Section
+
+**Pattern:**
+
+```
+Mobile (< 768px):
+  Grid: 1fr (image) + auto (text)
+  - Equal height rows with matching visuals
+  - Image cropped horizontally via scale(1.15)
+  - Text section sizes to content
+
+Desktop (768px+):
+  Overlay pattern
+  - Image in document flow (drives container height)
+  - Text absolutely positioned bottom-left
+  - Full-height image with horizontal cropping
+```
+
+#### Key Implementation Details
+
+**Mobile Layout:**
+
+```css
+.maybach-red {
+  display: grid;
+  grid-template-rows: 1fr auto; /* Image flexible, text content-sized */
+  min-height: calc(clamp(200px, 30vh, 350px) * 2);
+  overflow: hidden;
+}
+
+.maybach-red .hero-image {
+  transform: scale(1.15); /* Zoom to 80% width crop */
+  object-fit: cover;
+}
+
+.maybach-red .container {
+  padding-block: var(--spacing-flow);
+  /* Natural content sizing - no fixed height */
+}
+```
+
+**Why this works:**
+
+- `1fr` for image row takes available space
+- `auto` for text row sizes to content naturally
+- `transform: scale()` creates horizontal crop without changing layout
+- Text container remains flexible, adapting to content changes
+
+**Desktop Layout:**
+
+```css
+@media (min-width: 768px) {
+  .maybach-red {
+    position: relative;
+    display: block; /* Image drives height */
+    overflow: hidden;
+  }
+
+  .maybach-red .hero-image {
+    display: block; /* In document flow */
+    width: auto;
+    height: auto;
+    margin-inline: auto; /* Centers horizontally */
+  }
+
+  .maybach-red .container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    margin-left: var(--spacing-section);
+  }
+}
+```
+
+**Critical decision:** Image NOT absolutely positioned - stays in document flow so container height = image height automatically. This prevents background gaps above/below image.
+
+**Responsive Typography:**
+
+- Mobile base: Natural sizing
+- 450px+: `clamp(1.5rem, 5vw, 2rem)` for title scaling
+- 768px+: `clamp(2rem, 3vw, 2.5rem)` for desktop title, `clamp(0.6rem, 1vw, 1.2rem)` for paragraph
+
+### Maybach Wheels Section
+
+**Pattern:**
+
+```
+Mobile:
+  Grid: title → image → content (stacked)
+  - Centered alignment
+  - Button centered via flexbox
+
+Desktop (650px+):
+  Grid: 2 columns
+  - Left: title + content
+  - Right: image
+  - Button left-aligned
+```
+
+**Layout Strategy:**
+
+```css
+/* Mobile */
+.maybach-wheels .split-layout {
+  display: grid;
+  grid-template-areas:
+    "title"
+    "image"
+    "content";
+}
+
+/* Desktop */
+@media (min-width: 650px) {
+  .maybach-wheels .split-layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title   image"
+      "content image";
+  }
+}
+```
+
+**Button Positioning:**
+
+```css
+/* Mobile: Center button via flexbox parent */
+.maybach-wheels .maybach-content.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-flow);
+  align-items: center;
+}
+
+/* Desktop: Left-align */
+@media (min-width: 650px) {
+  .maybach-content .btn {
+    align-self: flex-start;
+  }
+}
+```
+
+### Problems & Solutions
+
+#### Problem 1: Maybach Red - Image/Text Height Mismatch on Mobile
+
+**Symptom:** Text container too large, image taking unequal space
+
+**Initial attempt:** `grid-template-rows: 1fr 1fr` (equal height rows)
+
+**Issue:** Text didn't need that much space, created awkward proportions
+
+**Solution:** Changed to `grid-template-rows: 1fr auto`
+
+- Image row (`1fr`) takes available space
+- Text row (`auto`) sizes to content naturally
+
+**Lesson:** Don't force equal heights when content doesn't warrant it. Use `auto` for content-driven sizing.
+
+---
+
+#### Problem 2: Desktop Image Container Height Mismatch
+
+**Symptom:** Image smaller than container at certain viewport widths, showing background color below
+
+**Attempted solutions:**
+
+1. `align-self: flex-end` on image (didn't work)
+2. `position: absolute; bottom: 0` on image (cropped top)
+3. `min-height: 100%` on image (still had gaps)
+
+**Root cause:** Image was absolutely positioned, so container didn't wrap its height
+
+**Solution:** Keep image in document flow (NOT absolute positioned)
+
+```css
+.maybach-red .hero-image {
+  display: block; /* In flow */
+  width: auto;
+  height: auto;
+  margin-inline: auto;
+}
+```
+
+**Why this works:** Container naturally matches image height when image is in document flow. No gaps possible.
+
+**Lesson:** For "container matches child height" scenarios, keep child in document flow. Absolute positioning breaks natural sizing.
+
+---
+
+#### Problem 3: Image Not Showing Full Height on Desktop
+
+**Symptom:** Image cropped vertically despite `height: auto`
+
+**Attempts:**
+
+1. `transform: scale(1.25)` - broke proportions
+2. `width: 125%; height: 100%` - still cropped
+3. `object-fit: contain` - showed whitespace
+
+**Solution:** Remove all size constraints
+
+```css
+width: auto;
+height: auto;
+/* Let image natural dimensions dictate size */
+```
+
+Combined with container `overflow: hidden` to crop horizontal overflow only.
+
+**Lesson:** To show full image height, use `width: auto; height: auto` and let natural aspect ratio determine size. Crop horizontally via container overflow.
+
+---
+
+#### Problem 4: Text Container Resize Issue (400px+)
+
+**Request:** "Text div looks too big from 400px, should resize with content"
+
+**Initial setup:** Fixed `min-height` on container forced large size
+
+**Solution:** Remove fixed heights, let content drive size
+
+```css
+@media (min-width: 450px) {
+  .maybach-red .container {
+    padding-inline: var(--spacing-section);
+    /* No min-height - content drives size */
+  }
+
+  .maybach-red .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem); /* Fluid scaling */
+  }
+}
+```
+
+**Lesson:** Don't use clamp() for everything. Sometimes simple responsive padding + natural content sizing is cleaner.
+
+---
+
+#### Problem 5: Maybach Wheels - Button Alignment
+
+**Goal:** Button centered on mobile, left-aligned on desktop
+
+**Constraint:** Button has `width: fit-content` from buttons.css
+
+**Solution:** Use flexbox `align-items` on parent
+
+```css
+/* Mobile */
+.maybach-content.stack {
+  align-items: center; /* Centers all children including button */
+}
+
+/* Desktop */
+.maybach-content .btn {
+  align-self: flex-start; /* Override parent centering */
+}
+```
+
+**Lesson:** When child has `width: fit-content`, use flexbox alignment on parent rather than margins. More maintainable.
+
+---
+
+#### Problem 6: Code Quality - Magic Numbers
+
+**Found:** `.maybach-wheels .card-media { max-width: 90%; }`
+
+**Issue:**
+
+- Magic number (90%) not from variables
+- Percentage-based constraint (not scalable)
+- Patching layout issue rather than fixing root cause
+
+**Solution:** Remove rule entirely - let grid column (`1fr`) naturally constrain width
+
+**Lesson:** agents.md principle - prefer layout primitives over ad-hoc constraints. If you're adding `max-width: 90%`, question whether the layout strategy is correct.
+
+---
+
+#### Problem 7: Duplicate/Conflicting CSS Rules
+
+**Found during review:**
+
+- Empty lines between rules
+- Missing `.maybach-wheels` prefix on selectors
+- Duplicate `font-size` rules at different breakpoints
+- `text-align: left` redundantly declared
+
+**Solution:** Cleaned up:
+
+- Consistent selector naming (`.maybach-wheels .maybach-content p`)
+- Removed duplicate properties
+- Consolidated breakpoint rules
+- Added descriptive comments
+
+**Lesson:** After iterative development, always do final cleanup pass. Accumulated edits create cruft.
+
+### Implementation Checklist
+
+**Maybach Red:**
+
+- ✅ Mobile grid layout (1fr + auto rows)
+- ✅ Image horizontal cropping via `transform: scale(1.15)`
+- ✅ Text container natural content sizing
+- ✅ Desktop overlay with absolute positioned content
+- ✅ Image in document flow (container matches height)
+- ✅ Responsive typography with clamp()
+- ✅ Inverse text color on desktop overlay
+
+**Maybach Wheels:**
+
+- ✅ Mobile stacked layout (title → image → content)
+- ✅ Desktop 2-column grid (title+content | image)
+- ✅ Button centered (mobile) → left-aligned (desktop)
+- ✅ Flexbox content container with gap spacing
+- ✅ Responsive typography scaling
+- ✅ Image border-radius for visual polish
+- ✅ No magic numbers - layout-driven constraints
+
+### Key Takeaways for Future Self
+
+1. **Image in document flow = automatic height matching** - For overlay patterns where container should match image height, keep image in flow (not absolute). Absolute position content instead.
+
+2. **`grid-template-rows: 1fr auto` pattern** - Use `1fr` for flexible space, `auto` for content-sized rows. Don't force equal heights unnecessarily.
+
+3. **Horizontal crop via container overflow** - To show full image height while cropping sides: `width: auto; height: auto` on image, `overflow: hidden` on container.
+
+4. **`transform: scale()` for zoom crops** - On mobile where image is constrained by grid, use `scale(1.15)` to zoom while maintaining layout. Desktop uses different strategy (natural sizing).
+
+5. **Flexbox alignment > margins for centering** - When child has `width: fit-content`, use parent `align-items: center` and child `align-self: flex-start` override rather than margin manipulation.
+
+6. **Question magic numbers** - If adding `max-width: 90%` or similar, ask "is the layout strategy correct?" Prefer layout primitives (grid columns, container max-widths) over patches.
+
+7. **Responsive text sizing strategy:**
+
+   - Mobile: Natural sizing or simple breakpoint changes
+   - Mid-range: clamp() for smooth scaling
+   - Desktop: May need different clamp() ranges or fixed sizes
+   - Don't use clamp() everywhere - sometimes simple is better
+
+8. **Clean up after iterations** - Multiple edit rounds create duplicate rules, redundant properties, inconsistent selectors. Always do final review pass.
+
+### References
+
+- File: [`src/css/sections/maybach.css`](../src/css/sections/maybach.css)
+- HTML: [`index.html`](../index.html) - Maybach Red & Wheels sections
+- Project rules: [`agents.md`](../agents.md) - Layout primitives, no magic numbers, mobile-first
+- Related: Hero section uses similar overlay pattern
+- Related: Gallery uses similar grid pattern with different goals
+- Related: Button components in [`src/css/components/buttons.css`](../src/css/components/buttons.css)
