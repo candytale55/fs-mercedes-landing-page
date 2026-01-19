@@ -67,14 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener("resize", () => {
         // Disable transitions during resize
         menu.style.transition = "none";
-        
+
         if (desktopMediaQuery.matches) {
             // Desktop: ensure menu is not in "open" state
             menu.classList.remove("is-open");
             openBtn.setAttribute("aria-expanded", "false");
             document.body.style.overflow = "";
         }
-        
+
         // Re-enable transitions after resize is complete
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {

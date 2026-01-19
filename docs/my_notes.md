@@ -1,108 +1,324 @@
 # Development Notes
 
-## Navigation Flash Issue (Mobile Menu)
+---
 
-### Problem Description
+## Mobile Navigation System
 
-When resizing the browser window past the 550px breakpoint (mobile ↔ desktop), there's a visible "flash" where the menu links appear to glide/slide to the right before disappearing. This happens when transitioning from mobile to desktop view.
+### How It Works
 
-### Root Cause
+The navigation uses a **mobile-first overlay pattern** that transforms into a horizontal desktop nav at 550px breakpoint.
 
-The issue occurs because:
+**Architecture:**
 
-1. The parent menu container has CSS transitions on `transform`, `opacity`, and `visibility`
-2. When the media query switches from mobile to desktop, the `transform` and `opacity` properties change
-3. The browser animates these changes over 0.3 seconds
-4. During this animation, the **child elements (links)** remain visible and inherit the parent's opacity changes
-5. This creates the visual effect of links "gliding away" during the transition
+```
+Mobile (< 550px):
+  - Fixed overlay covering entire viewport
+  - Slide-in animation from right (transform: translateX(100%))
+  - Close button positioned top-right
+  - Burger menu button in header
 
-**Key insight:** The transition is defined globally on the mobile menu, so ANY change to those properties (including media query switches) triggers the animation.
-
-### Solutions Attempted
-
-#### Solution 1: Remove Global Transition (PARTIALLY WORKING)
-
-**What:** Move the `transition` property inside the mobile media query only, and explicitly set `transition: none` in the desktop media query.
-
-**Why:** Prevents the transition from firing when crossing breakpoints, since the desktop view doesn't need animations.
-
-**Code:**
-
-```css
-/* Mobile */
-@media (max-width: 549px) {
-  #primary-menu.main-nav-list {
-    transition: transform var(--transition-speed) var(--transition-timing), opacity
-        var(--transition-speed) var(--transition-timing),
-      visibility var(--transition-speed) var(--transition-timing);
-  }
-}
-
-/* Desktop */
-@media (min-width: 550px) {
-  #primary-menu.main-nav-list {
-    transition: none; /* No transition on desktop = no flash */
-  }
-}
+Desktop (≥ 550px):
+  - Static horizontal navigation
+  - No overlay, no animations
+  - Burger menu hidden
+  - Links displayed inline
 ```
 
-**Status:** ✅ Stops the menu container from sliding, but ❌ links still fade/glide
+**State Management:**
+
+- **CSS handles layout** - Media queries control overlay vs inline display
+- **JavaScript handles state** - `.is-open` class toggles visibility
+- **matchMedia API syncs breakpoints** - Avoids hardcoded pixel values in JS
+
+**Key Features:**
+
+1. **Focus Management**: Moves focus into menu when opened, returns to burger when closed
+2. **Keyboard Support**: Escape key closes menu, proper tab order
+3. **Accessibility**: `aria-expanded` on burger button, focus trapping
+4. **Auto-close**: Menu closes when clicking nav link or switching to desktop
+5. **Background scroll lock**: `body { overflow: hidden }` when menu open
+
+**CSS Pattern:**
+
+- Parent container animates `transform` and `visibility`
+- Child elements control their own `opacity` with delayed fade-in
+- Desktop explicitly resets all mobile properties with `transition: none !important`
+
+**JavaScript Pattern:**
+
+- Uses IIFE to avoid global scope pollution
+- Defensive checks (`if (!openBtn || !menu) return`)
+- `matchMedia` listener detects breakpoint changes
+- Separate `resize` listener handles flash prevention
 
 ---
 
-#### Solution 2: Disable Child Transitions (DID NOT WORK)
+## Navigation Flash Issue (Resize Transition)
 
-**What:** Add `transition: none` to all child elements of the menu.
+### Problem Description
 
-**Why:** Prevent children from inheriting or having their own transitions that could cause visual artifacts.
+When resizing the browser window across the 550px breakpoint (mobile ↔ desktop), there's a visible "flash" where the menu briefly appears to slide/glide on screen before settling into its final state. This occurs despite the menu being closed.
 
-**Code:**
+**Symptom:** Menu overlay momentarily visible during viewport resize around the breakpoint threshold.
+
+**When it happens:** Most noticeable when slowly dragging browser window across 550px width.
+
+**Impact:** Visual polish issue - creates perception of buggy/unfinished navigation.
+
+---
+
+### Root Cause
+
+The flash occurs due to **transition timing during layout changes**:
+
+1. Mobile CSS defines transitions on `transform`, `visibility`, and child `opacity`
+2. When crossing 550px, media query switches from mobile to desktop styles
+3. Properties like `transform: translateX(100%)` → `transform: none` change
+4. Browser attempts to animate these property changes over 0.3s
+5. During this brief animation, the menu is partially visible before reaching final state
+
+**Key insight:** CSS transitions fire on ANY property change, including those triggered by media query switches. Desktop needs transitions completely disabled, not just set differently.
+
+---
+
+### Implemented Solution
+
+**Approach:** Scenic Forests pattern - Disable transitions during resize events
+
+This solution temporarily removes transitions during viewport resizing to prevent animation playback.
+
+**CSS Component:**
 
 ```css
-@media (max-width: 549px) {
-  /* Prevent links from inheriting transition */
-  #primary-menu.main-nav-list * {
+@media (min-width: 550px) {
+  #primary-menu.main-nav-list {
+    /* Explicitly reset all mobile properties */
+    position: static;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+
+    /* Force disable transitions on desktop */
+    transition: none !important;
+  }
+
+  /* Reset child opacity */
+  #primary-menu.main-nav-list > * {
+    opacity: 1;
     transition: none;
   }
 }
 ```
 
-**Status:** ❌ Did not solve the problem - links still glide
+**JavaScript Component:**
+
+```javascript
+// Prevent flash during resize by temporarily disabling transitions
+let resizeTimer;
+window.addEventListener("resize", () => {
+  // Disable transitions during resize
+  menu.style.transition = "none";
+
+  if (desktopMediaQuery.matches) {
+    // Desktop: ensure menu is not in "open" state
+    menu.classList.remove("is-open");
+    openBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  // Re-enable transitions after resize is complete
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    menu.style.transition = "";
+  }, 100);
+});
+```
+
+**How it works:**
+
+1. On every resize event, immediately set `menu.style.transition = "none"`
+2. Force-close menu if at desktop width
+3. Wait 100ms after resize stops (debounced with setTimeout)
+4. Restore transitions by clearing inline style (`menu.style.transition = ""`)
+
+**Status:** ✅ IMPLEMENTED (based on Scenic Forests project solution)
+
+**Reference:** See `/scenic-forests/src/js/main.js` and `/scenic-forests/src/css/components/navigation.css` for original implementation
 
 ---
 
-#### Solution 3: Separate Opacity for Children (NOT TESTED YET)
+### Alternative Solutions (Not Implemented)
 
-**What:** Remove `opacity` transition from the parent, and control child visibility separately with a delayed fade-in.
+If the current solution needs revision, these alternatives may solve the problem:
 
-**Why:** By keeping the parent's opacity at 1 always and only animating `transform`, we can then control when children become visible independently.
+#### Alternative 1: Refined matchMedia Approach
 
-**Code:**
+**Concept:** Only disable transitions at the exact moment of breakpoint crossing, not continuously during resize.
+
+**Advantage:** More surgical - only acts when crossing 550px threshold, not on every pixel change.
+
+**Implementation:**
+
+```javascript
+function handleBreakpointChange(e) {
+  // Disable transitions only when breakpoint actually changes
+  menu.style.transition = "none";
+
+  if (e.matches) {
+    closeMenu({ returnFocus: false });
+  }
+
+  // Re-enable after state change
+  requestAnimationFrame(() => {
+    menu.style.transition = "";
+  });
+}
+```
+
+**Tradeoff:** Still uses inline styles, but only at critical moments. Better performance than continuous resize monitoring.
+
+---
+
+#### Alternative 2: CSS Hover Detection
+
+**Concept:** Use `@media (hover)` as proxy for desktop devices.
+
+**Advantage:** Pure CSS solution, no JavaScript.
+
+**Implementation:**
+
+```css
+/* Mobile (no hover capability) - enable transitions */
+@media (hover: none) {
+  #primary-menu.main-nav-list {
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+/* Desktop (hover capability) - no transitions */
+@media (hover: hover) {
+  #primary-menu.main-nav-list {
+    transition: none !important;
+  }
+}
+```
+
+**Tradeoff:** Doesn't account for browser window resizing on desktop. Hybrid devices (touchscreen laptops) may behave unexpectedly.
+
+---
+
+#### Alternative 3: Page Load Class Pattern
+
+**Concept:** Only enable transitions after initial page load completes.
+
+**Advantage:** Prevents flash on page load, clean separation of concerns.
+
+**Implementation:**
+
+```javascript
+window.addEventListener("load", () => {
+  document.documentElement.classList.add("page-loaded");
+});
+```
+
+```css
+/* No transitions initially */
+#primary-menu.main-nav-list {
+  transition: none;
+}
+
+/* Enable only after load */
+.page-loaded #primary-menu.main-nav-list {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* But always disable on desktop */
+@media (min-width: 550px) {
+  .page-loaded #primary-menu.main-nav-list {
+    transition: none !important;
+  }
+}
+```
+
+**Tradeoff:** Only solves initial load flash, doesn't fix resize flash.
+
+---
+
+#### Alternative 4: Remove Animations Entirely
+
+**Concept:** Accept loss of slide-in animation for simpler implementation.
+
+**Advantage:** Simplest solution - no flash possible with instant state changes.
+
+**Implementation:**
 
 ```css
 @media (max-width: 549px) {
   #primary-menu.main-nav-list {
-    /* Remove opacity from transition */
-    transition: transform var(--transition-speed) var(--transition-timing), visibility
-        0s var(--transition-speed);
-
-    /* Keep opacity always 1, hide with transform + visibility only */
-    opacity: 1;
+    /* No transitions - instant state changes */
+    transform: translateX(100%);
+    visibility: hidden;
   }
 
-  /* Hide content when menu is closed */
-  #primary-menu.main-nav-list > * {
-    opacity: 0;
-    transition: opacity 0.15s ease-in-out;
-  }
-
-  /* Show content when menu is open (with slight delay) */
-  #primary-menu.main-nav-list.is-open > * {
-    opacity: 1;
-    transition-delay: 0.2s;
+  #primary-menu.main-nav-list.is-open {
+    transform: translateX(0);
+    visibility: visible;
   }
 }
 ```
+
+**Tradeoff:** Loses the polished slide-in animation on mobile. Less engaging UX.
+
+---
+
+#### Alternative 5: Absurd Transition Delay
+
+**Concept:** Effectively disable transitions with impossibly long delay.
+
+**Advantage:** CSS-only one-liner.
+
+**Implementation:**
+
+```css
+@media (min-width: 550px) {
+  #primary-menu.main-nav-list {
+    transition-delay: 9999s !important;
+  }
+}
+```
+
+**Tradeoff:** Feels hacky. Transition technically exists but never executes.
+
+---
+
+### Key Takeaways
+
+1. **CSS transitions fire on media query changes** - Setting `transition: none` in desktop breakpoint is insufficient if property values change between breakpoints.
+
+2. **Inline styles override CSS** - JavaScript can force-disable transitions during critical moments with `element.style.transition = "none"`.
+
+3. **Debouncing resize events** - Use `setTimeout` to detect when resizing stops before re-enabling features.
+
+4. **requestAnimationFrame timing** - For synchronous property changes, `requestAnimationFrame` ensures browser has processed layout before re-enabling transitions.
+
+5. **Trade-offs matter** - Scenic Forests solution prioritizes visual polish over code purity (uses resize listener + inline styles).
+
+6. **Test across devices** - Flash may be more/less noticeable depending on browser rendering engine and device performance.
+
+---
+
+## Gallery Section
+
+### Problem 1: Card Image Sizing on Desktop
+
+    opacity: 1;
+    transition-delay: 0.2s;
+
+}
+}
+
+````
 
 **Status:** ⚠️ Not yet tested
 
@@ -131,7 +347,7 @@ window.addEventListener("resize", () => {
     document.body.classList.remove("resize-animation-stopper");
   }, 400);
 });
-```
+````
 
 ```css
 /* CSS */
