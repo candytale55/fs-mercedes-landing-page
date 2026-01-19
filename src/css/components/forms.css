@@ -72,3 +72,11 @@
     font-family: var(--font-family-base);
     font-size: var(--font-size-small);
 }
+
+.form-check .link {
+    text-decoration: underline;
+}
+
+.form-check .link:hover {
+    color: var(--color-text-muted);
+}
