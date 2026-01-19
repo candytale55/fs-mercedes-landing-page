@@ -110,6 +110,20 @@
     align-items: center;
     gap: var(--nav-section-gap);
 
+    /* Reset mobile-only properties */
+    position: static;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+    
+    /* Disable transitions on desktop to prevent flash */
+    transition: none !important;
+  }
+
+  /* Ensure content is visible on desktop */
+  #primary-menu.main-nav-list > * {
+    opacity: 1;
     transition: none;
   }
 
