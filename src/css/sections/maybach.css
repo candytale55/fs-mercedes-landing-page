@@ -166,7 +166,7 @@
   }
 
   .maybach-wheels .maybach-content p {
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-body-large);
     padding-block: var(--spacing-flow);
     padding-inline-end: var(--spacing-section);
   }

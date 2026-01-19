@@ -7,24 +7,20 @@
     Arial, sans-serif;
   --font-family-heading: "Abhaya Libre", Georgia, Garamond, serif;
 
-  --font-size-extra-small: 0.625rem; /* 10px */
-  --font-size-small: 0.875rem; /* 14px */
-  --font-size-body: 1rem; /* 16px */
-  --font-size-small: 1.125rem; /* 18px */
-  --font-size-medium: 1.5rem; /* 24px */
+  /* Font Size Scale - Only sizes used in project */
+  --font-size-small: 0.875rem; /* 14px - Secondary text, buttons */
+  --font-size-body: 1rem; /* 16px - Base body text */
+  --font-size-body-large: 1.125rem; /* 18px - Emphasized body text */
+  --font-size-subheading: 1.25rem; /* 20px - Footer titles, small headings */
+  --font-size-heading-small: 1.5rem; /* 24px - Paragraph text in dealer section */
+  --font-size-heading: 2rem; /* 32px - Card titles, section titles */
+  --font-size-heading-large: 2.5rem; /* 40px - Section titles on medium screens */
+  --font-size-display: 4rem; /* 64px - Large dealer title */
 
-  /* card titles (big, short words) */
-  --font-size-title: 2rem; /* 32px  */
-  --font-size-small-title: 2.5rem; /* 40px */
-  --font-size-medium-title: 3.125rem; /* 50px */
-  --font-size-large-title: 4.35rem; /* 70px */
-
-  /* footer titles (slightly bigger than body) */
-  --font-size-subheading: 1.25rem; /* 20px */
-
-  /* Hidden navigation menu on mobile */
-  --font-size-mobile-menu: var(--font-size-title);
-  --font-size-button: 0.875rem; /* 14px */
+  /* Semantic Aliases - Map descriptive names to use cases */
+  --font-size-title: var(--font-size-heading); /* 32px - Card titles */
+  --font-size-mobile-menu: var(--font-size-heading); /* 32px - Mobile nav */
+  --font-size-button: var(--font-size-small); /* 14px - Button text */
 
   --line-height-body: 1.6;
   --line-height-heading: 1.2;

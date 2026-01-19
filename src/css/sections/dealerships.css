@@ -25,13 +25,13 @@
   }
 
   .dealer-intro .section-title {
-    font-size: var(--font-size-large-title);
+    font-size: var(--font-size-display);
     line-height: var(--line-height-tight);
   }
 
   .dealer-intro p span {
     display: block;
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-heading-small);
     line-height: var(--line-height-tight);
   }
 }
@@ -74,7 +74,7 @@
   font-size: clamp(
     var(--font-size-title),
     5vw,
-    var(--font-size-medium-title)
+    var(--font-size-heading-large)
   ); /* Fluid typography */
   line-height: var(--line-height-heading);
   font-weight: 400;

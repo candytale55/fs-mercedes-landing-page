@@ -1,54 +1,21 @@
-/* Utility classes */
+/* ========== Utility Classes ========== */
 
-/* Screen reader only */
+/* ===== Screen Reader Only ===== */
+/* Hides content visually but keeps it accessible to screen readers */
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
-
-/* Text utilities */
+/* ===== Text Transforms ===== */
 .uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* Improved readability for uppercase text */
 }
-
-.lowercase {
-    text-transform: lowercase;
-}
-
-.capitalize {
-    text-transform: capitalize;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.text-right {
-    text-align: right;
-}
-
-/* Display utilities */
-.hidden {
-    display: none;
-}
-
-.block {
-    display: block;
-}
-
-.inline-block {
-    display: inline-block;
-}
-
