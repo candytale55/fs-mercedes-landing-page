@@ -122,8 +122,6 @@
   grid-area: content;
 }
 
-
-
 /* Center button within content using flexbox parent */
 .maybach-wheels .maybach-content.stack {
   display: flex;
@@ -161,18 +159,15 @@
   }
 }
 
+/* Desktop Large: Larger typography */
 @media (min-width: 900px) {
-
-.maybach-wheels .section-title {
-    font-size: clamp(2rem, 3.5vw, 5rem);
-    text-align: left;
+  .maybach-wheels .section-title {
+    font-size: clamp(2rem, 3.5vw, 3rem); /* Larger on big screens */
   }
 
-  .maybach-content p {
-    align-self: start; /* Push content to top of its cell */
-    font-size: var(--font-size-medium);
+  .maybach-wheels .maybach-content p {
+    font-size: var(--font-size-small);
+    padding-block: var(--spacing-flow);
+    padding-inline-end: var(--spacing-section);
   }
-
-  
-
 }
