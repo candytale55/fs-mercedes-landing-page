@@ -35,6 +35,48 @@
   text-align: center;
 }
 
+/* Tablet/Desktop: Overlay layout */
+@media (min-width: 768px) {
+  .maybach-red {
+    position: relative;
+    display: block; /* Let image drive height */
+    overflow: hidden; /* Crop horizontal overflow */
+    /* No min-height - image determines container height */
+  }
+
+  .maybach-red .hero-image {
+    display: block;
+    width: auto; /* Natural width based on height */
+    height: auto; /* Shows full image height */
+    margin-inline: auto; /* Centers image horizontally */
+  }
+
+  .maybach-red .container {
+    position: absolute;
+    bottom: 0; /* Position at bottom */
+    left: 0; /* Position at left */
+    z-index: 1; /* Above image */
+    margin-left: var(--spacing-section);
+    margin-bottom: var(--spacing-section-large);
+  }
+
+  .maybach-red .section-title {
+    text-align: left;
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-small-title);
+  }
+  
+  .maybach-red p {  
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-small);
+    max-width: 18rem; /* Limit content width */
+  }
+}
+
+
+
+
+
 /* ======= Maybach Wheels ======= */
 
 .maybach-wheels {
