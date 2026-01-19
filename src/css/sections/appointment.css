@@ -25,5 +25,7 @@
         align-items: center; /* Vertically center button with text */
         gap: var(--spacing-section);
         text-align: left;
+        max-width: 60rem; /* Prevent overly long lines on large screens */
+        margin-inline: auto; /* Center the grid within the container */
     }
 }

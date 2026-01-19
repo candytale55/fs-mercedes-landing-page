@@ -78,7 +78,7 @@
   --spacing-section-large: 4rem; /* 64px */
   --nav-section-gap: var(--spacing-flow);
 
-  --max-width-card-media: 35rem; /* Constrains card images on large screens */
+  --max-width-card-media: 32rem; /* Constrains card images on large screens */
 
   /* ========== TRANSITIONS ========== */
 
