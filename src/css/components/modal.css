@@ -18,7 +18,7 @@
 
 .modal-card {
   position: relative;
-  width: min(32rem, 100%); /* Max 32rem, never wider than viewport */
+  width: min(24rem, 100%); /* Max 32rem, never wider than viewport */
   padding: var(--spacing-section-tight);
   border-radius: var(--border-radius-medium);
   background-color: var(--color-background-page);
@@ -40,4 +40,8 @@
 .modal-card:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
+}
+
+.modal-overlay .section-title{
+    font-size: var(--font-size-title);
 }
