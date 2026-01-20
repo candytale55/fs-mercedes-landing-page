@@ -4,7 +4,7 @@
 /* Hides content visually but keeps it accessible to screen readers.
    Useful for providing semantic heading structure (<h1>, <h2>, etc.) 
    that complies with W3C validation while keeping the visual design clean.
-   Example: Hidden section headings that improve accessibility without affecting layout. */
+   */
 
    .sr-only {
   position: absolute;
