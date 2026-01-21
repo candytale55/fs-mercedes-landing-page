@@ -1,100 +1,130 @@
+/**
+ * HERO SECTION
+ * Full-bleed hero banner with background image and text overlay.
+ * Applied to: Opening section in index.html
+ * Layout: Flexbox positioning - bottom-aligned on mobile, top-aligned on desktop
+ * Responsive: Image height and text positioning adapt to viewport size
+ */
+
+/* Hero container - Positions content over background image */
 .hero {
   position: relative;
   color: var(--color-text-inverse);
-  overflow: hidden;
+  overflow: hidden; /* Clips any overflowing image */
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Push content to bottom on mobile */
-  align-items: flex-start; /* Align left */
+  justify-content: flex-end; /* Pushes content to bottom on mobile */
+  align-items: flex-start; /* Left-aligns content */
 
-  /* Small mobile: Match image height to prevent gap */
-  min-height: clamp(200px, 30vh, 300px);
+  /* Small mobile: Constrained height to match image */
+  min-height: clamp(
+    200px,
+    30vh,
+    300px
+  ); /* Fluid: 200px minimum, 30% viewport height, 300px maximum */
 }
 
+/* Hero background image - Positioned absolutely behind content */
 .hero-img {
   width: 100%;
   display: block;
-  object-fit: cover;
-  object-position: center center;
+  object-fit: cover; /* Crops image to fill container */
+  object-position: center center; /* Centers image in container */
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 0; /* Behind content */
 
-  /* Small mobile: Matches hero container height */
-  height: clamp(200px, 30vh, 300px);
+  /* Small mobile: Matches container height */
+  height: clamp(200px, 30vh, 300px); /* Fluid: 200px → 30vh → 300px */
 }
 
+/* Hero text content - Positioned over image */
 .hero-content {
   position: relative;
-  z-index: 1; /* Above hero image */
+  z-index: 1; /* Above background image */
 
-  /* Override .container centering - keep content left-aligned */
+  /* Override .container centering - keeps content left-aligned */
   margin-inline: 0;
 
   /* Mobile: Minimal bottom padding */
-  padding-bottom: var(--spacing-flow); /* 1rem / 16px */
+  padding-bottom: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* Hero subtitle - Main heading text */
 .hero-subtitle {
-  font-size: clamp(1.25rem, 5vw, 2rem); /* Fluid 20px → 32px */
-  line-height: var(--line-height-heading);
+  font-size: clamp(1.25rem, 5vw, 2rem); /* Fluid: 20px → 5% viewport → 32px */
+  line-height: var(--line-height-heading); /* 1.2 */
   font-weight: 300;
 }
 
+/* Hero tagline - Secondary text below subtitle */
 .hero-tagline {
-  font-size: clamp(0.75rem, 3vw, 1.125rem); /* Fluid 12px → 18px */
+  font-size: clamp(
+    0.75rem,
+    3vw,
+    1.125rem
+  ); /* Fluid: 12px → 3% viewport → 18px */
   letter-spacing: 1px;
-  line-height: 0.9; /* Fixed: was 0.09 */
+  line-height: 0.9; /* Very tight line height */
   text-transform: capitalize;
 }
 
-/* ========== Larger Mobile (400px+) ========== */
+/* ========== LARGER MOBILE (400px+) ========== */
+
 @media (min-width: 400px) {
+  /* Taller hero on larger mobiles */
   .hero {
-    min-height: clamp(300px, 50vh, 500px); /* Taller container */
+    min-height: clamp(300px, 50vh, 500px); /* Fluid: 300px → 50vh → 500px */
   }
 
+  /* Image fills full hero height */
   .hero-img {
-    height: 100%; /* Fill hero container */
+    height: 100%; /* Fills hero container */
   }
 
   .hero-content {
-    padding-bottom: var(--spacing-flow);
+    padding-bottom: var(--spacing-flow); /* 1rem (16px) */
   }
 
+  /* Slightly wider letter spacing on larger screens */
   .hero-tagline {
-    letter-spacing: 1.5px; /* Slightly wider spacing on larger screens */
+    letter-spacing: 1.5px;
   }
 }
 
+/* ========== TABLET (630px+) ========== */
+
 @media (min-width: 630px) {
+  /* Move content to top */
   .hero {
-    justify-content: flex-start; /* Move to top */
+    justify-content: flex-start; /* Aligns content to top */
   }
 
   .hero-content {
-    padding-top: var(--spacing-section); /* 3rem / 48px */
+    padding-top: var(--spacing-section); /* 3rem (48px) */
     padding-bottom: 0;
   }
 }
 
-/* ========== Desktop (900px+) ========== */
+/* ========== DESKTOP (900px+) ========== */
+
 @media (min-width: 900px) {
+  /* Much taller hero on desktop */
   .hero {
-    min-height: clamp(600px, 75vh, 900px);
-    justify-content: flex-start; /* Push content to top */
+    min-height: clamp(600px, 75vh, 900px); /* Fluid: 600px → 75vh → 900px */
+    justify-content: flex-start; /* Content at top */
   }
 
+  /* Larger top padding on desktop */
   .hero-content {
-    padding-top: var(
-      --spacing-section-large
-    ); /* 4rem / 64px - larger top padding */
-    padding-bottom: 0; /* Remove bottom spacing */
+    padding-top: var(--spacing-section-large); /* 4rem (64px) */
+    padding-bottom: 0;
   }
 
+  /* Larger subtitle text on desktop */
   .hero-subtitle {
-    font-size: clamp(2rem, 4vw, 3rem); /* Fluid 32px → 48px */
+    font-size: clamp(2rem, 4vw, 3rem); /* Fluid: 32px → 4% viewport → 48px */
   }
 }

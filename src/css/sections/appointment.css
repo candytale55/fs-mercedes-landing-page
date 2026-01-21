@@ -1,37 +1,52 @@
-/* ========== Appointment Section ========== */
+/**
+ * APPOINTMENT SECTION
+ * Call-to-action section with text + button layout.
+ * Applied to: Appointment scheduling section in index.html
+ * Layout: Stacked on mobile (centered), side-by-side on desktop (left text, right button)
+ * Background: Dark gray with white text
+ */
 
+/* Appointment section container - Dark background */
 .appointment {
-    background-color: var(--color-background-appointment);
-    color: var(--color-text-inverse);
+  background-color: var(--color-background-appointment);
+  color: var(--color-text-inverse);
 }
 
+/* Center-align content on mobile */
 .appointment .container {
-    text-align: center;
+  text-align: center;
 }
 
-/* Mobile: stacked vertically */
+/* ========== MOBILE LAYOUT: STACKED ========== */
+
+/* Mobile: Vertical stack with centered items */
 .appointment .split-layout {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-flow);
-    align-items: center; /* Center all children including button */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-flow); /* 1rem (16px) */
+  align-items: center; /* Centers all children including button */
 }
 
-/* Desktop: Two columns (content expands, button stays compact) */
-@media (min-width: 768px) {
-    .appointment .split-layout {
-        display: grid;
-        grid-template-columns: 1fr auto; /* Content expands, button stays compact */
-        align-items: center; /* Vertically center button with text */
-        gap: var(--spacing-section);
-        text-align: left;
-        max-width: 60rem; /* Prevent overly long lines on large screens */
-        margin-inline: auto; /* Center the grid within the container */
-    }
+/* ========== DESKTOP LAYOUT: TWO COLUMNS (768px+) ========== */
 
-    .appointment-content p {
-    font-size: var(--font-size-body-large);
-    padding-block: var(--spacing-flow);
-    padding-inline-end: var(--spacing-section);
+@media (min-width: 768px) {
+  /* Desktop: Two columns - Content expands, button stays compact */
+  .appointment .split-layout {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Content takes available space, button sizes to content */
+    align-items: center; /* Vertically centers button with text */
+    gap: var(--spacing-section); /* 3rem (48px) */
+    text-align: left;
+    max-width: 60rem; /* 960px - Prevents overly long lines on large screens */
+    margin-inline: auto; /* Centers grid within container */
+  }
+
+  /* Desktop paragraph styling */
+  .appointment-content p {
+    font-size: var(--font-size-body-large); /* 1.125rem (18px) */
+    padding-block: var(--spacing-flow); /* 1rem (16px) */
+    padding-inline-end: var(
+      --spacing-section
+    ); /* 3rem (48px) - Space between text and button */
   }
 }

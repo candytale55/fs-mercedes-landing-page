@@ -1,128 +1,139 @@
-/* Navigation styles */
+/**
+ * NAVIGATION COMPONENT
+ * Site header navigation with mobile overlay menu and desktop horizontal layout.
+ * Applied to: <header> in index.html
+ * Mobile: Full-screen slide-in overlay from right (< 550px)
+ * Desktop: Horizontal inline navigation (≥ 550px)
+ */
 
+/* Header grid layout - Logo on left, secondary nav on right */
 .header-layout {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto; /* Logo takes available space, secondary nav sizes to content */
   align-items: center;
-  gap: var(--nav-section-gap);
+  gap: var(--nav-section-gap); /* 2rem (32px) */
 }
 
-/* ==== Primary nav: logo + Secondary nav  ==== */
+/* ==== Primary navigation: Logo + menu links ==== */
 
+/* Main nav container - Houses logo and primary menu */
 .main-nav {
   display: flex;
   align-items: center;
-  gap: var(--nav-section-gap);
+  gap: var(--nav-section-gap); /* 2rem (32px) */
 }
 
-/* Secondary nav: icons + burger aligned right */
+/* ==== Secondary navigation: Icons + burger button ==== */
 
+/* Secondary nav container - Always visible on right */
 .secondary-nav {
-  flex: 0 0 auto; /* prevent shrinking and growing */
-  justify-self: end; /* align to right edge of grid cell */
-  white-space: nowrap; /* prevent wrapping of icons */
+  flex: 0 0 auto; /* Prevents shrinking/growing - maintains fixed size */
+  justify-self: end; /* Aligns to right edge of grid cell */
+  white-space: nowrap; /* Prevents icon wrapping */
 }
 
+/* Secondary nav list - Horizontal icon arrangement */
 .secondary-nav-list {
   display: flex;
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  gap: var(--nav-section-gap);
+  gap: var(--nav-section-gap); /* 2rem (32px) */
 }
 
-/* ===== Mobile overlay menu (closed by default) ===== */
+/* ===== MOBILE OVERLAY MENU (< 550px) ===== */
 
 @media (max-width: 549px) {
+  /* Primary menu becomes full-screen overlay */
   #primary-menu.main-nav-list {
     position: fixed;
-    inset: 0; /* top/right/bottom/left: 0 */
-    z-index: 1000; /* above other content */
+    inset: 0; /* Shorthand for top: 0; right: 0; bottom: 0; left: 0 - covers viewport */
+    z-index: 1000; /* Above all other content */
 
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-section-medium);
+    gap: var(--spacing-section-medium); /* 3rem (48px) */
     align-items: center;
 
     margin: 0;
-    padding: var(--spacing-section-large) 0;
+    padding: var(--spacing-section-large) 0; /* 4rem (64px) vertical padding */
 
     background-color: var(--color-background-page);
     color: var(--color-text-primary);
 
-    /* "closed" state */
-    transform: translateX(100%);
-    visibility: hidden;
-    pointer-events: none; /* prevent interaction when closed */
+    /* Closed state - Menu slides off-screen to the right */
+    transform: translateX(100%); /* Moves entire width to the right */
+    visibility: hidden; /* Hides from screen readers when closed */
+    pointer-events: none; /* Prevents interaction when closed */
 
-    /* Only animate transform and visibility, NOT opacity */
+    /* Staggered transition - Transform animates, then visibility changes */
     transition: transform var(--transition-speed) var(--transition-timing),
-      visibility 0s var(--transition-speed);
+      visibility 0s var(--transition-speed); /* Visibility delay prevents flash */
   }
 
-  /* Hide content when menu is closed */
+  /* Menu links fade out when closed */
   #primary-menu.main-nav-list > * {
     opacity: 0;
     transition: opacity 0.15s ease-in-out;
   }
 
-  /* Open menu */
+  /* Open state - Menu slides in from right */
   #primary-menu.main-nav-list.is-open {
-    transform: translateX(0);
-    visibility: visible;
-    pointer-events: auto; /* Restore interaction when open */
-    transition-delay: 0s;
+    transform: translateX(0); /* Returns to natural position */
+    visibility: visible; /* Visible to screen readers */
+    pointer-events: auto; /* Restores interaction */
+    transition-delay: 0s; /* No delay on opening */
   }
 
-  /* Show content when menu is open (with slight delay) */
+  /* Menu links fade in after slide animation */
   #primary-menu.main-nav-list.is-open > * {
     opacity: 1;
-    transition-delay: 0.2s; /* Wait for menu slide to nearly finish */
+    transition-delay: 0.2s; /* Waits for slide animation to nearly finish */
   }
 
-  /* Bigger link text only in overlay */
+  /* Larger text for mobile overlay */
   .nav-link {
-    font-size: var(--font-size-mobile-menu);
+    font-size: var(--font-size-mobile-menu); /* 1.5rem (24px) */
   }
 
-  /* Close button */
+  /* Close button - Fixed in top-right corner */
   .nav-close {
     position: absolute;
-    top: var(--spacing-page);
-    right: var(--spacing-page);
-    font-size: var(--font-size-mobile-menu);
-    line-height: 1;
+    top: var(--spacing-page); /* 1.5rem (24px) */
+    right: var(--spacing-page); /* 1.5rem (24px) */
+    font-size: var(--font-size-mobile-menu); /* 1.5rem (24px) */
+    line-height: 1; /* Removes extra space around icon */
   }
 }
 
-/* ===== Desktop nav overlay ===== */
+/* ===== DESKTOP NAVIGATION (≥ 550px) ===== */
 
 @media (min-width: 550px) {
-  /* Show primary menu on desktop */
+  /* Primary menu returns to inline horizontal layout */
   #primary-menu.main-nav-list {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--nav-section-gap);
+    gap: var(--nav-section-gap); /* 2rem (32px) */
 
-    /* Reset mobile-only properties */
-    position: static;
-    transform: none;
+    /* Reset mobile overlay properties */
+    position: static; /* Returns to document flow */
+    transform: none; /* Removes slide transform */
     visibility: visible;
     pointer-events: auto;
     opacity: 1;
 
-    /* Disable transitions on desktop to prevent flash */
+    /* Disable transitions to prevent flash during resize */
     transition: none !important;
   }
 
-  /* Ensure content is visible on desktop */
+  /* Ensure menu links are visible on desktop */
   #primary-menu.main-nav-list > * {
     opacity: 1;
-    transition: none;
+    transition: none; /* No fade animation on desktop */
   }
 
-  /* Hide mobile nav toggles on desktop */
+  /* Hide mobile-only controls on desktop */
   .nav-toggle,
   .nav-close {
     display: none;

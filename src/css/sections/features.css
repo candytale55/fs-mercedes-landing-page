@@ -1,65 +1,77 @@
-/* ========== Features Section ========== */
-/* Horizontal scrolling track for feature cards (accessories, offers, etc.).
-   Uses scroll-snap for smooth navigation between cards. */
+/**
+ * FEATURES SECTION
+ * Horizontal scrolling carousel of feature cards (accessories, offers, etc.).
+ * Applied to: Features section in index.html
+ * Layout: Scroll-snap enabled horizontal flex track with fixed-width cards
+ * Responsive: Cards grow wider on tablet (600px) and desktop (1200px)
+ */
 
-/* Horizontal Scrolling Container */
+/* ========== HORIZONTAL SCROLLING CONTAINER ========== */
 
+/* Features track - Horizontal scrolling container */
 .features-track {
   display: flex;
-  gap: var(--spacing-section-tight);
-  align-items: stretch;
+  gap: var(--spacing-section-tight); /* 2rem (32px) */
+  align-items: stretch; /* All cards same height */
   justify-content: flex-start;
 
-  overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-y: hidden;
-  padding-inline: var(--spacing-page); /* Whitespace at edges */
+  overflow-x: auto; /* Enables horizontal scrolling */
+  overflow-y: hidden; /* Prevents vertical scroll */
+  padding-inline: var(
+    --spacing-page
+  ); /* 0.65rem (10.4px) - Whitespace at edges */
   padding-bottom: var(
     --spacing-flow
-  ); /* Prevent scrollbar from overlapping content */
+  ); /* 1rem (16px) - Prevents scrollbar from overlapping content */
 
-  scroll-snap-type: x mandatory; /* Snap cards into view when scrolling */
+  scroll-snap-type: x mandatory; /* Snaps cards into view when user stops scrolling */
 }
 
-/* Feature Cards */
+/* ========== FEATURE CARDS ========== */
 
+/* Feature card - Fixed-width cards in scroll track */
 .feature-card {
-  flex: 0 0 18rem; /* Don't grow/shrink, fixed 288px base width */
-  aspect-ratio: 16 / 9;
-  padding: var(--spacing-section-tight);
+  flex: 0 0 18rem; /* 288px - Don't grow/shrink, fixed base width */
+  aspect-ratio: 16 / 9; /* Maintains consistent card proportions */
+  padding: var(--spacing-section-tight); /* 2rem (32px) */
 
   /* Grid layout: heading → image → button */
   display: grid;
-  grid-template-rows: auto minmax(10rem, 1fr) auto;
-  gap: var(--spacing-flow);
+  grid-template-rows: auto minmax(10rem, 1fr) auto; /* Title auto-size, image flexible (min 160px), button auto-size */
+  gap: var(--spacing-flow); /* 1rem (16px) */
   text-align: center;
 
-  scroll-snap-align: start; /* Snap to card's left edge */
+  scroll-snap-align: start; /* Snaps to card's left edge */
 }
 
+/* Center button within grid cell */
 .feature-card .btn {
-  justify-self: center; /* Center button within grid cell */
+  justify-self: center;
 }
 
-/* Card Media */
+/* Feature card image */
 .feature-card .card-media {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Fill available space while preserving aspect ratio */
+  object-fit: cover; /* Fills available space while preserving aspect ratio */
   display: block;
-  padding-bottom: var(--spacing-flow);
-
+  padding-bottom: var(--spacing-flow); /* 1rem (16px) */
 }
 
-/* Tablet: Wider Cards */
+/* ===== TABLET: WIDER CARDS (600px+) ===== */
+
 @media (min-width: 600px) {
+  /* Increase card width on tablet */
   .feature-card {
-    flex-basis: 22rem;
+    flex-basis: 22rem; /* 352px */
   }
 }
 
-/* Desktop: Maximum Card Width */
+/* ===== DESKTOP: MAXIMUM CARD WIDTH (1200px+) ===== */
+
 @media (min-width: 1200px) {
+  /* Maximum card width on desktop */
   .feature-card {
-    flex-basis: 24rem;
+    flex-basis: 24rem; /* 384px */
   }
 }

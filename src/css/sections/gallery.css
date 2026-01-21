@@ -1,48 +1,62 @@
-/* ===== Car Gallery layout ===== */
+/**
+ * CAR GALLERY SECTION
+ * Responsive grid of square product cards showing Mercedes-Benz vehicles.
+ * Applied to: Car gallery section in index.html
+ * Layout Strategy: 1 column (mobile) → 2 columns (530px) → 4 columns (1200px)
+ * Card Structure: Title, subtitle, image, button + color dots
+ */
 
+/* ===== GALLERY GRID LAYOUT ===== */
+
+/* Gallery grid - Starts as single column on mobile */
 .gallery-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-flow);
+  grid-template-columns: 1fr; /* Single column on mobile */
+  gap: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* ===== CAR GALLERY CARDS ===== */
 
-/* ===== Car Gallery cards ===== */
-
-
+/* Product card - Square cards with internal grid for content arrangement */
 .product-card {
-  aspect-ratio: 1 / 1; /* Square cards */
+  aspect-ratio: 1 / 1; /* Enforces square shape regardless of content */
   display: grid;
-  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; 
-  row-gap: 0.2rem; /* px - Reduced spacing between card elements */
-  min-height: 0; /* important for grid children */
-  min-width: 280px; /* Prevent cards from becoming too small */
-  padding: var(--spacing-flow);
+  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; /* Title, subtitle, image (flexible), footer */
+  row-gap: 0.2rem; /* ~3px - Tight spacing between card elements */
+  min-height: 0; /* Critical for grid children to shrink properly */
+  min-width: 280px; /* Prevents cards from becoming too narrow */
+  padding: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* Card image - Contained within card, maintains aspect ratio */
 .product-card .card-media {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* Scales image to fit without cropping */
   display: block;
-  object-position: center 60%;
-  min-height: 0; /* key: lets the image shrink instead of forcing the track */
+  object-position: center 60%; /* Slightly above center vertically */
+  min-height: 0; /* Allows image to shrink instead of forcing grid track expansion */
 }
 
+/* Card subtitle - Centered on all sizes initially */
 .product-card .card-subtitle {
-    text-align: center;
+  text-align: center;
 }
 
-/* 2 per row */
+/* ===== TWO-COLUMN LAYOUT (530px+) ===== */
 
 @media (min-width: 530px) {
+  /* Gallery switches to 2-column grid */
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
   }
 }
 
+/* ===== TEXT ALIGNMENT CHANGE (900px+) ===== */
+
 @media (min-width: 900px) {
-    .product-card .card-subtitle {
+  /* Left-align card text on desktop */
+  .product-card .card-subtitle {
     text-align: left;
   }
 
@@ -51,42 +65,38 @@
   }
 }
 
+/* ===== FOUR-COLUMN LAYOUT (1200px+) ===== */
 
-/* 4 per row */
- 
-@media (min-width: 1200px) { 
-    .car-gallery .container {
-        max-width: none;
-    }
-    .gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+@media (min-width: 1200px) {
+  /* Remove container width constraint for full-width grid */
+  .car-gallery .container {
+    max-width: none;
+  }
+
+  /* Gallery switches to 4-column grid */
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+  }
 }
- 
 
- 
+/* ===== CARD FOOTER: BUTTON + COLOR DOTS ===== */
 
-
-
-
-/* ===== Footer inside Card ===== */
-
+/* Card footer - Houses button and color options */
 .product-card .card-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-     gap: var(--spacing-flow);
+  display: flex;
+  justify-content: center; /* Centered on mobile */
+  align-items: center;
+  gap: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* Color dots - Hidden on mobile */
 .product-card .color-dot {
-  display: none; /* hidden on mobile */
+  display: none;
 }
 
+/* ===== CAR COLOR OPTIONS ===== */
 
-/* Car Color Dots */
-
-/* ===== Car Color options ===== */
-
+/* Color variant classes - Applied to .color-dot elements */
 .gray {
   background-color: #c5c5c5;
 }
@@ -109,26 +119,31 @@
   background-color: #ae3f3f;
 }
 
+/* Base color dot style - Circular indicators for car colors */
 .color-dot {
-    width: 1.65rem; /* 26.4px */
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    border: 2px solid var(--color-text-inverse);
-    display: inline-block;
+  width: 1.65rem; /* 26.4px */
+  aspect-ratio: 1 / 1; /* Perfect circle */
+  border-radius: 50%; /* Circular shape */
+  border: 2px solid var(--color-text-inverse);
+  display: inline-block;
 }
 
+/* ===== DESKTOP COLOR DOTS (620px+) ===== */
+
 @media (min-width: 620px) {
+  /* Spread footer content apart on desktop */
+  .product-card .card-footer {
+    justify-content: space-between; /* Button left, dots right */
+  }
 
-    .product-card .card-footer {
-        justify-content: space-between;
-    }
+  /* Color dots container */
+  .product-card .color-dots {
+    display: flex;
+    gap: 0.75rem; /* 12px - Spacing between color dots */
+  }
 
-    .product-card .color-dots {
-        display: flex;
-        gap: 0.75rem; /* 12px */
-    }
-
+  /* Show color dots on desktop */
   .product-card .color-dot {
-    display: inline-block; /* shown on desktop */     
+    display: inline-block;
   }
 }

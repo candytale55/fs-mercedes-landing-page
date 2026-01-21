@@ -1,10 +1,18 @@
-/* Card styles */
+/**
+ * CARDS COMPONENT
+ * Base card surface styles shared across multiple sections.
+ * Applied to: Car gallery cards (gallery.css), Features cards (features.css)
+ * This file only defines the shared surface appearance; specific layouts are in section files.
+ */
 
-/* Car Gallery and Feature Cards share this style */
-
+/* Base card surface - Light gray background with medium rounded corners */
 .card {
-    background-color: var(--color-background-cards);
-    border-radius: var(--border-radius-medium);
-}   
+  background-color: var(--color-background-cards);
+  border-radius: var(
+    --border-radius-medium
+  ); /* 10px - Medium rounded corners */
+}
 
-/* For the particular styling of car gallery and feature cards check gallery.css and features.css */
+/* Note: Layout (padding, grid placement, content arrangement) is handled in:
+ * - gallery.css for car gallery cards
+ * - features.css for feature cards */

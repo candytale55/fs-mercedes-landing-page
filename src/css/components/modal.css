@@ -1,37 +1,49 @@
-/* ========== Modal (global component) ========== */
+/**
+ * MODAL COMPONENT
+ * Centered overlay modal for success messages and notifications.
+ * Applied to: Appointment form success message in index.html
+ * Visibility: Controlled by .is-visible class toggled via JavaScript
+ * Accessibility: Modal card receives focus for keyboard navigation
+ */
 
-/* Centered overlay modal for success messages.
-   Visibility controlled by .is-visible class via JavaScript. */
-
+/* Modal backdrop overlay - Covers entire viewport */
 .modal-overlay {
   position: fixed;
-  inset: 0;      /* top, right, bottom, left: 0 */
-  display: none;           /* Hidden by default */
-  place-items: center;    /* Centers modal card */
-  padding: var(--spacing-page);
-  background: rgba(0, 0, 0, 0.6); /* Semi-transparent backdrop */
+  inset: 0; /* Shorthand for top: 0; right: 0; bottom: 0; left: 0 */
+  display: none; /* Hidden by default until JS adds .is-visible */
+  place-items: center; /* Centers modal card both horizontally and vertically */
+  padding: var(
+    --spacing-page
+  ); /* 0.65rem (10.4px) - Breathing room on small screens */
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black backdrop */
 }
 
+/* Show modal when JavaScript adds .is-visible class */
 .modal-overlay.is-visible {
-  display: grid; /* Show modal when JS adds class */
+  display: grid;
 }
 
+/* Modal content card */
 .modal-card {
-  position: relative;
-  width: min(24rem, 100%); /* Max 32rem, never wider than viewport */
-  padding: var(--spacing-section-tight);
-  border-radius: var(--border-radius-medium);
+  position: relative; /* Positions close button absolutely within card */
+  width: min(
+    24rem,
+    100%
+  ); /* 384px max width, never exceeds viewport (responsive) */
+  padding: var(--spacing-section-tight); /* 2rem (32px) */
+  border-radius: var(--border-radius-medium); /* 15px */
   background-color: var(--color-background-page);
   color: var(--color-text-primary);
 }
 
+/* Close button - Fixed in top-right corner of modal */
 .modal-close {
   position: absolute;
-  top: var(--spacing-page);
-  right: var(--spacing-page);
+  top: var(--spacing-page); /* 0.65rem (10.4px) */
+  right: var(--spacing-page); /* 0.65rem (10.4px) */
 }
 
-/* Remove default focus outline (card receives focus for keyboard users) */
+/* Remove default focus ring - Card receives focus for screen reader access */
 .modal-card:focus {
   outline: none;
 }
@@ -42,6 +54,7 @@
   outline-offset: 4px;
 }
 
-.modal-overlay .section-title{
-    font-size: var(--font-size-title);
+/* Modal title styling */
+.modal-overlay .section-title {
+  font-size: var(--font-size-title); /* 2rem (32px) */
 }

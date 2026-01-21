@@ -1,56 +1,70 @@
+/**
+ * FOOTER SECTION
+ * Site footer with newsletter signup, social media, and navigation menus.
+ * Applied to: <footer> in index.html
+ * Layout: Vertical stack (social icons, nav grid, copyright)
+ * Note: Newsletter form styles are in forms.css component
+ */
 
-
+/* Footer container - Dark background with light text */
 footer {
   background-color: var(--color-background-footer);
   color: var(--color-text-inverse);
 }
 
+/* Footer content wrapper */
 .footer .container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-section-large);
+  display: flex;
+  flex-direction: column;
+  gap: var(
+    --spacing-section-large
+  ); /* 4rem (64px) - Generous spacing between sections */
 }
 
-/* Social Media - 
-(Note: icons/links are in main.css) */
+/* ========== SOCIAL MEDIA ICONS ========== */
+/* Note: Individual icon/link styles are in main.css */
 
+/* Social media list - Horizontal centered icons */
 .social-list {
   display: flex;
   width: 100%;
-  max-width: 18.75rem; /* 300px */
-  margin-inline: auto;
-  justify-content: space-around;
+  max-width: 18.75rem; /* 300px - Constrains icon spread */
+  margin-inline: auto; /* Centers list horizontally */
+  justify-content: space-around; /* Even distribution of icons */
   align-items: center;
 }
 
+/* Footer section titles */
 .footer .footer-title {
-    font-size: var(--font-size-title);
-    padding-block: var(--spacing-flow);
+  font-size: var(--font-size-title); /* 2rem (32px) */
+  padding-block: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* ========== NAVIGATION MENUS ========== */
 
-/* Navigation menus */
-
-
+/* Footer navigation grid - Auto-fit columns */
 .footer-nav-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, max-content)); 
-    justify-content: center;  
-    column-gap: var(--spacing-section);
-    row-gap: var(--spacing-section-large);
-    text-align: center;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(12rem, max-content)
+  ); /* Columns size to content, min 192px */
+  justify-content: center; /* Centers grid items */
+  column-gap: var(--spacing-section); /* 3rem (48px) */
+  row-gap: var(--spacing-section-large); /* 4rem (64px) */
+  text-align: center;
 }
 
+/* ========== FOOTER LINKS ========== */
 
-
-/* Footer mutted links */
-
+/* Footer link styling - Muted color */
 .footer .link {
-    color: var(--color-text-inverse-muted);
-    font-size: var(--font-size-small);
+  color: var(--color-text-inverse-muted);
+  font-size: var(--font-size-small); /* 0.875rem (14px) */
 }
 
+/* Footer link hover state - No underline, color change only */
 .footer .link:hover {
-    color: var(--color-text-muted);
-    text-decoration: none;
+  color: var(--color-text-muted);
+  text-decoration: none;
 }

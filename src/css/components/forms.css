@@ -1,82 +1,92 @@
-/* ========== Forms (global component) ========== */
-/* Newsletter signup form styles.
-   Form is styled separately from section container to keep layout flexible. */
+/**
+ * FORMS COMPONENT
+ * Newsletter signup form with pill-shaped input and button.
+ * Applied to: Footer newsletter section in index.html
+ * Features: Dark background, white text, "pill wrapper" pattern, autofill styling
+ */
 
-/* Newsletter Section Container */
+/* ========== Newsletter Section Container ========== */
 
+/* Newsletter section - Dark background with light text */
 .newsletter-signup {
-    background-color: var(--color-background-footer);
-    color: var(--color-text-inverse);
+  background-color: var(--color-background-footer);
+  color: var(--color-text-inverse);
 }
 
+/* Center-align newsletter content */
 .newsletter-signup .container {
   text-align: center;
 }
 
+/* ========== Newsletter Form Layout ========== */
 
-/* Newsletter Form Layout */
-
+/* Form container - Vertical stack with centered items */
 .newsletter-form {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-flow);
-    margin-inline: auto; /* Center form within container */
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-flow); /* 1.5rem (24px) */
+  margin-inline: auto; /* Centers form horizontally */
 }
 
+/* Center submit button independently of input width */
 .newsletter-form .btn {
-    align-self: center; /* Center button independently of input field width */
+  align-self: center;
 }
 
+/* ========== Pill Input Wrapper ========== */
 
-
-/* 1. This becomes the "Outer Pill" */
+/* Pill wrapper - Contains input and creates outer border */
 .newsletter-sign-up-pill {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid var(--color-text-inverse);
-    border-radius: var(--border-radius-pill);
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--color-text-inverse);
+  border-radius: var(--border-radius-pill); /* 999px - Fully rounded */
 }
 
+/* Email input - Transparent background inside pill wrapper */
 .newsletter-form input[type="email"] {
-    color: var(--color-text-inverse);
-    flex: 1; /* Allows input to take up space and push button to the right */
+  color: var(--color-text-inverse);
+  flex: 1; /* Takes available space, pushes button right on wider screens */
 
-    border: none;
-    border-radius: var(--border-radius-pill);
-    width: 100%;
-    max-width: 40rem; /* 640px  */
-    background-color: transparent;
-    padding: var(--spacing-page);
-    outline: none;
+  border: none;
+  border-radius: var(--border-radius-pill); /* 999px - Matches wrapper */
+  width: 100%;
+  max-width: 40rem; /* 640px - Prevents excessive width on large screens */
+  background-color: transparent; /* Allows parent pill border to show */
+  padding: var(--spacing-page); /* 1.5rem (24px) */
+  outline: none; /* Removes default focus ring */
 }
 
-/* 2. Fix the "Autofill" background (Chrome/Safari default behavior) */
-/* This stops the input from turning white/yellow when the browser suggests an email */
+/* Browser autofill styling override - Prevents default yellow/white background */
+/* Webkit browsers (Chrome, Safari, Edge) apply intrusive autofill styles */
 .newsletter-form input:-webkit-autofill,
-.newsletter-form input:-webkit-autofill:hover, 
+.newsletter-form input:-webkit-autofill:hover,
 .newsletter-form input:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--color-text-inverse);
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-    transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: var(--color-text-inverse); /* Forces white text */
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* Large inset shadow covers background */
+  transition: background-color 5000s ease-in-out 0s; /* Delays autofill color for ~83 minutes */
 }
 
-/* Form Typography */
+/* ========== Form Typography ========== */
 
+/* Newsletter kicker text above title */
 .newsletter-kicker {
-    font-size: var(--font-size-subheading);
+  font-size: var(--font-size-subheading); /* 1.125rem (18px) */
 }
 
-/* Override default section-title styling for newsletter context */
+/* Newsletter title - Override default section-title styling */
 .newsletter-signup .section-title {
-    font-family: var(--font-family-base);
-    font-size: var(--font-size-small);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small); /* 0.875rem (14px) */
 }
 
+/* Privacy policy link styling */
 .form-check .link {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
+/* Privacy link hover state */
 .form-check .link:hover {
-    color: var(--color-text-muted);
+  color: var(--color-text-muted);
 }

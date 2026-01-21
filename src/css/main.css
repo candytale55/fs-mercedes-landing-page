@@ -1,177 +1,200 @@
+/**
+ * MAIN STYLES - FOUNDATION
+ * Global resets, base typography, layout primitives, and shared utilities.
+ * Applied to: Entire site - establishes baseline styles before components
+ * Organization: Reset → Base → Typography → Images → Links → Icons → Spacing
+ */
+
 /* ========== RESET ========== */
 
+/* Box model and spacing reset for all elements */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: border-box; /* Includes padding and border in element width */
   margin: 0;
   padding: 0;
 }
 
 /* ========== BASE & TYPOGRAPHY ========== */
 
+/* Root font size - 1rem = 16px (browser default) */
 html {
   font-size: 16px;
 }
 
+/* Base body styles applied to entire document */
 body {
   font-family: var(--font-family-base);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-body); /* 1rem (16px) */
   font-weight: 400;
-  line-height: var(--line-height-body);
+  line-height: var(--line-height-body); /* 1.6 - Comfortable reading */
   color: var(--color-text-primary);
   background-color: var(--color-background-page);
-  min-width: 320px; /* Prevent page from shrinking below mobile minimum */
+  min-width: 320px; /* Prevents layout collapse below mobile minimum */
 }
 
-
-
+/* Content container - Centers content with max-width constraint */
 .container {
-  max-width: 80rem;  /* 1280px */
-  margin-inline: auto;
+  max-width: 80rem; /* 1280px - Prevents excessive line length on wide screens */
+  margin-inline: auto; /* Centers container horizontally */
 }
 
-/* ========== Typography ========== */
+/* ========== TYPOGRAPHY ========== */
 
-
-/* .section-title only to be used for the section title, not other subtitles */
+/* Section titles - Used for main headings in each section */
 .section-title {
   font-family: var(--font-family-heading);
   font-weight: 400;
-  line-height: var(--line-height-heading);
+  line-height: var(--line-height-heading); /* 1.2 - Tighter for headings */
 }
 
+/* Card titles - Used in gallery and feature cards */
 .card-title {
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-title); /* 2rem (32px) */
   font-weight: 400;
   text-align: center;
 }
 
+/* Footer section titles */
 .footer-title {
-  font-size: var(--font-size-subheading);
+  font-size: var(--font-size-subheading); /* 1.25rem (20px) */
   font-weight: 400;
-  line-height: var(--line-height-heading);
+  line-height: var(--line-height-heading); /* 1.2 */
   text-align: center;
-  margin-bottom: var(--spacing-flow);
+  margin-bottom: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* Paragraph base styles */
 p {
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
+  font-size: var(--font-size-body); /* 1rem (16px) */
+  line-height: var(--line-height-body); /* 1.6 */
 }
 
-/* ========== Images ========== */
+/* ========== IMAGES ========== */
 
+/* Image reset - Prevents overflow and maintains aspect ratio */
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+  display: block; /* Removes inline spacing below images */
+  max-width: 100%; /* Prevents images from exceeding container */
+  height: auto; /* Maintains aspect ratio when width is constrained */
 }
 
+/* ========== LINKS ========== */
 
-
-/* ========== Links ========== */
-
+/* List reset - Removes bullets/numbers */
 ul {
   list-style: none;
 }
 
+/* Base link styles - Inherits color from parent */
 a {
   color: inherit;
   text-decoration: none;
 }
 
+/* Link hover state */
 a:hover {
   text-decoration: underline;
 }
 
+/* Keyboard focus indicator for links */
 a:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
   text-decoration: underline;
 }
 
-/* ========== Icons ========== */
+/* ========== ICONS ========== */
 
-/* Logo, Navbar and Social Media icons */
-
-.logo-link { 
-  flex: 0 0 auto; 
+/* Logo link - Prevents shrinking in flex layouts */
+.logo-link {
+  flex: 0 0 auto; /* No grow, no shrink, auto basis */
 }
 
-
+/* Base icon sizing */
 .icon {
-  height: 24px;  
-  width: auto;
+  height: 24px;
+  width: auto; /* Maintains aspect ratio */
   display: inline-block;
 }
 
-
-/* Icon-only links */
-
+/* Icon-only links - Used for social media, nav icons */
 .icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem; /* 8px */
+  padding: 0.5rem; /* 8px - Increases clickable area */
   transition: all var(--transition-speed) var(--transition-timing);
 }
 
+/* Icon image inside link */
 .icon-link img {
   transition: transform var(--transition-speed) var(--transition-timing);
 }
 
+/* Icon hover effect */
 .icon-link img:hover {
-  transform: scale(1.1);
+  transform: scale(1.1); /* 10% larger on hover */
 }
- 
+
+/* Icon link focus indicator */
 .icon-link:focus-visible {
   outline: 2px solid var(--white);
   outline-offset: 2px;
 }
 
+/* ========== SPACING - LAYOUT PRIMITIVES ========== */
 
-
-
-/* ========== Spacing - General ========== */
-
+/* Horizontal gutter - Adds breathing room at page edges */
 .gutter {
-  padding-inline: var(--spacing-page);
-} 
+  padding-inline: var(--spacing-page); /* 0.65rem (10.4px) */
+}
 
+/* Vertical stack - Adds consistent spacing between flow content */
 .stack > * + * {
-  margin-top: var(--spacing-flow);
+  margin-top: var(
+    --spacing-flow
+  ); /* 1rem (16px) - Applied via adjacent sibling selector */
 }
 
+/* Section spacing - Default vertical padding for sections */
 .section {
-  padding-block: var(--spacing-section);
+  padding-block: var(--spacing-section); /* 3rem (48px) */
 }
 
+/* Compact section spacing - Less than default */
 .section-tight {
-  padding-block: var(--spacing-section-tight);
+  padding-block: var(--spacing-section-tight); /* 2rem (32px) */
 }
 
+/* Generous section spacing - More than default */
 .section-spacious {
-  padding-block: var(--spacing-section-large); /* More spacing than default */
+  padding-block: var(--spacing-section-large); /* 4rem (64px) */
 }
 
+/* Minimal section spacing - Very tight */
 .section-compact {
-  padding-block: var(--spacing-flow); /* Even tighter than .section-tight */
+  padding-block: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* No vertical padding - For full-bleed sections like hero */
 .section-flush {
-  padding-block: 0; /* No vertical padding - for full-bleed sections like hero */
+  padding-block: 0;
 }
 
-/* Split layout: stacked on mobile, side-by-side on desktop */
+/* ========== SPLIT LAYOUT ========== */
+
+/* Split layout - Stacked on mobile, side-by-side on desktop */
 .split-layout {
   display: grid;
-  gap: var(--spacing-section);
+  gap: var(--spacing-section); /* 3rem (48px) */
 }
 
+/* Desktop split layout - Two equal columns */
 @media (min-width: 768px) {
   .split-layout {
     grid-template-columns: 1fr 1fr; /* Equal columns */
-    align-items: center; /* Vertically center content */
+    align-items: center; /* Vertically centers content in both columns */
   }
 }

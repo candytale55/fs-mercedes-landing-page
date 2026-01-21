@@ -1,66 +1,88 @@
-/* ========== Dealer Introduction Section ========== */
+/**
+ * DEALERSHIPS SECTION
+ * Two-part section: Text introduction + interactive map with CTA card.
+ * Applied to: Dealerships section in index.html
+ * Parts: .dealer-intro (text), .dealer-map (background image + overlay card)
+ * Layout: Center-aligned on mobile, left-aligned text + positioned card on desktop
+ */
 
+/* ========== DEALER INTRODUCTION ========== */
+
+/* Dealer intro container - Text content above map */
 .dealer-intro {
   text-align: center;
-  padding-block: var(--spacing-flow); /* Internal padding for the content */
+  padding-block: var(--spacing-flow); /* 1rem (16px) */
 }
 
+/* Dealer section title */
 .dealer-intro .section-title {
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-title); /* 2rem (32px) */
 }
 
-/* Force title to stack on multiple lines for better mobile readability */
+/* Force title spans to stack on multiple lines for better mobile readability */
 .dealer-intro .section-title span {
-  display: block;
+  display: block; /* Each span on its own line */
 }
 
+/* Dealer intro paragraph */
 .dealer-intro p {
-  font-size: var(--font-size-body-large);
-  padding-inline: var(--spacing-flow);
+  font-size: var(--font-size-body-large); /* 1.125rem (18px) */
+  padding-inline: var(
+    --spacing-flow
+  ); /* 1rem (16px) - Breathing room on sides */
 }
+
+/* ===== TABLET DEALER INTRO (549px+) ===== */
 
 @media (min-width: 549px) {
+  /* Left-align text on tablet+ */
   .dealer-intro {
     text-align: left;
   }
 
+  /* Much larger title on desktop */
   .dealer-intro .section-title {
-    font-size: var(--font-size-display);
-    line-height: var(--line-height-tight);
+    font-size: var(--font-size-display); /* 4rem (64px) */
+    line-height: var(
+      --line-height-tight
+    ); /* 0.9 - Very tight for display text */
   }
 
+  /* Larger paragraph text on desktop, spans stack */
   .dealer-intro p span {
-    display: block;
-    font-size: var(--font-size-heading-small);
-    line-height: var(--line-height-tight);
+    display: block; /* Each span on its own line */
+    font-size: var(--font-size-heading-small); /* 1.5rem (24px) */
+    line-height: var(--line-height-tight); /* 0.9 */
   }
 }
 
-/* ========== Dealer Map Section ========== */
+/* ========== DEALER MAP WITH OVERLAY CARD ========== */
 
+/* Dealer map - Background image with dark overlay */
 .dealer-map {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(../../images/usa-night-map-background.png);
-  background-size: cover;
+    url(../../images/usa-night-map-background.png); /* Dark overlay + map image */
+  background-size: cover; /* Image fills entire container */
   background-position: center;
   background-repeat: no-repeat;
 
   display: grid;
-  align-items: center;
-  justify-items: center;
+  align-items: center; /* Centers card vertically */
+  justify-items: center; /* Centers card horizontally on mobile */
 
-  /* ensures the card doesn't touch the map edges */
-  padding: var(--spacing-flow);
+  /* Ensures card doesn't touch map edges */
+  padding: var(--spacing-flow); /* 1rem (16px) */
 
-  /* Fluid Height */
-  min-height: clamp(400px, 65vh, 600px);
+  /* Fluid height - Adapts to viewport */
+  min-height: clamp(400px, 65vh, 600px); /* 400px → 65% viewport → 600px */
 }
 
+/* Dealer card - Glassmorphism overlay card on map */
 .dealer-card {
-  /* Use RGBA for transparency so text stays 100% opaque */
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: var(--border-radius-medium);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Transparent white background (glassmorphism effect) */
+  background-color: rgba(255, 255, 255, 0.2); /* 20% opacity white */
+  border-radius: var(--border-radius-medium); /* 15px */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
 
   text-align: center;
 
@@ -68,61 +90,77 @@
   flex-direction: column;
 }
 
+/* Dealer card title */
 .dealer-title {
   color: var(--color-text-inverse);
 
+  /* Fluid typography - Scales with viewport */
   font-size: clamp(
     var(--font-size-title),
     5vw,
     var(--font-size-heading-large)
-  ); /* Fluid typography */
-  line-height: var(--line-height-heading);
+  ); /* 32px → 5% viewport → 40px */
+  line-height: var(--line-height-heading); /* 1.2 */
   font-weight: 400;
   font-family: var(--font-family-base);
 
-  padding: var(--spacing-section-tight);
+  padding: var(--spacing-section-tight); /* 2rem (32px) */
 }
 
+/* Title spans - Stack on separate lines */
 .dealer-title span {
   display: block;
 }
 
+/* CTA button inside dealer card */
 .dealer-card .btn {
-  margin: var(--spacing-flow) auto var(--spacing-section-tight);
-  width: fit-content;
+  margin: var(--spacing-flow) auto var(--spacing-section-tight); /* 1rem (16px) top, auto sides, 2rem (32px) bottom */
+  width: fit-content; /* Button only as wide as its content */
 }
 
-@media (max-width: 320px){
-    .dealer-title span{
-        display: inline;
-    }
+/* ===== VERY SMALL MOBILE (320px or less) ===== */
+
+@media (max-width: 320px) {
+  /* Inline title spans on very small screens to save vertical space */
+  .dealer-title span {
+    display: inline;
+  }
 }
+
+/* ===== DESKTOP DEALER MAP (600px+) ===== */
 
 @media (min-width: 600px) {
+  /* Position card to left side */
   .dealer-map {
-    justify-content: start;
+    justify-content: start; /* Aligns card to left */
     align-items: center;
 
     /* Desktop: Much taller map */
-    min-height: clamp(600px, 80vh, 1000px);
+    min-height: clamp(600px, 80vh, 1000px); /* 600px → 80% viewport → 1000px */
   }
 
+  /* Left-align title text */
   .dealer-title {
     text-align: left;
-    font-size: 2rem;
+    font-size: 2rem; /* 32px */
   }
 
+  /* Add horizontal padding to card */
   .dealer-card {
-    padding-inline: var(--spacing-section-tight);
+    padding-inline: var(--spacing-section-tight); /* 2rem (32px) */
   }
 
+  /* Remove top margin from button */
   .dealer-card .btn {
     margin-top: 0;
   }
 }
 
+/* ===== LARGE DESKTOP (900px+) ===== */
+
 @media (min-width: 900px) {
-    .dealerships.section {
-    padding-block: var(--spacing-section);
-    }
+  /* Restore default section spacing on large screens */
+  .dealerships.section {
+    padding-block: var(--spacing-section); /* 3rem (48px) */
+  }
 }

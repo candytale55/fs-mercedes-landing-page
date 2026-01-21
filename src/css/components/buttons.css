@@ -1,41 +1,51 @@
-/* Button styles */
+/**
+ * BUTTONS COMPONENT
+ * Reusable button styles used throughout the site.
+ * Applied to: Gallery cards, Features cards, Maybach sections, Appointment CTA, Newsletter form
+ * Includes base button (.btn), dark variant (.btn-dark), and icon-only buttons (.btn-icon)
+ */
 
+/* Base button style - White background with primary text */
 .btn {
   display: inline-block;
   width: fit-content; /* Buttons only as wide as their content */
-  padding-block: 0.75rem; /* 12px */
-  padding-inline: 1.25rem; /* 20px */
+  padding-block: 0.75rem; /* 12px - Vertical padding */
+  padding-inline: 1.25rem; /* 20px - Horizontal padding */
   background-color: var(--white);
   color: var(--color-text-primary);
-  font-size: var(--font-size-button);
+  font-size: var(--font-size-button); /* 14px */
   font-family: inherit;
   font-weight: 400;
   text-align: center;
   letter-spacing: 0.5px;
-  white-space: nowrap;
+  white-space: nowrap; /* Prevents text wrapping */
   border: none;
-  border-radius: var(--border-radius-pill);
+  border-radius: var(--border-radius-pill); /* 999px - Fully rounded */
   cursor: pointer;
   transition: all var(--transition-speed) var(--transition-timing);
 }
 
+/* Dark button variant - Used in Maybach Wheels section */
 .btn-dark {
   background-color: var(--color-btn-dark);
   color: var(--color-text-inverse); /* White text */
 }
 
+/* Hover and focus states - Adds shadow and scale effect */
 .btn:hover,
 .btn:focus {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transform: scale(1.1);
+  transform: scale(1.1); /* 10% larger on interaction */
   text-decoration: none;
 }
 
+/* Keyboard focus indicator */
 .btn:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
 
+/* Dark button hover state - Inverts colors */
 .btn-dark:hover,
 .btn-dark:focus {
   background-color: var(--color-text-primary);
@@ -43,23 +53,44 @@
   opacity: 0.9;
 }
 
-/* Button icon styles */
-
+/* Icon-only buttons - Used for burger menu, close buttons, modal controls */
 .btn-icon {
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  line-height: 1; /* helps glyph buttons */
+  line-height: 1; /* Prevents extra space around icons */
   font-size: 1.75rem; /* 28px */
   color: var(--color-text-primary);
 }
 
+/* Icon button keyboard focus */
 .btn-icon:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
 }
 
+/* Icon button hover - Slight scale effect */
 .btn-icon:hover {
   transform: scale(1.1);
+}
+
+/* Responsive button sizing - Coordinates with gallery layout breakpoints */
+
+/* When gallery switches to 2-column (530px), reduce button size to fit cards */
+@media (min-width: 530px) {
+  .btn {
+    font-size: var(--font-size-small); /* 14px */
+    padding-block: 0.625rem; /* 10px */
+    padding-inline: 0.75rem; /* 12px */
+  }
+}
+
+/* When gallery switches to 4-column (1200px), keep compact buttons */
+@media (min-width: 1200px) {
+  .btn {
+    font-size: var(--font-size-small); /* 14px */
+    padding-block: 0.625rem; /* 10px */
+    padding-inline: 0.75rem; /* 12px */
+  }
 }

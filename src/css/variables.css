@@ -1,33 +1,45 @@
-/* CSS Variables */
+/**
+ * CSS VARIABLES - DESIGN TOKENS
+ * Central source of truth for all design values used throughout the project.
+ * Applied to: All CSS files via var() function
+ * Organization: Typography, Colors (primitives → semantic roles), Layout, Transitions
+ */
 
 :root {
   /* ========== TYPOGRAPHY ========== */
 
+  /* Font families */
   --font-family-base: "ABeeZee", system-ui, -apple-system, "Segoe UI", Roboto,
     Arial, sans-serif;
   --font-family-heading: "Abhaya Libre", Georgia, Garamond, serif;
 
-  /* Font Size Scale - Only sizes used in project */
-  --font-size-small: 0.875rem; /* 14px - Secondary text, buttons */
-  --font-size-body: 1rem; /* 16px - Base body text */
+  /* Font Size Scale - Only sizes actively used in project */
+  --font-size-small: 0.875rem; /* 14px - Secondary text, buttons, captions */
+  --font-size-body: 1rem; /* 16px - Base body text (default) */
   --font-size-body-large: 1.125rem; /* 18px - Emphasized body text */
   --font-size-subheading: 1.25rem; /* 20px - Footer titles, small headings */
-  --font-size-heading-small: 1.5rem; /* 24px - Paragraph text in dealer section */
+  --font-size-heading-small: 1.5rem; /* 24px - Dealer section paragraph text */
   --font-size-heading: 2rem; /* 32px - Card titles, section titles */
   --font-size-heading-large: 2.5rem; /* 40px - Section titles on medium screens */
   --font-size-display: 4rem; /* 64px - Large dealer title */
 
-  /* Semantic Aliases - Map descriptive names to use cases */
-  --font-size-title: var(--font-size-heading); /* 32px - Card titles */
-  --font-size-mobile-menu: var(--font-size-heading); /* 32px - Mobile nav */
-  --font-size-button: var(--font-size-small); /* 14px - Button text */
+  /* Semantic Aliases - Map context-specific names to base scale */
+  --font-size-title: var(--font-size-heading); /* 2rem (32px) - Card titles */
+  --font-size-mobile-menu: var(
+    --font-size-heading
+  ); /* 2rem (32px) - Mobile nav links */
+  --font-size-button: var(
+    --font-size-small
+  ); /* 0.875rem (14px) - Button text */
 
-  --line-height-body: 1.6;
-  --line-height-heading: 1.2;
-  --line-height-tight: 0.9;
+  /* Line heights */
+  --line-height-body: 1.6; /* Comfortable reading for paragraphs */
+  --line-height-heading: 1.2; /* Tighter for headings */
+  --line-height-tight: 0.9; /* Very tight for display text */
 
-  /* ========== NAMED COLORS (RAW VALUES) ========== */
+  /* ========== COLORS ========== */
 
+  /* Color Primitives - Raw color values (do not use directly in components) */
   --light-gray: #eeeeee;
   --medium-gray: #d9d9d9;
   --dark-gray: #565656;
@@ -35,50 +47,52 @@
   --near-black: #141615;
   --black: #000000;
   --white: #ffffff;
-  --white-muted: #ffffff99;
+  --white-muted: #ffffff99; /* White with 60% opacity */
 
-  /* ========== COLORS (ROLE-BASED) ========== */
+  /* Semantic Color Roles - Use these in components (easier to maintain) */
 
-  --color-background-page: var(--light-gray);
-  --color-background-cards: var(--medium-gray);
-  --color-background-footer: var(--black);
-  --color-background-appointment: var(--dark-gray);
-  --color-background-light-surface: var(--white);
+  /* Background colors */
+  --color-background-page: var(--light-gray); /* Main page background */
+  --color-background-cards: var(--medium-gray); /* Card surfaces */
+  --color-background-footer: var(--black); /* Footer and newsletter */
+  --color-background-appointment: var(--dark-gray); /* Appointment section */
+  --color-background-light-surface: var(
+    --white
+  ); /* White surfaces like modals */
 
-  --color-text-primary: var(--near-black);
-  --color-text-inverse: var(--white);
-  --color-text-muted: var(--white-muted);
+  /* Text colors */
+  --color-text-primary: var(--near-black); /* Main body text */
+  --color-text-inverse: var(--white); /* Text on dark backgrounds */
+  --color-text-muted: var(--white-muted); /* De-emphasized text on dark */
 
-  --color-btn-primary: var(--white);
-  --color-btn-dark: var(--near-black);
+  /* Button colors */
+  --color-btn-primary: var(--white); /* Primary button background */
+  --color-btn-dark: var(--near-black); /* Dark button variant */
 
   /* ========== BORDER RADIUS ========== */
+  --border-radius-medium: 15px; /* Cards, modals */
+  --border-radius-pill: 999px; /* Buttons, inputs (fully rounded) */
 
-  --border-radius-medium: 15px;
-  --border-radius-pill: 999px;
+  /* ========== SPACING ========== */
+  /* Intent-based spacing tokens for layout consistency */
 
-  /* ========== SPACING (LAYOUT PRIMITIVES ONLY) ========== */
+  /* Horizontal page/content inset */
+  --spacing-page: 0.65rem; /* 10.4px - Edge padding on mobile */
 
-  /* Spacing tokens (intent-based) */
+  /* Vertical rhythm inside content blocks */
+  --spacing-flow: 1rem; /* 16px - Space between paragraphs, list items */
 
-  /* horizontal page/content inset */
-  --spacing-page: 0.65rem; /* ~10.4px  */
+  /* Vertical space between sections and major content blocks */
+  --spacing-section-tight: 2rem; /* 32px - Compact sections */
+  --spacing-section-medium: 2.5rem; /* 40px - Medium spacing */
+  --spacing-section: 3rem; /* 48px - Default section spacing */
+  --spacing-section-large: 4rem; /* 64px - Generous spacing */
+  --nav-section-gap: var(--spacing-flow); /* 1rem (16px) - Nav item spacing */
 
-  /* — vertical rhythm inside content */
-  --spacing-flow: 1rem; /*  16px */
-
-  /* vertical space between sections / children */
-
-  --spacing-section-tight: 2rem; /* 32px */
-  --spacing-section-medium: 2.5rem; /* 40px */
-  --spacing-section: 3rem; /* 48px  */
-  --spacing-section-large: 4rem; /* 64px */
-  --nav-section-gap: var(--spacing-flow);
-
-  --max-width-card-media: 32rem; /* Constrains card images on large screens */
+  /* Content width constraints */
+  --max-width-card-media: 32rem; /* 512px - Prevents images from growing too large */
 
   /* ========== TRANSITIONS ========== */
-
-  --transition-speed: 0.3s;
-  --transition-timing: ease-in-out;
+  --transition-speed: 0.3s; /* Standard animation duration */
+  --transition-timing: ease-in-out; /* Smooth acceleration/deceleration */
 }
