@@ -5,7 +5,26 @@
 
 This document tracks key design decisions made during the development of the Mercedes-Benz landing page.
 
+## Table of Contents
+
+- [Decisions](#decisions)
+- [Mobile Navigation System](#mobile-navigation-system)
+- [Navigation Flash Issue (Resize Transition)](#navigation-flash-issue-resize-transition)
+- [Car Gallery Section](#gallery-section)
+- [Maybach Sections (Red Luxury & Wheels)](#maybach-sections-red-luxury--wheels)
+- [References](#references)
+- [Maybach Wheels Split Layout Issue](#maybach-wheels-split-layout-issue)
+- [References](#references-1)
+- [Button Centering Strategies (Development Journey)](#button-centering-strategies-development-journey)
+- [Hero Section Implementation & Troubleshooting](#hero-section-implementation--troubleshooting)
+- [Car Gallery (Product Cards) System](#car-gallery-product-cards-system)
+- [Features Section (Horizontal Scrolling Cards)](#features-section-horizontal-scrolling-cards)
+- [Maybach Sections (Red Luxury & Wheels)](#maybach-sections-red-luxury--wheels-1)
+
+---
+
 ## Decisions
+[↑ Back to Top](#table-of-contents)
 
 ### CSS Architecture
 
@@ -262,6 +281,7 @@ Chrome and Safari apply default yellow/white backgrounds to autofilled inputs. T
 ---
 
 ## Mobile Navigation System
+[↑ Back to Top](#table-of-contents)
 
 ### How It Works
 
@@ -313,6 +333,7 @@ Desktop (≥ 550px):
 ---
 
 ## Navigation Flash Issue (Resize Transition)
+[↑ Back to Top](#table-of-contents)
 
 ### Problem Description
 
@@ -568,6 +589,769 @@ window.addEventListener("load", () => {
 ---
 
 ## Gallery Section
+[↑ Back to Top](#table-of-contents)
+
+### Overview
+
+The gallery section displays vehicle cards in a responsive 2-column layout (530px+) that scales to 4 columns at 1500px+. The primary challenge was optimizing the 2-column layout at desktop sizes (900px+) where cards needed better spacing, sizing, and visual hierarchy without pushing content outside card boundaries.
+
+### Problems Encountered
+
+#### 1. Card Internal Spacing Issues
+
+**Symptoms:**
+- Title and subtitle appeared too separated from each other on larger cards
+- Insufficient visual grouping between related text elements
+- Row gap of 0.2rem too tight for larger cards at desktop sizes
+
+**Impact:** Poor visual hierarchy and cramped text appearance on large screens.
+
+---
+
+#### 2. Card Growth Issues
+
+**Symptoms:**
+- Cards growing excessively wide on large viewports (above 900px)
+- No maximum width constraint causing cards to become unwieldy
+- Fixed 1:1 aspect ratio forcing cards too tall when width increased
+
+**Impact:** Distorted proportions and poor use of available space.
+
+---
+
+#### 3. Image Sizing Problems
+
+**Symptoms:**
+- One vehicle image significantly larger than others, breaking card uniformity
+- No max-height constraint on images causing height inconsistencies
+- Cards in same row having different heights due to varying image sizes
+
+**Impact:** Broken layout consistency and visual misalignment.
+
+---
+
+#### 4. Button & Color Dots Sizing
+
+**Symptoms:**
+- Buttons reduced from 16px to 14px at 530px breakpoint, appearing too small on desktop
+- Color dots at 1.75rem (28px) lacking prominence on larger screens
+- Button/dots relationship feeling disconnected due to size imbalance
+
+**Impact:** Poor visual hierarchy and reduced usability on desktop.
+
+---
+
+#### 5. Footer Overflow
+
+**Symptoms:**
+- At 900px breakpoint with 3:2 aspect ratio, card footer (button + dots) appeared outside card boundaries
+- Image row shrinking too much, leaving insufficient space for footer
+- Asymmetric bottom spacing
+
+**Impact:** Content clipping and broken card structure.
+
+---
+
+### Solutions Attempted
+
+#### Approach 1: Fixed 3:2 Aspect Ratio (FAILED)
+
+**Implementation:**
+```css
+@media (min-width: 900px) {
+  .product-card {
+    aspect-ratio: 3 / 2; /* Landscape cards */
+    max-width: 600px;
+    grid-template-rows: auto auto minmax(0, clamp(14rem, 35vw, 18rem)) auto;
+  }
+}
+```
+
+**Why it failed:**
+- 3:2 ratio made cards too short for content
+- Image row compressed, pushing footer outside card
+- Fixed aspect ratio inflexible for varying content lengths
+- Content overflow at lower viewport widths (900px-1000px)
+
+**Lesson:** Fixed aspect ratios unsuitable when content amount varies across breakpoints.
+
+---
+
+#### Approach 2: Increase Row Gap (PARTIAL FIX)
+
+**Implementation:**
+```css
+.product-card {
+  row-gap: 0.75rem; /* 12px at desktop */
+}
+```
+
+**Why partially successful:**
+- Improved title/subtitle separation
+- Better breathing room between elements
+- BUT: Consumed vertical space needed by image
+- Exacerbated footer overflow issue
+
+**Lesson:** Spacing adjustments must consider total available space within aspect-ratio constraints.
+
+---
+
+#### Approach 3: Reduce Horizontal/Vertical Padding (FAILED)
+
+**Implementation:**
+```css
+@media (min-width: 900px) {
+  .product-card {
+    padding-inline: 0.25rem; /* 4px */
+    padding-block: 1rem; /* 16px */
+  }
+}
+```
+
+**Why it failed:**
+- Text felt cramped against card edges
+- Lost premium brand aesthetic
+- Didn't solve core issue (content overflow)
+- Made cards look cheap and unfinished
+
+**Lesson:** Padding reductions sacrifice visual quality without addressing root layout problems.
+
+---
+
+#### Approach 4: Grid Column Gap Reduction (MISGUIDED)
+
+**Multiple attempts:**
+- Changed `gap` property between cards
+- Adjusted `column-gap` vs `row-gap` separately
+- Added/removed card `padding-inline`
+
+**Why misguided:**
+- Issue was WITHIN cards, not BETWEEN cards
+- Misunderstood the actual problem location
+- Created additional complexity with padding overrides
+
+**Lesson:** Clearly identify which layout layer contains the problem before applying fixes.
+
+---
+
+### Final Solution: Adaptive Height Cards
+
+**Implementation:**
+
+```css
+/* Mobile: Square cards (0-899px) */
+.product-card {
+  aspect-ratio: 1 / 1;
+  max-height: 450px;
+  grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto;
+  row-gap: 0.5rem; /* 8px - Consistent spacing */
+  padding: var(--spacing-flow); /* 1rem */
+}
+
+/* Desktop: Adaptive height (900px-1499px) */
+@media (min-width: 900px) {
+  .product-card {
+    aspect-ratio: auto; /* Allow height to adapt */
+    max-width: 600px; /* Constrain width growth */
+    padding-inline: 1.75rem; /* 28px horizontal */
+    padding-block: 1rem; /* 16px vertical */
+    grid-template-rows: auto auto minmax(14rem, 1fr) auto; /* Image: min 224px, grows to fill */
+  }
+  
+  /* Constrain image to prevent oversized vehicles */
+  .product-card .card-media {
+    max-height: 16rem; /* 256px max */
+  }
+  
+  /* Equal height cards in same row */
+  .gallery-grid {
+    align-items: stretch;
+  }
+}
+
+/* Wide desktop: Return to squares (1500px+) */
+@media (min-width: 1500px) {
+  .product-card {
+    aspect-ratio: 1 / 1;
+    max-height: 450px;
+  }
+}
+```
+
+**Why this works:**
+
+1. **`aspect-ratio: auto` at 900px+**
+   - Removes height constraint
+   - Cards grow tall enough for all content
+   - Each row's height determined by tallest card
+
+2. **`minmax(14rem, 1fr)` for image row**
+   - Guarantees minimum 224px image height
+   - Can grow to fill available space
+   - Prevents image from becoming too small
+
+3. **`max-height: 16rem` on images**
+   - Constrains oversized vehicle images (like the problematic one)
+   - Ensures consistent maximum image height across cards
+   - Prevents one large image from dominating
+
+4. **`align-items: stretch` on grid**
+   - Forces cards in same row to match tallest card's height
+   - Maintains visual alignment
+   - Creates uniform rows despite varying content
+
+5. **Separate breakpoint behavior**
+   - Mobile (0-899px): Square, compact
+   - Desktop (900-1499px): Adaptive height, spacious
+   - Wide (1500px+): Square for 4-column layout
+
+---
+
+### Button & Color Dots Fixes
+
+**Implementation:**
+
+```css
+/* Button sizing adjustment */
+@media (min-width: 530px) {
+  .btn {
+    font-size: 0.9375rem; /* 15px - Not too small */
+    padding-block: 0.75rem; /* 12px */
+    padding-inline: 1.125rem; /* 18px */
+  }
+}
+
+/* Color dot progressive sizing */
+.color-dot {
+  min-width: 1.75rem; /* 28px base */
+}
+
+@media (min-width: 620px) {
+  .product-card .color-dot {
+    display: inline-block; /* Show dots */
+  }
+}
+
+@media (min-width: 1000px) {
+  .product-card .color-dot {
+    width: 2rem; /* 32px - Larger on desktop */
+  }
+}
+```
+
+**Why this works:**
+- Button maintains readable size across all breakpoints
+- Progressive dot sizing: 28px → 32px at desktop
+- Visibility tied to layout changes (620px for space-between footer)
+
+---
+
+### Grid Gap Issues Resolution
+
+**Problem identified:** Confusion between grid container gap (between cards) vs card internal spacing.
+
+**Solution:**
+
+```css
+/* Gallery grid - Controls space BETWEEN cards */
+@media (min-width: 530px) {
+  .gallery-grid {
+    row-gap: 1.5rem; /* 24px - Vertical space between rows */
+    column-gap: 0.25rem; /* 4px - Minimal horizontal space */
+  }
+}
+
+@media (min-width: 900px) {
+  .gallery-grid {
+    row-gap: 2rem; /* 32px */
+    column-gap: 0.25rem; /* Still minimal */
+  }
+}
+
+/* Card padding - Controls space INSIDE cards */
+@media (min-width: 900px) {
+  .product-card {
+    padding-inline: 1.75rem; /* 28px */
+    padding-block: 1rem; /* 16px */
+  }
+}
+```
+
+**Key insight:** 
+- Large `column-gap` perceived as problem was actually card padding doubled (left padding of right card + right padding of left card)
+- Solution: Keep small column-gap, use card padding for internal spacing only
+
+---
+
+### Duplicate Media Query Issue
+
+**Problem:** Two separate `@media (min-width: 1500px)` blocks existed, causing confusion and maintenance issues.
+
+**Solution:** Consolidated into single media query with all 1500px+ rules:
+
+```css
+@media (min-width: 1500px) {
+  .car-gallery .container {
+    max-width: none; /* Full width for 4 columns */
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-flow); /* Reset to base spacing */
+  }
+
+  .product-card {
+    aspect-ratio: 1 / 1; /* Square for 4-column */
+    max-height: 450px;
+    max-width: none; /* Remove 2-column constraint */
+  }
+
+  .product-card .card-footer {
+    padding-bottom: var(--spacing-flow); /* Extra bottom space */
+  }
+}
+```
+
+---
+
+### Recommendations for Future Gallery Fixes
+
+#### 1. Start with Content Behavior Analysis
+
+**Before applying fixes:**
+- Identify WHICH layer has the problem (grid container vs card vs card internals)
+- Trace layout from outside-in (gallery-grid → product-card → card elements)
+- Test at exact breakpoint boundaries (530px, 900px, 1500px)
+
+#### 2. Aspect Ratio Strategy
+
+**When to use each:**
+- **Fixed ratio (1:1, 3:2):** Content amount and structure identical across all cards
+- **Auto ratio:** Content varies, need flexibility
+- **Hybrid approach:** Different ratios at different breakpoints based on content needs
+
+**Rule of thumb:** More content variation = prefer `aspect-ratio: auto` with min/max constraints
+
+#### 3. Image Constraints Pattern
+
+**Always combine:**
+```css
+/* On image row in grid-template-rows */
+minmax(14rem, 1fr) /* Minimum size, can grow */
+
+/* On image element itself */
+max-height: 16rem; /* Maximum size */
+```
+
+This creates a bounded flexible range (224px-256px) preventing both tiny and oversized images.
+
+#### 4. Equal Height Rows
+
+**For grid layouts where cards must align:**
+```css
+.gallery-grid {
+  align-items: stretch; /* Force equal heights in row */
+}
+
+.product-card {
+  aspect-ratio: auto; /* Allow height variation */
+}
+```
+
+Without `align-items: stretch`, cards with less content will be shorter, breaking row alignment.
+
+#### 5. Progressive Sizing Strategy
+
+**Pattern:**
+- Small screen: Compact, essential spacing only
+- Medium screen: Add breathing room
+- Large screen: Spacious, premium feel
+
+**Apply to:**
+- Grid gaps (1rem → 1.5rem → 2rem)
+- Card padding (1rem → 1.75rem horizontal)
+- Typography (scale up at key breakpoints)
+- Interactive elements (buttons, dots grow with available space)
+
+#### 6. Debugging Spacing Issues
+
+**Process:**
+1. Add temporary colored borders to identify layout boundaries
+2. Check browser DevTools computed styles for each element
+3. Trace the spacing chain: grid gap → card padding → internal spacing
+4. Identify which layer controls the problematic space
+
+**Common mistake:** Adjusting grid gap when problem is actually card padding (or vice versa)
+
+---
+
+### Root Causes Analysis
+
+#### Why These Issues Occurred
+
+**1. Initial Design for Mobile Only**
+- Cards designed with 1:1 ratio optimized for small screens
+- No consideration for how cards would scale to desktop widths
+- Spacing values (0.2rem row-gap) appropriate for compact mobile cards
+
+**2. Lack of Content-Driven Layout**
+- Fixed aspect ratios imposed rigid constraints
+- Content amount varied between cards but layout didn't adapt
+- One oversized image broke assumptions about image dimensions
+
+**3. Insufficient Breakpoint Testing**
+- Focus on 530px (mobile → 2-column transition)
+- Inadequate testing at 900px-1200px range
+- Assumed 2-column layout would work well at all desktop widths
+
+**4. Conflating Layout Layers**
+- Confusion between gallery grid spacing vs card internal spacing
+- Attempts to fix card issues by adjusting grid properties
+- Padding and gap responsibilities unclear
+
+**5. Button Sizing Strategy**
+- Aggressive size reduction (16px → 14px) at 530px intended for compact mobile cards
+- Not adjusted back up for spacious desktop layout
+- Didn't consider visual hierarchy changes at larger viewports
+
+#### Preventive Measures
+
+**1. Content-First Design:**
+- Audit actual content before finalizing layout
+- Identify content outliers (e.g., large vehicle image)
+- Design constraints around content variation, not ideal cases
+
+**2. Breakpoint Strategy:**
+- Test thoroughly at transition points AND mid-range viewports
+- Don't just test 530px, also test 750px, 1000px, etc.
+- Ensure smooth behavior across entire breakpoint range
+
+**3. Layer Separation:**
+- Clearly document which CSS controls which spacing
+- Comment ownership: "gallery-grid gap controls space BETWEEN cards"
+- Never mix concerns (don't adjust card padding in grid breakpoint rules)
+
+**4. Responsive Sizing:**
+- Elements that shrink for mobile should grow back for desktop
+- Don't assume mobile optimizations work at all sizes
+- Progressive enhancement: base → comfortable → spacious
+
+**5. Constraint Documentation:**
+- Document why constraints exist (max-height: 16rem prevents vehicle X from dominating)
+- Note content assumptions (assumes vehicle images under 300px tall)
+- Flag if constraints are workarounds vs intentional design
+
+---
+
+### Implementation Status
+
+- ✅ Cards adapt height at 900px+ without content overflow
+- ✅ Images constrained (min 224px, max 256px) for consistency
+- ✅ Cards in same row have equal heights via `align-items: stretch`
+- ✅ Buttons maintain readable size (15px at 530px+)
+- ✅ Color dots scale progressively (28px → 32px)
+- ✅ Grid gap correctly separated from card padding
+- ✅ Single consolidated 1500px media query
+- ✅ Three distinct layout modes (mobile square, desktop adaptive, wide square)
+- ✅ Follows agents.md principles (clear ownership, semantic naming, mobile-first)
+
+---
+
+### Design Trade-Offs & Limitations
+
+#### Current Approach Limitations
+
+**What This Solution Is NOT:**
+
+1. **Not Scalable for Dynamic Content**
+   - Fixed grid columns at breakpoints (`repeat(2, 1fr)`, `repeat(4, 1fr)`)
+   - Adding/removing cards requires layout adjustments
+   - No automatic reflow if card count changes
+
+2. **Not Ideal for Varying Image Sizes**
+   - Current solution constrains images with `max-height: 16rem`
+   - Works as workaround for one oversized vehicle image
+   - Better solution: ensure consistent source image dimensions
+   - Image constraint is a patch, not intentional design
+
+3. **Not Flexible Aspect Ratios**
+   - Uses `aspect-ratio: auto` at desktop as compromise
+   - Better with consistent content that fits fixed ratios
+   - Adaptive height necessary due to content variation, but less visually uniform
+
+4. **Not Future-Proof for Content Growth**
+   - 4-column layout at 1500px assumes ~8 cards total
+   - More cards = need for pagination, lazy loading, or different layout
+   - Design assumes small, curated product collection
+
+#### Why These Trade-Offs Were Acceptable
+
+**Project Context:**
+- Gallery displays **fixed set of featured vehicles** (currently 8 cards)
+- Content is curated, not dynamically generated
+- No plans for user-added content or CMS integration
+- Marketing page, not product catalog
+
+**Decision:** Optimize for current content rather than hypothetical future scenarios.
+
+---
+
+### Alternative Approach: Fluid Grid (Not Implemented)
+
+**If the gallery were expected to grow (10+ cards, dynamic content), a better solution would be:**
+
+#### Fluid Grid with Auto-Fit
+
+```css
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  /* No fixed aspect-ratio, let content determine height */
+  aspect-ratio: auto;
+}
+```
+
+**Advantages:**
+- Automatically adjusts column count based on available space
+- Works with any number of cards (3, 5, 12, etc.)
+- No breakpoint-specific column declarations needed
+- Truly responsive without media queries
+
+**Why NOT used here:**
+
+1. **auto-fit creates uneven last row** - If 5 cards in 4-column layout, last card stretches full-width (awkward)
+2. **Loses design control** - Can't guarantee specific layouts at breakpoints (might get 3 columns where you want 2)
+3. **Card size variation** - Cards shrink/grow more than fixed-column approach
+4. **Current need doesn't justify complexity** - 8 static cards work perfectly with explicit column counts
+
+**When to use auto-fit:**
+- Product catalogs with 20+ items
+- User-generated content galleries
+- Admin-controlled collections with varying counts
+- When design flexibility > visual precision
+
+---
+
+### Possible Future Improvements
+
+#### 1. Image Standardization (Best Practice)
+
+**Current workaround:**
+```css
+.product-card .card-media {
+  max-height: 16rem; /* Constrains oversized images */
+}
+```
+
+**Better solution:**
+- Standardize all vehicle images to consistent dimensions (e.g., 1200x800px)
+- Crop/scale images during asset preparation, not in CSS
+- Remove max-height constraint once images are consistent
+- **Benefit:** More predictable layout, less CSS hacking
+
+**Implementation:**
+- Image editing: Resize all vehicle PNGs to 1200x800px (3:2 ratio)
+- Update workflow: Add image size requirements to asset guidelines
+- Remove CSS constraint once images updated
+
+---
+
+#### 2. Pagination or "Load More" Pattern
+
+**If card count grows beyond 12:**
+
+```html
+<!-- Show 8 cards initially -->
+<div class="gallery-grid" data-visible="8">
+  <!-- 16 cards total in HTML -->
+</div>
+
+<button class="btn load-more">View More Models</button>
+```
+
+```css
+.product-card:nth-child(n + 9) {
+  display: none; /* Hide cards 9+ initially */
+}
+
+.gallery-grid[data-visible="16"] .product-card {
+  display: grid; /* Show all when expanded */
+}
+```
+
+**Benefits:**
+- Faster initial page load (fewer rendered cards)
+- Cleaner visual experience (not overwhelming)
+- Current layout still works (2/4 column grid)
+- Progressive disclosure pattern
+
+---
+
+#### 3. Hybrid Layout: Fixed + Auto-Fit
+
+**For moderate scalability (10-16 cards):**
+
+```css
+/* Mobile: Fixed 1 column */
+@media (max-width: 529px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet: Auto-fit with min 280px */
+@media (min-width: 530px) and (max-width: 1499px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Desktop: Fixed 4 columns */
+@media (min-width: 1500px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
+
+**Benefits:**
+- Mobile/desktop: Controlled layouts (current behavior)
+- Tablet: Flexible between 2-3 columns based on viewport
+- Handles 8-16 cards gracefully
+- Maintains visual quality at key breakpoints
+
+---
+
+#### 4. Card Height Normalization
+
+**Current compromise:**
+```css
+.gallery-grid {
+  align-items: stretch; /* Force equal heights per row */
+}
+```
+
+**Better solution - Uniform content:**
+- Limit title to 1 line (truncate with ellipsis if needed)
+- Standardize subtitle length (e.g., max 50 characters)
+- Ensure all cards have same footer structure
+- **Benefit:** Can return to fixed aspect-ratios, simpler layout
+
+**Implementation:**
+```css
+.product-card .card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-card .card-subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Max 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+```
+
+---
+
+#### 5. Performance: Lazy Loading Images
+
+**For galleries with many cards (12+):**
+
+```html
+<img
+  class="card-media"
+  src="placeholder.png"
+  data-src="./src/images/electric-cabriolet.png"
+  loading="lazy"
+  alt="..."
+/>
+```
+
+```javascript
+// Intersection Observer for lazy loading
+const images = document.querySelectorAll("img[data-src]");
+const imageObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      imageObserver.unobserve(img);
+    }
+  });
+});
+
+images.forEach((img) => imageObserver.observe(img));
+```
+
+**Benefits:**
+- Faster initial page load
+- Reduced bandwidth for users who don't scroll
+- Better performance metrics (LCP, FCP)
+
+---
+
+#### 6. Accessibility: Keyboard Navigation for Color Dots
+
+**Current implementation:** Color dots are visual only (not interactive)
+
+**If color dots become interactive (filter/select colors):**
+
+```html
+<div class="color-dots" role="group" aria-label="Available colors">
+  <button class="color-dot gray" aria-label="Gray"></button>
+  <button class="color-dot red" aria-label="Red"></button>
+  <button class="color-dot blue" aria-label="Blue"></button>
+</div>
+```
+
+**Benefits:**
+- Keyboard navigable (Tab key)
+- Screen reader accessible
+- Could trigger color variant display
+- Follows WCAG 2.1 AA standards
+
+---
+
+### Summary: Current Solution Justification
+
+**Why current approach is appropriate for THIS project:**
+
+✅ **Fixed content** - 8 curated vehicles, not growing  
+✅ **Design precision** - Specific layouts at key breakpoints  
+✅ **Performance** - No unnecessary complexity  
+✅ **Maintainability** - Clear, explicit column declarations  
+✅ **Visual consistency** - Equal-height rows via stretch  
+
+**When to reconsider:**
+❌ Card count exceeds 12  
+❌ Content becomes user-generated  
+❌ CMS integration planned  
+❌ Need for filtering/sorting functionality  
+❌ Dynamic product catalog required  
+
+**The "perfect" solution doesn't exist** - this implementation optimizes for current requirements while documenting paths for future scaling if needed.
+
+---
+
+### References
+
+- File: [`src/css/sections/gallery.css`](../src/css/sections/gallery.css)
+- HTML: [`index.html`](../index.html) - Car gallery section
+- File: [`src/css/components/buttons.css`](../src/css/components/buttons.css)
+- Project rules: [`agents.md`](../agents.md) - Layout strategy, spacing system
+- Related: Features section uses similar card pattern with different layout approach
+- CSS Grid Guide: [CSS-Tricks Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- Responsive Images: [MDN Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+
+---
+
+## Maybach Sections (Red Luxury & Wheels)
 
 ### Problem 1: Card Image Sizing on Desktop
 
@@ -635,6 +1419,7 @@ window.addEventListener("resize", () => {
 ---
 
 ## References
+[↑ Back to Top](#table-of-contents)
 
 - File: [`src/css/components/nav.css`](../src/css/components/nav.css)
 - File: [`src/js/main.js`](../src/js/main.js)
@@ -817,6 +1602,7 @@ This same pattern can be applied to:
 ---
 
 ## References
+[↑ Back to Top](#table-of-contents)
 
 - File: [`src/css/sections/maybach.css`](../src/css/sections/maybach.css)
 - File: [`index.html`](../index.html) (Maybach Wheels section)
@@ -826,6 +1612,7 @@ This same pattern can be applied to:
 ---
 
 ## Button Centering Strategies (Development Journey)
+[↑ Back to Top](#table-of-contents)
 
 ### Overview
 
@@ -1105,6 +1892,7 @@ grid-template-areas: "content contact-button";
 ---
 
 ## Hero Section Implementation & Troubleshooting
+[↑ Back to Top](#table-of-contents)
 
 ### Overview
 
@@ -1421,6 +2209,7 @@ The hero section required complex responsive behavior: full-width background ima
 ---
 
 ## Car Gallery (Product Cards) System
+[↑ Back to Top](#table-of-contents)
 
 ### Overview
 
@@ -1725,6 +2514,7 @@ body {
 ---
 
 ## Features Section (Horizontal Scrolling Cards)
+[↑ Back to Top](#table-of-contents)
 
 ### Architecture Overview
 
@@ -1960,6 +2750,7 @@ This keeps the "no grow/shrink" behavior while adjusting card width at larger sc
 ---
 
 ## Maybach Sections (Red Luxury & Wheels)
+[↑ Back to Top](#table-of-contents)
 
 ### Architecture Overview
 
