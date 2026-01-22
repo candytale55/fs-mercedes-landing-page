@@ -7,9 +7,12 @@
 
 /* Base button style - White background with primary text */
 .btn {
-  display: inline-block;
+  display: inline-flex; /* Changed from inline-block */
+  align-items: center;
+  justify-content: center;
   width: fit-content; /* Buttons only as wide as their content */
-  padding-block: 0.75rem; /* 12px - Vertical padding */
+  min-height: 44px; /* WCAG minimum touch target size */
+  padding-block: 0; /* Let min-height + flexbox handle vertical space */
   padding-inline: 1.25rem; /* 20px - Horizontal padding */
   background-color: var(--white);
   color: var(--color-text-primary);
@@ -19,6 +22,7 @@
   text-align: center;
   letter-spacing: 0.5px;
   white-space: nowrap; /* Prevents text wrapping */
+  line-height: 1;
   border: none;
   border-radius: var(--border-radius-pill); /* 999px - Fully rounded */
   cursor: pointer;
