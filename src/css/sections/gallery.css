@@ -13,6 +13,7 @@
   display: grid;
   grid-template-columns: 1fr; /* Single column on mobile */
   gap: var(--spacing-flow); /* 1rem (16px) */
+
 }
 
 /* ===== CAR GALLERY CARDS ===== */
@@ -22,7 +23,7 @@
   aspect-ratio: 1 / 1; /* Enforces square shape regardless of content */
   display: grid;
   grid-template-rows: auto auto minmax(0, clamp(12rem, 40vw, 16rem)) auto; /* Title, subtitle, image (flexible), footer */
-  row-gap: 0.2rem; /* ~3px - Tight spacing between card elements */
+  row-gap: 0.5rem; /* 8px - Spacing between card elements inside card*/
   min-height: 0; /* Critical for grid children to shrink properly */
   min-width: 280px; /* Prevents cards from becoming too narrow */
   padding: var(--spacing-flow); /* 1rem (16px) */
@@ -49,6 +50,7 @@
   /* Gallery switches to 2-column grid */
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 1.5rem; /* 24px - Increased gap for 2-column layout */
   }
 }
 
@@ -56,18 +58,39 @@
 
 @media (min-width: 900px) {
   /* Left-align card text on desktop */
-  .product-card .card-subtitle {
-    text-align: left;
-  }
-
   .product-card .card-title {
     text-align: left;
+    font-size: var(--font-size-heading-large); /* 1.5rem (24px) */
+  }
+  .product-card .card-subtitle {
+    text-align: left;
+    font-size: var(--font-size-body-large); /* 1.125rem (18px) */
+     line-height: 1.4;
+  }
+
+
+  /* Constrain card maximum size to prevent excessive growth */
+  .product-card {
+    max-width: 600px; /* Prevents cards from becoming too large */
+    row-gap: 0.75rem; /* 12px - More spacing for larger cards */
+    padding-inline: 1.75rem; /* px - Increased horizontal padding */
+    grid-template-rows: auto auto minmax(0, clamp(14rem, 35vw, 18rem)) auto; /* Adjusted image area for larger cards */
+  }
+
+  /* Enlarge color dots for better visibility on desktop */
+  .color-dot {
+    width: 2.25rem; /* 36px - Larger on desktop */
+  }
+
+  /* Add breathing room above card footer */
+  .product-card .card-footer {
+    padding-top: 0.5rem; /* 8px - Balances footer positioning */
   }
 }
 
 /* ===== FOUR-COLUMN LAYOUT (1200px+) ===== */
 
-/* @media (min-width: 1200px) {
+@media (min-width: 1500px) {
   .car-gallery .container {
     max-width: none;
   }
@@ -75,7 +98,7 @@
   .gallery-grid {
     grid-template-columns: repeat(4, 1fr);
   }
-} */
+} 
 
 /* ===== CARD FOOTER: BUTTON + COLOR DOTS ===== */
 
@@ -143,5 +166,6 @@
   /* Show color dots on desktop */
   .product-card .color-dot {
     display: inline-block;
+    width: 2rem; /* 32px - Increased from 26.4px */
   }
 }
