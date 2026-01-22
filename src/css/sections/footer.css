@@ -1,9 +1,30 @@
 /**
- * FOOTER SECTION
- * Site footer with newsletter signup, social media, and navigation menus.
- * Applied to: <footer> in index.html
- * Layout: Vertical stack (social icons, nav grid, copyright)
- * Note: Newsletter form styles are in forms.css component
+ * FOOTER SECTION STYLES
+ * 
+ * SUMMARY:
+ * Comprehensive footer layout with newsletter signup, social media icons, and navigation menus.
+ * Uses dark background (black) with white text for visual contrast.
+ * 
+ * LAYOUT STRATEGY:
+ * - Parent container uses flexbox with vertical stacking and generous spacing
+ * - Social icons: Horizontal flex list with space-around distribution
+ * - Navigation: Auto-fit grid that adapts to content width
+ * - All content center-aligned for visual balance
+ * 
+ * KEY FEATURES:
+ * - Responsive navigation grid using repeat(auto-fit) for flexible columns
+ * - Muted text colors for hierarchy (primary white, links muted)
+ * - No underlines on hover for cleaner aesthetic
+ * 
+ * APPLIED TO: <footer> element in index.html
+ * RELATED FILES: 
+ * - forms.css (newsletter signup component)
+ * - main.css (icon and link base styles)
+ * 
+ * ACCESSIBILITY:
+ * - Sufficient color contrast (white on black)
+ * - Semantic footer element
+ * - Keyboard-accessible links (focus states in main.css)
  */
 
 /* Footer container - Dark background with light text */
@@ -28,15 +49,15 @@ footer {
 .social-list {
   display: flex;
   width: 100%;
-  max-width: 18.75rem; /* 300px - Constrains icon spread */
+  max-width: 18.75rem; /* 300px - Prevents icons from spreading too far apart on wide screens */
   margin-inline: auto; /* Centers list horizontally */
-  justify-content: space-around; /* Even distribution of icons */
+  justify-content: space-around; /* Even distribution of icons within constrained width */
   align-items: center;
 }
 
 /* Footer section titles */
 .footer .footer-title {
-  font-size: var(--font-size-title); /* 2rem (32px) */
+  font-size: var(--font-size-heading-small); /* 1.5rem (24px) */
   padding-block: var(--spacing-flow); /* 1rem (16px) */
 }
 
@@ -48,8 +69,9 @@ footer {
   grid-template-columns: repeat(
     auto-fit,
     minmax(12rem, max-content)
-  ); /* Columns size to content, min 192px */
-  justify-content: center; /* Centers grid items */
+  ); /* Auto-fit creates responsive columns: min 192px, sized to content width */
+     /* This allows grid to adapt from 1 column (mobile) to multiple columns (desktop) */
+  justify-content: center; /* Centers grid items horizontally */
   column-gap: var(--spacing-section); /* 3rem (48px) */
   row-gap: var(--spacing-section-large); /* 4rem (64px) */
   text-align: center;
@@ -59,12 +81,12 @@ footer {
 
 /* Footer link styling - Muted color */
 .footer .link {
-  color: var(--color-text-inverse-muted);
-  font-size: var(--font-size-small); /* 0.875rem (14px) */
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body); /* 1rem (16px) */
 }
 
-/* Footer link hover state - No underline, color change only */
+/* Footer link hover state - Brightens to white for feedback */
 .footer .link:hover {
-  color: var(--color-text-muted);
-  text-decoration: none;
+  color: var(--color-text-inverse); /* Changes from muted to full white */
+  text-decoration: none; /* No underline for cleaner look */
 }

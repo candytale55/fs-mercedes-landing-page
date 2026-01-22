@@ -1,8 +1,35 @@
 /**
- * FORMS COMPONENT
- * Newsletter signup form with pill-shaped input and button.
- * Applied to: Footer newsletter section in index.html
- * Features: Dark background, white text, "pill wrapper" pattern, autofill styling
+ * NEWSLETTER FORM COMPONENT
+ * 
+ * SUMMARY:
+ * Newsletter signup form featuring a "pill-shaped" design where the email input and 
+ * submit button are combined into a single rounded container with a unified border.
+ * 
+ * DESIGN PATTERN: Pill Input Wrapper
+ * - Outer container (.newsletter-sign-up-pill) provides the border and rounded shape
+ * - Inner input has transparent background so parent's border shows through
+ * - Button sits inside the same pill for cohesive appearance
+ * 
+ * KEY CHALLENGES SOLVED:
+ * 1. Browser autofill styling override (Chrome/Safari/Edge apply intrusive yellow background)
+ * 2. Transparent input that still shows parent border
+ * 3. Flexbox layout that keeps button inside pill while input expands
+ * 4. Proper vertical spacing between heading, form elements, and checkbox
+ * 
+ * LAYOUT STRATEGY:
+ * - Parent container (.newsletter-signup .container) uses flexbox vertical stack
+ * - Form (.newsletter-form) uses flexbox for input, button, and checkbox spacing
+ * - Pill wrapper uses horizontal flexbox with input flex: 1 to push button right
+ * 
+ * APPLIED TO: Newsletter section in footer (index.html)
+ * ACCESSIBILITY:
+ * - Proper label associations (including sr-only for visual design)
+ * - Required checkbox for consent
+ * - White text on black background (sufficient contrast)
+ * 
+ * BROWSER COMPATIBILITY:
+ * - Webkit autofill override using -webkit-text-fill-color and box-shadow trick
+ * - Standard border-radius for pill shape (supported in all modern browsers)
  */
 
 /* ========== Newsletter Section Container ========== */
@@ -13,9 +40,14 @@
   color: var(--color-text-inverse);
 }
 
-/* Center-align newsletter content */
+/* Center-align newsletter content with vertical spacing between title and form */
 .newsletter-signup .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers all children horizontally */
   text-align: center;
+  gap: var(--spacing-page); /* 0.65rem (10.4px) - Separates heading group from form elements */
+  /* Note: Gap creates space between direct children (heading vs form), not within them */
 }
 
 /* ========== Newsletter Form Layout ========== */
@@ -25,7 +57,7 @@
   flex-direction: column;
   display: flex;
   align-items: center;
-  gap: var(--spacing-flow); /* 1.5rem (24px) */
+  gap: var(--spacing-section-tight); /* 2rem (32px) */
   margin-inline: auto; /* Centers form horizontally */
 }
 
@@ -35,50 +67,69 @@
 }
 
 /* ========== Pill Input Wrapper ========== */
+/* 
+ * TECHNIQUE: Unified Pill Design
+ * The pill wrapper creates a single rounded container that holds both input and button.
+ * This differs from separate elements by providing a cohesive visual unit.
+ * The wrapper owns the border; the input is transparent so the border shows through.
+ */
 
-/* Pill wrapper - Contains input and creates outer border */
+/* Pill wrapper - Creates outer border and rounded container */
 .newsletter-sign-up-pill {
   display: flex;
-  flex-direction: row;
-  border: 1px solid var(--color-text-inverse);
-  border-radius: var(--border-radius-pill); /* 999px - Fully rounded */
+  flex-direction: row; /* Input and button sit side-by-side */
+  border: 1px solid var(--color-text-inverse); /* Single border wraps both elements */
+  border-radius: var(--border-radius-pill); /* 999px - Creates fully rounded ends */
 }
 
-/* Email input - Transparent background inside pill wrapper */
+/* Email input - Transparent background reveals parent's pill border */
 .newsletter-form input[type="email"] {
   color: var(--color-text-inverse);
-  flex: 1; /* Takes available space, pushes button right on wider screens */
+  flex: 1; /* Expands to fill available space, pushing button to the right edge */
 
-  border: none;
-  border-radius: var(--border-radius-pill); /* 999px - Matches wrapper */
+  border: none; /* No individual border - relies on parent's border */
+  border-radius: var(--border-radius-pill); /* 999px - Matches parent for seamless appearance */
   width: 100%;
-  max-width: 40rem; /* 640px - Prevents excessive width on large screens */
-  background-color: transparent; /* Allows parent pill border to show */
-  padding: var(--spacing-page); /* 1.5rem (24px) */
-  outline: none; /* Removes default focus ring */
+  max-width: 40rem; /* 640px - Prevents excessive width on very large screens */
+  background-color: transparent; /* Critical: allows parent's border to show through */
+  padding: var(--spacing-page); /* 0.65rem (10.4px) - Internal spacing */
+  outline: none; /* Removes default browser focus ring (accessibility handled by parent) */
 }
 
-/* Browser autofill styling override - Prevents default yellow/white background */
-/* Webkit browsers (Chrome, Safari, Edge) apply intrusive autofill styles */
+/* ========== Browser Autofill Override ========== */
+/* 
+ * PROBLEM: Webkit browsers (Chrome, Safari, Edge) apply intrusive autofill styles:
+ * - Yellow/blue background that overrides our transparent design
+ * - Can't be removed with standard CSS
+ * 
+ * SOLUTION: Two-part override technique
+ * 1. -webkit-text-fill-color: Forces text to stay white (overrides autofill text color)
+ * 2. -webkit-box-shadow: Creates a massive inset shadow that covers the autofill background
+ *    (Uses 1000px shadow to ensure coverage on any input size)
+ * 3. transition delay: Prevents autofill background from appearing for ~83 minutes
+ *    (Essentially permanent during a normal browsing session)
+ * 
+ * This maintains our transparent pill design even when browser suggests saved emails.
+ */
 .newsletter-form input:-webkit-autofill,
 .newsletter-form input:-webkit-autofill:hover,
 .newsletter-form input:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--color-text-inverse); /* Forces white text */
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* Large inset shadow covers background */
-  transition: background-color 5000s ease-in-out 0s; /* Delays autofill color for ~83 minutes */
+  -webkit-text-fill-color: var(--color-text-inverse); /* Maintains white text */
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* Covers autofill background with transparent shadow */
+  transition: background-color 5000s ease-in-out 0s; /* Delays autofill color change for ~83 minutes (effectively permanent) */
 }
 
 /* ========== Form Typography ========== */
 
 /* Newsletter kicker text above title */
 .newsletter-kicker {
-  font-size: var(--font-size-subheading); /* 1.125rem (18px) */
+  font-size: var(--font-size-subheading); /* 1.25rem (20px) */
 }
 
 /* Newsletter title - Override default section-title styling */
 .newsletter-signup .section-title {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-small); /* 0.875rem (14px) */
+  font-family: var(--font-family-base); /* Uses sans-serif instead of serif for modern feel */
+  font-size: var(--font-size-small); /* 0.875rem (14px) - Deliberately smaller than typical section titles */
 }
 
 /* Privacy policy link styling */
