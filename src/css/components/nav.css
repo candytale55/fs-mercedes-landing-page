@@ -1,17 +1,70 @@
 /**
- * NAVIGATION COMPONENT
- * Site header navigation with mobile overlay menu and desktop horizontal layout.
- * Applied to: <header> in index.html
- * Mobile: Full-screen slide-in overlay from right (< 550px)
- * Desktop: Horizontal inline navigation (≥ 550px)
+ * NAVIGATION COMPONENT - SITE HEADER
+ * 
+ * SUMMARY:
+ * Responsive navigation system featuring a mobile overlay menu that transforms into 
+ * horizontal desktop navigation at 550px breakpoint. Uses modern CSS techniques for 
+ * smooth transitions and accessibility.
+ * 
+ * LAYOUT PATTERNS:
+ * Mobile (< 550px):
+ * - Full-screen fixed overlay covering viewport
+ * - Slide-in animation from right (transform: translateX)
+ * - Close button positioned top-right
+ * - Burger menu toggle in header
+ * - Large touch-friendly text (2rem / 32px)
+ * 
+ * Desktop (≥ 550px):
+ * - Static horizontal inline navigation
+ * - No overlay, no animations
+ * - Burger and close buttons hidden
+ * - Links displayed inline with smaller text
+ * 
+ * HEADER STRUCTURE:
+ * - Grid layout with two columns: logo (1fr) + secondary nav (auto)
+ * - Primary nav: Logo + menu links (flexbox)
+ * - Secondary nav: Icons + burger button (flexbox)
+ * - Intentionally overrides .container max-width for full-width header
+ * 
+ * KEY FEATURES:
+ * 1. Smooth slide-in/out animation with opacity fade for menu items
+ * 2. Staggered transitions (transform → visibility → opacity)
+ * 3. Desktop explicitly resets all mobile properties with transition: none
+ * 4. Resize-safe: transitions disabled at breakpoint to prevent flash
+ * 5. Z-index hierarchy: overlay menu (1000) above all content
+ * 
+ * ACCESSIBILITY:
+ * - Semantic <nav> element (in HTML)
+ * - aria-expanded on burger button (JS-controlled)
+ * - visibility: hidden hides overlay from screen readers when closed
+ * - pointer-events: none prevents interaction when closed
+ * - Focus management (JS handles focus trap and restoration)
+ * - Keyboard support: Escape closes menu, Tab navigates links
+ * 
+ * STATE MANAGEMENT:
+ * - CSS controls layout and animations via .is-open class
+ * - JavaScript toggles .is-open and manages aria-expanded
+ * - matchMedia API syncs breakpoint behavior with CSS
+ * 
+ * APPLIED TO: <header class="header"> in index.html
+ * RELATED FILES:
+ * - main.js: Handles menu open/close, focus management, breakpoint detection
+ * - main.css: Base link styles, icon styles, focus indicators
+ * 
+ * BROWSER COMPATIBILITY:
+ * - inset shorthand (supported in all modern browsers)
+ * - CSS custom properties (variables)
+ * - transform, visibility, pointer-events
+ * - No polyfills required for target browsers (modern evergreen)
  */
 
 /* Header grid layout - Logo on left, secondary nav on right */
 .header-layout {
   display: grid;
   grid-template-columns: 1fr auto; /* Logo takes available space, secondary nav sizes to content */
+  max-width: 100%; /* Intentional override: allows full-width header (vs .container's 80rem constraint) */
   align-items: center;
-  gap: var(--nav-section-gap); /* 2rem (32px) */
+  gap: var(--nav-section-gap); /* 1rem (16px) */
 }
 
 /* ==== Primary navigation: Logo + menu links ==== */
@@ -20,7 +73,7 @@
 .main-nav {
   display: flex;
   align-items: center;
-  gap: var(--nav-section-gap); /* 2rem (32px) */
+  gap: var(--nav-section-gap); /* 1rem (16px) */
 }
 
 /* ==== Secondary navigation: Icons + burger button ==== */
@@ -38,7 +91,7 @@
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  gap: var(--nav-section-gap); /* 2rem (32px) */
+  gap: var(--nav-section-gap); /* 1rem (16px) */
 }
 
 /* ===== MOBILE OVERLAY MENU (< 550px) ===== */
@@ -52,7 +105,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-section-medium); /* 3rem (48px) */
+    gap: var(--spacing-section-medium); /* 2.5rem (40px) */
     align-items: center;
 
     margin: 0;
@@ -93,15 +146,15 @@
 
   /* Larger text for mobile overlay */
   .nav-link {
-    font-size: var(--font-size-mobile-menu); /* 1.5rem (24px) */
+    font-size: var(--font-size-mobile-menu); /* 2rem (32px) */
   }
 
   /* Close button - Fixed in top-right corner */
   .nav-close {
     position: absolute;
-    top: var(--spacing-page); /* 1.5rem (24px) */
-    right: var(--spacing-page); /* 1.5rem (24px) */
-    font-size: var(--font-size-mobile-menu); /* 1.5rem (24px) */
+    top: var(--spacing-page); /* 0.65rem (10.4px) */
+    right: var(--spacing-page); /* 0.65rem (10.4px) */
+    font-size: var(--font-size-mobile-menu); /* 2rem (32px) */
     line-height: 1; /* Removes extra space around icon */
   }
 }
@@ -114,7 +167,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--nav-section-gap); /* 2rem (32px) */
+    gap: var(--nav-section-gap); /* 1rem (16px) */
 
     /* Reset mobile overlay properties */
     position: static; /* Returns to document flow */
@@ -137,5 +190,16 @@
   .nav-toggle,
   .nav-close {
     display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-link {
+    font-size: var(--font-size-body-large); /* 1.125rem (18px) */
+    padding-inline-end: var(--spacing-page); /* 0.65rem (10.4px) - Right padding for link spacing */
+  }
+
+  .header {
+    padding-block: 0.3rem; /* 0.3rem (4.8px) - Subtle vertical padding for header breathing room */
   }
 }

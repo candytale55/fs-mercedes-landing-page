@@ -1,6 +1,15 @@
 
 # Design Decisions
 
+**<mark>
+Por favor IGNORAR 
+</mark>**
+
+Este documento son notas que quiero conservar en el repositorio, pero no están pensadas para servir como documentación, sino como notas personales.
+
+Pensaba quitarlas y guardarlas en otro sitio, pero lo más seguro es que se me van a perder si hago esto.  😬 Así que <mark>por favor, este archivo como si no existiera.  
+</mark>
+
 ## Overview
 
 This document tracks key design decisions made during the development of the Mercedes-Benz landing page.
@@ -241,6 +250,9 @@ Chrome and Safari apply default yellow/white backgrounds to autofilled inputs. T
 - `transition: background-color 5000s` delays the default background change for 5000 seconds (effectively forever)
 - `-webkit-text-fill-color` ensures text remains visible against dark background
 
+References ("To Read"): 
+- https://medium.com/@LeapHawk/removing-google-chrome-auto-fill-input-field-yellow-background-36ad98171f7d
+
 **Design Rationale:**
 
 1. **User Experience**
@@ -327,6 +339,43 @@ Desktop (≥ 550px):
 - Defensive checks (`if (!openBtn || !menu) return`)
 - `matchMedia` listener detects breakpoint changes
 - Separate `resize` listener handles flash prevention
+
+---
+
+### Responsive Layout Enhancements
+
+**Full-Width Header Override (All Breakpoints):**
+
+The header intentionally overrides the `.container` max-width constraint to create a full-width navigation bar:
+
+```css
+.header-layout {
+  max-width: 100%; /* Overrides .container's 80rem (1280px) constraint */
+}
+```
+
+**Why:** Other sections (gallery, features, footer) benefit from centered max-width containers, but the navigation should span the full viewport width for better visual hierarchy and brand presence. The logo and navigation links stretch to screen edges on all devices.
+
+**Desktop Spacing Refinements (≥ 768px):**
+
+At larger viewports, the header receives subtle vertical padding for improved visual breathing room:
+
+```css
+@media (min-width: 768px) {
+  .header {
+    padding-block: 0.3rem; /* 4.8px - Adds subtle vertical height to header bar */
+  }
+
+  .nav-link {
+    padding-inline-end: var(--spacing-page); /* 0.65rem (10.4px) - Right padding for link spacing */
+  }
+}
+```
+
+**Design Rationale:**
+- **Subtle height increase:** The 0.3rem padding-block creates a more substantial header presence on desktop without overwhelming the hero section below
+- **Consistent horizontal spacing:** Link padding uses the same `--spacing-page` variable as other UI elements for systematic spacing
+- **Progressive enhancement:** Mobile gets compact header (no extra padding), desktop gets refined spacing
 
 ---
 
