@@ -1,8 +1,19 @@
 /**
  * MAYBACH SECTIONS
- * Two distinct Maybach showcase sections with different layouts.
- * Applied to: Maybach Red (image overlay) and Maybach Wheels (split layout) sections
- * Patterns: Stacked mobile → overlay/grid desktop, responsive typography, glassmorphism
+ * 
+ * Two vehicle showcase sections with distinct responsive layouts:
+ * 
+ * 1. MAYBACH RED - Full-width image with text overlay
+ *    - Mobile: Stacked grid (image + text below)
+ *    - Desktop (768px+): Absolute positioned text overlay on bottom-left
+ *    - Techniques: transform scale for zoom effect, fluid typography with clamp()
+ * 
+ * 2. MAYBACH WHEELS - Split content layout with image
+ *    - Mobile: Vertical stack (title → image → content)
+ *    - Desktop (650px+): Two-column grid with grid-template-areas
+ *    - Techniques: Named grid areas for flexible reordering, flexbox button alignment
+ * 
+ * Key responsive patterns: Mobile-first, viewport-based fluid sizing, overlay positioning
  */
 
 /* ========== MAYBACH RED SECTION ========== */
@@ -105,6 +116,7 @@
       50vw,
       30rem
     ); /* 224px → 50% viewport → 480px - Constrains line length */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
   }
 }
 

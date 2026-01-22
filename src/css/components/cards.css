@@ -10,7 +10,7 @@
   background-color: var(--color-background-cards);
   border-radius: var(
     --border-radius-medium
-  ); /* 10px - Medium rounded corners */
+  ); /* 15px - Medium rounded corners */
 }
 
 /* Note: Layout (padding, grid placement, content arrangement) is handled in:
