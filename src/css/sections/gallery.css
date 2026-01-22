@@ -67,17 +67,15 @@
 
 /* ===== FOUR-COLUMN LAYOUT (1200px+) ===== */
 
-@media (min-width: 1200px) {
-  /* Remove container width constraint for full-width grid */
+/* @media (min-width: 1200px) {
   .car-gallery .container {
     max-width: none;
   }
 
-  /* Gallery switches to 4-column grid */
   .gallery-grid {
-    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+    grid-template-columns: repeat(4, 1fr);
   }
-}
+} */
 
 /* ===== CARD FOOTER: BUTTON + COLOR DOTS ===== */
 
