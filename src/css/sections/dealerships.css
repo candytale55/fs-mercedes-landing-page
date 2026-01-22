@@ -16,7 +16,7 @@
 
 /* Dealer section title */
 .dealer-intro .section-title {
-  font-size: var(--font-size-title); /* 2rem (32px) */
+  font-size: var(--font-size-title-large); /* 2rem (32px) */
 }
 
 /* Force title spans to stack on multiple lines for better mobile readability */
@@ -27,9 +27,6 @@
 /* Dealer intro paragraph */
 .dealer-intro p {
   font-size: var(--font-size-body-large); /* 1.125rem (18px) */
-  padding-inline: var(
-    --spacing-flow
-  ); /* 1rem (16px) - Breathing room on sides */
 }
 
 /* ===== TABLET DEALER INTRO (549px+) ===== */
@@ -56,7 +53,19 @@
   }
 }
 
+
+
+
+
+/* ================================================= */
+
+/* ================================================= */
+
 /* ========== DEALER MAP WITH OVERLAY CARD ========== */
+
+/* ================================================= */
+
+
 
 /* Dealer map - Background image with dark overlay */
 .dealer-map {
@@ -77,12 +86,12 @@
   min-height: clamp(400px, 65vh, 600px); /* 400px → 65% viewport → 600px */
 }
 
-/* Dealer card - Glassmorphism overlay card on map */
+/* Dealer card - overlay card on map */
 .dealer-card {
   /* Transparent white background (glassmorphism effect) */
   background-color: rgba(255, 255, 255, 0.2); /* 20% opacity white */
   border-radius: var(--border-radius-medium); /* 15px */
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  border: 1px solid rgba(255, 255, 255, 0.1); 
 
   text-align: center;
 
@@ -132,9 +141,8 @@
 @media (min-width: 600px) {
   /* Position card to left side */
   .dealer-map {
-    justify-content: start; /* Aligns card to left */
-    align-items: center;
-
+    justify-content: start; /* Aligns card to left horizontally */
+    align-items: center; /* Centers card vertically */
     /* Desktop: Much taller map */
     min-height: clamp(600px, 80vh, 1000px); /* 600px → 80% viewport → 1000px */
   }
@@ -162,5 +170,10 @@
   /* Restore default section spacing on large screens */
   .dealerships.section {
     padding-block: var(--spacing-section); /* 3rem (48px) */
+  }
+
+  /* Left-align card with dealer-intro content */
+  .dealer-map .container {
+    padding-inline-start: var(--spacing-section); /* 3rem (48px) */
   }
 }

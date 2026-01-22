@@ -26,6 +26,9 @@
 
   /* Semantic Aliases - Map context-specific names to base scale */
   --font-size-title: var(--font-size-heading); /* 2rem (32px) - Card titles */
+  --font-size-title-large: var(
+    --font-size-heading-large
+  ); /* 2.5rem (40px) - Section titles on medium screens */
   --font-size-mobile-menu: var(
     --font-size-heading
   ); /* 2rem (32px) - Mobile nav links */
