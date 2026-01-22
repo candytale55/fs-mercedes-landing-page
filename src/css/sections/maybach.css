@@ -62,6 +62,7 @@
     position: relative;
     display: block; /* Image drives height */
     overflow: hidden; /* Crops horizontal overflow */
+    background-color: var(--white); /* Fallback background  - Solves the issue when shrinking*/
   }
 
   /* Full-height image, natural width */
@@ -95,15 +96,24 @@
     color: var(--color-text-inverse);
     font-size: clamp(
       0.6rem,
-      1vw,
-      1.2rem
-    ); /* Fluid: ~10px → 1% viewport → 19px */
+      2vw,
+      var(--font-size-body-small)
+    ); /* Fluid: ~10px → 2% viewport → 14px */
     line-height: var(--line-height-body); /* 1.6 */
     max-width: clamp(
       14rem,
-      25vw,
-      18rem
-    ); /* 224px → 25% viewport → 288px - Constrains line length */
+      50vw,
+      30rem
+    ); /* 224px → 50% viewport → 480px - Constrains line length */
+  }
+}
+
+/* ===== LARGE DESKTOP (1200px+) ===== */
+
+@media (min-width: 1200px) {
+  .maybach-red p {
+    font-size: var(--font-size-body-small); /* 0.875rem (14px) */
+    max-width: 30rem; /* 480px */
   }
 }
 
