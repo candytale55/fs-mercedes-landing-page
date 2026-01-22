@@ -164,7 +164,11 @@
 .maybach-wheels .card-media {
   grid-area: image;
   border-radius: var(--border-radius-medium); /* 15px */
+  max-width: min(100%, 28rem); /* 448px max on mobile, prevents oversized image */
+  margin-inline: auto; /* Centers image when constrained */
 }
+
+
 
 /* Wheels content area */
 .maybach-wheels .maybach-content {
@@ -182,6 +186,9 @@
 /* ===== DESKTOP: TWO-COLUMN LAYOUT (650px+) ===== */
 
 @media (min-width: 650px) {
+  .maybach-wheels {
+    padding-inline-start: var(--spacing-section); /* 3rem (48px) */
+  }
   /* Two columns: Title/content left, image right */
   .maybach-wheels .split-layout {
     gap: var(--spacing-section); /* 3rem (48px) */
@@ -214,6 +221,7 @@
   .maybach-content .btn {
     align-self: flex-start;
   }
+
 }
 
 /* ===== DESKTOP LARGE: LARGER TYPOGRAPHY (900px+) ===== */
@@ -233,10 +241,5 @@
     font-size: var(--font-size-body-large); /* 1.125rem (18px) */
     padding-block: var(--spacing-flow); /* 1rem (16px) */
     padding-inline-end: var(--spacing-section); /* 3rem (48px) */
-  }
-
-  /* Constrain image width */
-  .maybach-wheels .card-media {
-    max-width: var(--max-width-card-media); /* 32rem (512px) */
   }
 }

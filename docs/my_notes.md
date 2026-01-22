@@ -1,5 +1,5 @@
 
-# Design Decisions
+# Project Notes
 
 **<mark>
 Por favor IGNORAR 
@@ -16,7 +16,7 @@ This document tracks key design decisions made during the development of the Mer
 
 ## Table of Contents
 
-- [Decisions](#decisions)
+- [Initial Decisions](#decisions)
 - [Mobile Navigation System](#mobile-navigation-system)
 - [Navigation Flash Issue (Resize Transition)](#navigation-flash-issue-resize-transition)
 - [Car Gallery (Product Cards) System](#car-gallery-product-cards-system)
@@ -30,7 +30,7 @@ This document tracks key design decisions made during the development of the Mer
 
 ---
 
-## Decisions
+## Initial Decisions 
 [↑ Back to Top](#table-of-contents)
 
 ### CSS Architecture
@@ -3194,6 +3194,51 @@ Combined with container `overflow: hidden` to crop horizontal overflow only.
 - ✅ Responsive typography scaling
 - ✅ Image border-radius for visual polish
 - ✅ No magic numbers - layout-driven constraints
+- ✅ Image size control via `max-width: min(100%, 28rem)` prevents oversizing on mobile/tablet
+- ✅ Consistent 28rem (448px) max across all breakpoints prioritizes text space
+
+### Responsive Image Sizing Strategy (Maybach Wheels)
+
+**Challenge:** The wheel image needs to scale responsively but shouldn't dominate the layout at larger viewports where text space is more valuable.
+
+**Solution:** Use `min(100%, 28rem)` pattern for progressive constraint
+
+```css
+/* Base: All breakpoints */
+.maybach-wheels .card-media {
+  max-width: min(100%, 28rem); /* 448px max */
+  margin-inline: auto; /* Centers when constrained */
+}
+```
+
+**How it works:**
+
+1. **Small screens (< 448px):** `min()` picks `100%` → image fills container
+2. **Mid-range (448px - 650px):** `min()` picks `28rem` → image stops growing
+3. **Two-column (650px+):** Grid column (`1fr`) naturally constrains to ~50% container width
+4. **Large desktop (900px+):** Image stays at 28rem despite typography scaling up
+
+**Why 28rem specifically:**
+
+- Large enough for visual impact on mobile (fills most width)
+- Small enough to not dominate desktop two-column layout
+- Allows text content to breathe at larger viewports
+- Prevents sudden "jump" when crossing breakpoints
+
+**Alternative considered (rejected):** Expanding image to 32rem at 900px
+
+```css
+/* ❌ REMOVED - caused sudden jump */
+@media (min-width: 900px) {
+  .maybach-wheels .card-media {
+    max-width: 32rem; /* Jumped 64px at breakpoint */
+  }
+}
+```
+
+**Problem:** At 900px, image suddenly grew from 448px → 512px while typography also scaled up. This created a jarring transition and took valuable space away from the larger text.
+
+**Lesson:** When typography scales at a breakpoint, consider keeping supporting visuals static. Let text take the extra space.
 
 ### Key Takeaways for Future Self
 
