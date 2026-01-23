@@ -219,6 +219,8 @@ https://mercedes-landing-page.netlify.app/
 
 Nota: En algunas ocasiones Visual Studio modifica automáticamente el cierre de etiquetas al actualizar archivos, lo que puede afectar validaciones puntuales.
 
+![Validación 3WC](../docs/shots/w3c-validation-screenshot.png)
+
 ---
 
 ### ✅ Buena semántica y accesibilidad
@@ -253,7 +255,9 @@ El `<head>` incluye:
 - Open Graph (Facebook, LinkedIn, Discord)
 - Twitter Card (summary large image)
 
-Las etiquetas Open Graph fueron validadas con socialsharepreview.com.
+Las etiquetas Open Graph fueron validadas con [socialsharepreview.com](https://socialsharepreview.com/?url=https://mercedes-landing-page.netlify.app/).
+
+
 
 ---
 
