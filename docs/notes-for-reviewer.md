@@ -170,6 +170,13 @@ Los breakpoints fueron escogidos en base al aspecto de la página en cada tamañ
 
 El HTML ha sido validado con [W3C Validator](https://validator.w3.org/) sin errores. 
 
+Página del proyecto: https://mercedes-landing-page.netlify.app/
+
+En el momento de enviar el proyecto, pasaba todas las pruebas. 
+
+![Validación 3WC](../docs/shots/w3c-validation-screenshot.png)
+
+Encontré que a veces VisualStudio modifica el código automáticamente al hacer actualizaciones alterando la sintaxis del cierre de etiquetas.  
 
 ### ✅ Buena semántica y accesibilidad
 
