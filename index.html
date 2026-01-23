@@ -1,703 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- ===== Character Encoding & Viewport ===== -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ===== SEO Meta Tags ===== -->
-    <!-- Page description for search engines (150-160 characters recommended) -->
-    <meta
-      name="description"
-      content="Explore the new Mercedes-Benz CLS. Discover world-class luxury, innovative technology, and the power of the Maybach engine in our latest coupe models."
-    />
+<head>
+  <!-- ===== Character Encoding & Viewport ===== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Canonical URL to avoid duplicate content issues -->
-    <link rel="canonical" href="https://mercedes-landing-page.netlify.app/" />
+  <!-- ===== SEO Meta Tags ===== -->
+  <!-- Page description for search engines (150-160 characters recommended) -->
+  <meta name="description"
+    content="Explore the new Mercedes-Benz CLS. Discover world-class luxury, innovative technology, and the power of the Maybach engine in our latest coupe models." />
 
-    <!-- Search engine crawling instructions -->
-    <meta name="robots" content="index, follow" />
+  <!-- Canonical URL to avoid duplicate content issues -->
+  <link rel="canonical" href="https://mercedes-landing-page.netlify.app/" />
 
-    <!-- Page title  -->
-    <title>Mercedes-Benz CLS | Elegance and Power in Motion</title>
+  <!-- Search engine crawling instructions -->
+  <meta name="robots" content="index, follow" />
 
-<!-- ===== Open Graph / Social Media (Facebook, LinkedIn, Discord) ===== -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mercedes-landing-page.netlify.app/" />
-    <meta property="og:site_name" content="Mercedes-Benz" />
-    <meta property="og:title" content="Mercedes-Benz CLS | Elegance and Power in Motion" />
-    <meta property="og:description" content="Explore the new Mercedes-Benz CLS. Discover world-class luxury, innovative technology, and the power of the Maybach engine." />
-    
-    <!-- Image for Facebook/LinkedIn: Optimized 1200x630 -->
-    <meta property="og:image" content="https://mercedes-landing-page.netlify.app/src/images/og-mercedes-share.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="A white Mercedes-Benz CLS driving on a scenic road at sunset" />
+  <!-- Page title  -->
+  <title>Mercedes-Benz CLS | Elegance and Power in Motion</title>
 
-    <!-- ===== Twitter Card ===== -->
-<!-- Twitter Specific -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content="@MercedesBenz" /> <!-- Optional but helps -->
-<meta name="twitter:title" content="Mercedes-Benz CLS | Elegance and Power in Motion" />
-<meta name="twitter:description" content="Explore the new Mercedes-Benz CLS. Discover world-class luxury and innovative technology." />
-<meta name="twitter:url" content="https://mercedes-landing-page.netlify.app/" />
-    
-    <!-- Image for Twitter: Must match the og:image for consistency -->
-    <meta name="twitter:image" content="https://mercedes-landing-page.netlify.app/src/images/og-mercedes-share.jpg" />
+  <!-- ===== Open Graph / Social Media (Facebook, LinkedIn, Discord) ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mercedes-landing-page.netlify.app/" />
+  <meta property="og:site_name" content="Mercedes-Benz" />
+  <meta property="og:title" content="Mercedes-Benz CLS | Elegance and Power in Motion" />
+  <meta property="og:description"
+    content="Explore the new Mercedes-Benz CLS. Discover world-class luxury, innovative technology, and the power of the Maybach engine." />
 
-    <!-- ===== Favicon ===== -->
-    <!-- Add favicon.ico to root directory -->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="./src/images/icon-mercedes.svg"
-    />
+  <!-- Image for Facebook/LinkedIn: Optimized 1200x630 -->
+  <meta property="og:image" content="https://mercedes-landing-page.netlify.app/src/images/og-mercedes-share.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A white Mercedes-Benz CLS driving on a scenic road at sunset" />
 
-    <!-- ===== Fonts ===== -->
-    <!-- Preconnect to Google Fonts for faster loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- ===== Twitter Card ===== -->
+  <!-- Twitter Specific -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@MercedesBenz" /> <!-- Optional but helps -->
+  <meta name="twitter:title" content="Mercedes-Benz CLS | Elegance and Power in Motion" />
+  <meta name="twitter:description"
+    content="Explore the new Mercedes-Benz CLS. Discover world-class luxury and innovative technology." />
+  <meta name="twitter:url" content="https://mercedes-landing-page.netlify.app/" />
 
-    <!-- Load ABeeZee (body) and Abhaya Libre (headings) fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Abhaya+Libre:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Image for Twitter: Must match the og:image for consistency -->
+  <meta name="twitter:image" content="https://mercedes-landing-page.netlify.app/src/images/og-mercedes-share.jpg" />
 
-    <!-- ===== Project CSS StyleSheets ===== -->
-    <!-- Design tokens and variables -->
-    <link rel="stylesheet" href="src/css/variables.css" />
+  <!-- ===== Favicon ===== -->
+  <!-- Add favicon.ico to root directory -->
+  <link rel="icon" type="image/x-icon" href="./src/images/icon-mercedes.svg" />
 
-    <!-- Base styles and layout primitives -->
-    <link rel="stylesheet" href="src/css/main.css" />
-    <link rel="stylesheet" href="src/css/utilities.css" />
+  <!-- ===== Fonts ===== -->
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Reusable components -->
-    <link rel="stylesheet" href="src/css/components/buttons.css" />
-    <link rel="stylesheet" href="src/css/components/cards.css" />
-    <link rel="stylesheet" href="src/css/components/nav.css" />
-    <link rel="stylesheet" href="src/css/components/forms.css" />
-    <link rel="stylesheet" href="src/css/components/modal.css" />
+  <!-- Load ABeeZee (body) and Abhaya Libre (headings) fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Abhaya+Libre:wght@400;600;700&display=swap"
+    rel="stylesheet" />
 
-    <!-- Section-specific styles -->
-    <link rel="stylesheet" href="src/css/sections/hero.css" />
-    <link rel="stylesheet" href="src/css/sections/gallery.css" />
-    <link rel="stylesheet" href="src/css/sections/dealerships.css" />
-    <link rel="stylesheet" href="src/css/sections/features.css" />
-    <link rel="stylesheet" href="src/css/sections/maybach.css" />
-    <link rel="stylesheet" href="src/css/sections/appointment.css" />
-    <link rel="stylesheet" href="src/css/sections/footer.css" />
-  </head>
+  <!-- ===== Project CSS StyleSheets ===== -->
+  <!-- Design tokens and variables -->
+  <link rel="stylesheet" href="src/css/variables.css" />
 
-  <body>
-    <!-- ===== Header ===== -->
-    <header class="header">
-      <div class="container gutter header-layout">
-        <!-- Primary Navigation -->
-        <nav class="main-nav" aria-label="Primary navigation">
-          <a
-            class="logo-link"
-            href="#primary-menu"
-            aria-label="Mercedes-Benz home"
-          >
-            <img
-              class="logo"
-              src="./src/images/icon-mercedes.svg"
-              alt="Mercedes-Benz three-pointed star logo"
-            />
-          </a>
+  <!-- Base styles and layout primitives -->
+  <link rel="stylesheet" href="src/css/main.css" />
+  <link rel="stylesheet" href="src/css/utilities.css" />
 
-          <ul id="primary-menu" class="main-nav-list">
-            <li>
-              <button
-                class="nav-close btn-icon"
-                type="button"
-                aria-label="Close menu"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </li>
-            <li>
-              <a class="nav-link" href="#electric">Electric</a>
-            </li>
-            <li>
-              <a class="nav-link" href="#maybach">Maybach</a>
-            </li>
-            <li>
-              <a class="nav-link" href="#accessories">Accessories</a>
-            </li>
-            <li>
-              <a class="nav-link" href="#dealerships">Stores</a>
-            </li>
-          </ul>
-        </nav>
+  <!-- Reusable components -->
+  <link rel="stylesheet" href="src/css/components/buttons.css" />
+  <link rel="stylesheet" href="src/css/components/cards.css" />
+  <link rel="stylesheet" href="src/css/components/nav.css" />
+  <link rel="stylesheet" href="src/css/components/forms.css" />
+  <link rel="stylesheet" href="src/css/components/modal.css" />
 
-        <!-- Secondary Navigation -->
-        <nav class="secondary-nav" aria-label="Account and shopping">
-          <ul class="secondary-nav-list">
-            <li>
-              <a
-                class="icon-link"
-                href="#primary-menu"
-                aria-label="Access your account"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/user-icon.png"
-                  alt="User account"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                class="icon-link"
-                href="#primary-menu"
-                aria-label="View shopping bag"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/shopping-bag-icon.png"
-                  alt="Shopping bag"
-                />
-              </a>
-            </li>
-            <li>
-              <!-- Burger Menu Button -->
-              <button
-                class="nav-toggle btn-icon"
-                type="button"
-                aria-label="Open menu"
-                aria-expanded="false"
-                aria-controls="primary-menu"
-              >
-                &#9776;
-              </button>
-            </li>
-          </ul>
-        </nav>
+  <!-- Section-specific styles -->
+  <link rel="stylesheet" href="src/css/sections/hero.css" />
+  <link rel="stylesheet" href="src/css/sections/gallery.css" />
+  <link rel="stylesheet" href="src/css/sections/dealerships.css" />
+  <link rel="stylesheet" href="src/css/sections/features.css" />
+  <link rel="stylesheet" href="src/css/sections/maybach.css" />
+  <link rel="stylesheet" href="src/css/sections/appointment.css" />
+  <link rel="stylesheet" href="src/css/sections/footer.css" />
+</head>
+
+<body>
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="container gutter header-layout">
+      <!-- Primary Navigation -->
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a class="logo-link" href="#primary-menu" aria-label="Mercedes-Benz home">
+          <img class="logo" src="./src/images/icon-mercedes.svg" alt="Mercedes-Benz three-pointed star logo" />
+        </a>
+
+        <ul id="primary-menu" class="main-nav-list">
+          <li>
+            <button class="nav-close btn-icon" type="button" aria-label="Close menu">
+              <span aria-hidden="true">×</span>
+            </button>
+          </li>
+          <li>
+            <a class="nav-link" href="#electric">Electric</a>
+          </li>
+          <li>
+            <a class="nav-link" href="#maybach">Maybach</a>
+          </li>
+          <li>
+            <a class="nav-link" href="#accessories">Accessories</a>
+          </li>
+          <li>
+            <a class="nav-link" href="#dealerships">Stores</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Secondary Navigation -->
+      <nav class="secondary-nav" aria-label="Account and shopping">
+        <ul class="secondary-nav-list">
+          <li>
+            <a class="icon-link" href="#primary-menu" aria-label="Access your account">
+              <img class="icon" src="./src/images/user-icon.png" alt="User account" />
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="#primary-menu" aria-label="View shopping bag">
+              <img class="icon" src="./src/images/shopping-bag-icon.png" alt="Shopping bag" />
+            </a>
+          </li>
+          <li>
+            <!-- Burger Menu Button -->
+            <button class="nav-toggle btn-icon" type="button" aria-label="Open menu" aria-expanded="false"
+              aria-controls="primary-menu">
+              &#9776;
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="sr-only">Mercedes-Benz landing page</h1>
+
+    <!-- ===== Hero ===== -->
+    <section class="section section-flush hero" aria-label="Hero">
+      <img class="hero-img" src="./src/images/mercedes-benz-coupe-hero.jpeg"
+        alt="Mercedes-Benz coupe in motion, front-side view." />
+      <div class="container hero-content gutter">
+        <h2 class="section-title hero-subtitle">New Mercedes CLS</h2>
+        <p class="hero-tagline">The power in your hands</p>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <h1 class="sr-only">Mercedes-Benz landing page</h1>
-
-      <!-- ===== Hero ===== -->
-      <section class="section section-flush hero" aria-label="Hero">
-        <img
-          class="hero-img"
-          src="./src/images/mercedes-benz-coupe-hero.jpeg"
-          alt="Mercedes-Benz coupe in motion, front-side view."
-        />
-        <div class="container hero-content gutter">
-          <h2 class="section-title hero-subtitle">New Mercedes CLS</h2>
-          <p class="hero-tagline">The power in your hands</p>
-        </div>
-      </section>
-
-      <!-- ===== Car Gallery ===== -->
-      <section id="electric" class="section car-gallery">
-        <div class="container gutter">
-          <h2 class="sr-only">Vehicle gallery</h2>
-          <div class="card-grid gallery-grid">
-            <!-- Electric Convertible -->
-            <article class="card product-card">
-              <h3 class="card-title">Electric</h3>
-              <p class="card-subtitle">Mercedes E450 Cabriolet</p>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-silver-convertible.png"
-                alt="Mercedes-Benz convertible in silver, front-side view."
-              />
-              <div class="card-footer">
-                <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More Info</a>
-                <div class="color-dots">
-                  <span
-                    class="color-dot gray"
-                    aria-label="Gray color option"
-                  ></span>
-                  <span
-                    class="color-dot red"
-                    aria-label="Red color option"
-                  ></span>
-                  <span
-                    class="color-dot blue"
-                    aria-label="Blue color option"
-                  ></span>
-                  <span
-                    class="color-dot black"
-                    aria-label="Black color option"
-                  ></span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Hybrid SUV -->
-            <article class="card product-card">
-              <h3 class="card-title">Hybrid</h3>
-              <p class="card-subtitle">Mercedes GLC SUV</p>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-black-suv.png"
-                alt="Black Mercedes-Benz SUV, front-side view."
-              />
-              <div class="card-footer">
-                <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More Info</a>
-                <div class="color-dots">
-                  <span
-                    class="color-dot black"
-                    aria-label="Black color option"
-                  ></span>
-                  <span
-                    class="color-dot yellow"
-                    aria-label="Yellow color option"
-                  ></span>
-                  <span
-                    class="color-dot red"
-                    aria-label="Red color option"
-                  ></span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Hybrid G-Class -->
-            <article class="card product-card">
-              <h3 class="card-title">Hybrid</h3>
-              <p class="card-subtitle">Mercedes-Benz G-Class</p>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-black-offroad-suv.png"
-                alt="Black Mercedes-Benz off-road SUV, front-side view."
-              />
-              <div class="card-footer">
-                <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More Info</a>
-                <div class="color-dots">
-                  <span
-                    class="color-dot black"
-                    aria-label="Black color option"
-                  ></span>
-                  <span
-                    class="color-dot slate-blue"
-                    aria-label="Slate blue color option"
-                  ></span>
-                  <span
-                    class="color-dot muted-red"
-                    aria-label="Muted red color option"
-                  ></span>
-                </div>
-              </div>
-            </article>
-
-            <!-- Electric Sports Coupe -->
-            <article class="card product-card">
-              <h3 class="card-title">Electric</h3>
-              <p class="card-subtitle">Mercedes GLC SUV</p>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-silver-sports-coupe.png"
-                alt="Silver Mercedes-Benz sports coupe, front-side view."
-              />
-              <div class="card-footer">
-                <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More Info</a>
-                <div class="color-dots">
-                  <span
-                    class="color-dot black"
-                    aria-label="Black color option"
-                  ></span>
-                  <span
-                    class="color-dot yellow"
-                    aria-label="Yellow color option"
-                  ></span>
-                  <span
-                    class="color-dot red"
-                    aria-label="Red color option"
-                  ></span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Dealerships ===== -->
-      <section id="dealerships" class="section section-compact dealerships">
-        <div class="container gutter stack dealer-intro">
-          <h2 class="section-title">
-            <span>Find your nearest <span></span>Mercedes dealer</span>
-          </h2>
-          <p>
-            <span>Browse over 1000 dealers worldwide, and </span>
-            <span>find the one that best suits your situation.</span>
-          </p>
-        </div>
-
-        <div class="dealer-map gutter">
-          <!-- Added gutter for edge protection on mobile -->
-          <div class="container">
-            <!-- Keeps the card from getting too wide on tablets -->
-            <div class="dealer-card stack">
-              <h3 class="dealer-title">
-                <span>Discover your </span> <span>local Mercedes </span>
-                <span>partner store </span>
-              </h3>
-              <a
-                class="btn btn-wide"
-                href="https://www.mercedes-benz.es/passengercars/brand/locations.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Find a partner store near you</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Features ===== -->
-      <section id="accessories" class="section features">
-        <div class="container gutter">
-          <h2 class="sr-only">Features</h2>
-          <div class="features-track h-scroll">
-            <!-- Comfort Feature -->
-            <article class="card feature-card stack">
-              <h3 class="card-title">Comfort</h3>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-interior-comfort.jpg"
-                alt="Luxurious Mercedes-Benz interior with wide digital display and ambient lighting, showcasing comfort features."
-              />
-              <a
-                class="btn"
-                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features-interior"
-                target="_blank"
-                rel="noopener noreferrer"
-                >More Info</a
-              >
-            </article>
-
-            <!-- Technology Feature -->
-            <article class="card feature-card stack">
-              <h3 class="card-title">Technology</h3>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-led-headlight-technology.png"
-                alt="Close-up of a Mercedes-Benz LED headlight with modern lighting technology."
-              />
-              <a
-                class="btn"
-                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features"
-                target="_blank"
-                rel="noopener noreferrer"
-                >More Info</a
-              >
-            </article>
-
-            <!-- Accessories Feature -->
-            <article class="card feature-card stack">
-              <h3 class="card-title">Accessories</h3>
-              <img
-                class="card-media"
-                src="./src/images/mercedes-benz-rear-seat-accessories.jpg"
-                alt="Mercedes-Benz rear seat entertainment system with tablet holder mounted on beige leather headrest, displaying luxury in-car accessories"
-              />
-              <a
-                class="btn"
-                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features-multimedia"
-                target="_blank"
-                rel="noopener noreferrer"
-                >More Info</a
-              >
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Maybach Red ===== -->
-      <section id="maybach" class="section maybach-red">
-        <img
-          class="hero-image"
-          src="./src/images/mercedes-maybach-red-luxury-sedan.png"
-          alt="Metallic red Mercedes-Maybach S-Class luxury sedan parked on modern white terrace overlooking ocean at sunset, rear three-quarter view showcasing elegant proportions and chrome details"
-        />
-        <div class="container gutter stack">
-          <h2 class="section-title">Red as tentation</h2>
-          <p>
-            Good design is what drives us, and we're proud to share that
-            Mercedes-Maybach has already won the prestigious Best Design Award
-            2023, as judged by the world's best product designers.
-          </p>
-        </div>
-      </section>
-
-      <!-- ===== Maybach Wheels ===== -->
-      <section class="section maybach-wheels">
-        <div class="container gutter">
-          <div class="split-layout">
-            <!-- Title -->
-            <h2 class="section-title">
-              <span>The Mercedes-Maybach </span>
-              <span>wheel programme</span>
-            </h2>
-
-            <!-- Image -->
-            <img
-              class="card-media"
-              src="./src/images/maybach-multispoke-wheel.png"
-              alt="Close-up of Mercedes-Maybach 21-inch forged multi-spoke wheel with intricate silver spokes, chrome center cap with three-pointed star, and low-profile tire"
-            />
-
-            <!-- Content -->
-            <div class="maybach-content stack">
-              <p>
-                The exclusive Mercedes-Maybach wheel programme, e.g. with
-                optional 53.3 cm (21") Maybach forged wheels in multi-spoke
-                design.
-              </p>
-              <a
-                class="btn btn-dark uppercase"
-                href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Learn More</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Appointment ===== -->
-      <section class="section section-tight appointment">
-        <div class="container gutter">
-          <div class="split-layout">
-            <div class="appointment-content stack">
-              <h2 class="sr-only">Appointment only</h2>
-              <p>
-                Ready to own the car of your dreams? Mercedes-Maybach are now
-                available at our dealers by appointment only.
-              </p>
-            </div>
-            <a
-              class="btn uppercase"
-              href="https://www.mercedes-benz.es/passengercars/test-drive.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Contact Now</a
-            >
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Newsletter Signup ===== -->
-
-      <section
-        class="section newsletter-signup"
-        id="newsletter"
-        aria-labelledby="newsletter-title"
-      >
-        <div class="container gutter stack">
-          <p class="newsletter-kicker">Join the Power</p>
-
-          <h2 class="section-title" id="newsletter-title">
-            Sign up for our newsletter
-          </h2>
-
-          <form class="newsletter-form" id="newsletter-form">
-            <!-- Visual Wrapper for the Pill Input -->
-
-            <div class="form-group">
-              <div class="newsletter-sign-up-pill">
-                <label for="newsletter-email" class="sr-only"
-                  >Email address</label
-                >
-                <input
-                  id="newsletter-email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  placeholder="you@example.com"
-                  required
-                />
-                <button class="btn" type="submit">Subscribe</button>
-              </div>
-            </div>
-
-            <div class="form-check">
-              <input
-                id="newsletter-consent"
-                name="consent"
-                type="checkbox"
-                required
-              />
-              <label for="newsletter-consent">
-                By signing up, I agree to the
-                <a class="link" href="#newsletter">privacy policy</a>.
-              </label>
-            </div>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <!-- ===== Footer ===== -->
-    <footer class="footer">
+    <!-- ===== Car Gallery ===== -->
+    <section id="electric" class="section car-gallery">
       <div class="container gutter">
-        <!-- Social Media -->
-        <div class="social">
-          <ul class="social-list" aria-label="Social media">
-            <li>
-              <a
-                class="icon-link"
-                href="#social-list"
-                aria-label="Visit our Facebook page"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/icon-facebook.svg"
-                  alt="Facebook"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                class="icon-link"
-                href="#social-list"
-                aria-label="Follow us on Instagram"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/icon-instagram.svg"
-                  alt="Instagram"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                class="icon-link"
-                href="#social-list"
-                aria-label="Watch our videos on YouTube"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/icon-youtube.svg"
-                  alt="YouTube"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                class="icon-link"
-                href="#social-list"
-                aria-label="Connect with us on LinkedIn"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/icon-linkedin.svg"
-                  alt="LinkedIn"
-                />
-              </a>
-            </li>
-            <li>
-              <a
-                class="icon-link"
-                href="#social-list"
-                aria-label="Follow us on TikTok"
-              >
-                <img
-                  class="icon"
-                  src="./src/images/icon-tiktok.svg"
-                  alt="TikTok"
-                />
-              </a>
-            </li>
-          </ul>
-        </div>
+        <h2 class="sr-only">Vehicle gallery</h2>
+        <div class="card-grid gallery-grid">
+          <!-- Electric Convertible -->
+          <article class="card product-card">
+            <h3 class="card-title">Electric</h3>
+            <p class="card-subtitle">Mercedes E450 Cabriolet</p>
+            <img class="card-media" src="./src/images/mercedes-benz-silver-convertible.png"
+              alt="Mercedes-Benz convertible in silver, front-side view." />
+            <div class="card-footer">
+              <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More
+                Info</a>
+              <div class="color-dots">
+                <span class="color-dot gray" role="img" aria-label="Gray color option"></span>
+                <span class="color-dot red" role="img" aria-label="Red color option"></span>
+                <span class="color-dot blue" role="img" aria-label="Blue color option"></span>
+                <span class="color-dot black" role="img" aria-label="Black color option"></span>
+              </div>
+            </div>
+          </article>
 
-        <!-- Footer Navigation Grid -->
-        <div id="footer-nav-grid" class="section footer-nav-grid">
-          <!-- Explorer Navigation -->
-          <nav class="footer-nav" aria-label="Explorer">
-            <h3 class="footer-title">Explorer</h3>
-            <ul>
-              <li>
-                <a class="link" href="#footer-nav-grid">Electric Bikes</a>
-              </li>
-              <li><a class="link" href="#footer-nav-grid">City Bikes</a></li>
-              <li><a class="link" href="#footer-nav-grid">Kids' Bikes</a></li>
-              <li><a class="link" href="#footer-nav-grid">Accessories</a></li>
-              <li><a class="link" href="#footer-nav-grid">Outlet</a></li>
-              <li><a class="link" href="#footer-nav-grid">Business</a></li>
-              <li>
-                <a class="link" href="#footer-nav-grid">Insurance Electric</a>
-              </li>
-              <li><a class="link" href="#footer-nav-grid">Size Guide</a></li>
-            </ul>
-          </nav>
+          <!-- Hybrid SUV -->
+          <article class="card product-card">
+            <h3 class="card-title">Hybrid</h3>
+            <p class="card-subtitle">Mercedes GLC SUV</p>
+            <img class="card-media" src="./src/images/mercedes-benz-black-suv.png"
+              alt="Black Mercedes-Benz SUV, front-side view." />
+            <div class="card-footer">
+              <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More
+                Info</a>
+              <div class="color-dots">
+                <span class="color-dot black" role="img" aria-label="Black color option"></span>
+                <span class="color-dot yellow" role="img" aria-label="Yellow color option"></span>
+                <span class="color-dot red" role="img" aria-label="Red color option"></span>
+              </div>
+            </div>
+          </article>
 
-          <!-- About Navigation -->
-          <nav class="footer-nav" aria-label="About">
-            <h3 class="footer-title">About</h3>
-            <ul>
-              <li><a class="link" href="#footer-nav-grid">About Us</a></li>
-              <li><a class="link" href="#footer-nav-grid">Journal</a></li>
-              <li><a class="link" href="#footer-nav-grid">Reviews</a></li>
-              <li><a class="link" href="#footer-nav-grid">Press</a></li>
-              <li><a class="link" href="#footer-nav-grid">Jobs</a></li>
-            </ul>
-          </nav>
+          <!-- Hybrid G-Class -->
+          <article class="card product-card">
+            <h3 class="card-title">Hybrid</h3>
+            <p class="card-subtitle">Mercedes-Benz G-Class</p>
+            <img class="card-media" src="./src/images/mercedes-benz-black-offroad-suv.png"
+              alt="Black Mercedes-Benz off-road SUV, front-side view." />
+            <div class="card-footer">
+              <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More
+                Info</a>
+              <div class="color-dots">
+                <span class="color-dot black" role="img" aria-label="Black color option"></span>
+                <span class="color-dot slate-blue" role="img" aria-label="Slate blue color option"></span>
+                <span class="color-dot muted-red" role="img" aria-label="Muted red color option"></span>
+              </div>
+            </div>
+          </article>
 
-          <!-- Help Navigation -->
-          <nav class="footer-nav" aria-label="Help">
-            <h3 class="footer-title">Help</h3>
-            <ul>
-              <li><a class="link" href="#footer-nav-grid">Contact</a></li>
-              <li><a class="link" href="#footer-nav-grid">FAQ</a></li>
-              <li><a class="link" href="#footer-nav-grid">Delivery</a></li>
-              <li>
-                <a class="link" href="#footer-nav-grid">Assembly & manuals</a>
-              </li>
-              <li>
-                <a class="link" href="#footer-nav-grid">Payment options</a>
-              </li>
-              <li>
-                <a class="link" href="#footer-nav-grid">Privacy policy</a>
-              </li>
-              <li>
-                <a class="link" href="#footer-nav-grid">Terms & conditions</a>
-              </li>
-            </ul>
-          </nav>
+          <!-- Electric Sports Coupe -->
+          <article class="card product-card">
+            <h3 class="card-title">Electric</h3>
+            <p class="card-subtitle">Mercedes GLC SUV</p>
+            <img class="card-media" src="./src/images/mercedes-benz-silver-sports-coupe.png"
+              alt="Silver Mercedes-Benz sports coupe, front-side view." />
+            <div class="card-footer">
+              <a class="btn" href="https://www.mercedes-benz.es/" target="_blank" rel="noopener noreferrer">More
+                Info</a>
+              <div class="color-dots">
+                <span class="color-dot black" role="img" aria-label="Black color option"></span>
+                <span class="color-dot yellow" role="img" aria-label="Yellow color option"></span>
+                <span class="color-dot red" role="img" aria-label="Red color option"></span>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
-    </footer>
+    </section>
 
-    <!-- ===== Modal: Newsletter confirmation ===== -->
-    <div
-      class="modal-overlay"
-      id="newsletter-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-hidden="true"
-      aria-labelledby="newsletter-modal-title"
-      aria-describedby="newsletter-modal-desc"
-    >
-      <div class="modal-card stack" tabindex="-1">
-        <button
-          class="btn-icon modal-close"
-          type="button"
-          aria-label="Close dialog"
-        >
-          <span aria-hidden="true">×</span>
-        </button>
-
-        <h2 class="section-title" id="newsletter-modal-title">
-          Check your inbox
+    <!-- ===== Dealerships ===== -->
+    <section id="dealerships" class="section section-compact dealerships">
+      <div class="container gutter stack dealer-intro">
+        <h2 class="section-title">
+          <span>Find your nearest <span></span>Mercedes dealer</span>
         </h2>
-        <p id="newsletter-modal-desc">
-          Please confirm your subscription using the link we sent you.
+        <p>
+          <span>Browse over 1000 dealers worldwide, and </span>
+          <span>find the one that best suits your situation.</span>
         </p>
+      </div>
 
-        <button class="btn btn-dark modal-ok" type="button">OK</button>
+      <div class="dealer-map gutter">
+        <!-- Added gutter for edge protection on mobile -->
+        <div class="container">
+          <!-- Keeps the card from getting too wide on tablets -->
+          <div class="dealer-card stack">
+            <h3 class="dealer-title">
+              <span>Discover your </span> <span>local Mercedes </span>
+              <span>partner store </span>
+            </h3>
+            <a class="btn btn-wide" href="https://www.mercedes-benz.es/passengercars/brand/locations.html"
+              target="_blank" rel="noopener noreferrer">Find a partner store near you</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Features ===== -->
+    <section id="accessories" class="section features">
+      <div class="container gutter">
+        <h2 class="sr-only">Features</h2>
+        <div class="features-track h-scroll">
+          <!-- Comfort Feature -->
+          <article class="card feature-card stack">
+            <h3 class="card-title">Comfort</h3>
+            <img class="card-media" src="./src/images/mercedes-benz-interior-comfort.jpg"
+              alt="Luxurious Mercedes-Benz interior with wide digital display and ambient lighting, showcasing comfort features." />
+            <a class="btn"
+              href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features-interior"
+              target="_blank" rel="noopener noreferrer">More Info</a>
+          </article>
+
+          <!-- Technology Feature -->
+          <article class="card feature-card stack">
+            <h3 class="card-title">Technology</h3>
+            <img class="card-media" src="./src/images/mercedes-benz-led-headlight-technology.png"
+              alt="Close-up of a Mercedes-Benz LED headlight with modern lighting technology." />
+            <a class="btn"
+              href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features"
+              target="_blank" rel="noopener noreferrer">More Info</a>
+          </article>
+
+          <!-- Accessories Feature -->
+          <article class="card feature-card stack">
+            <h3 class="card-title">Accessories</h3>
+            <img class="card-media" src="./src/images/mercedes-benz-rear-seat-accessories.jpg"
+              alt="Mercedes-Benz rear seat entertainment system with tablet holder mounted on beige leather headrest, displaying luxury in-car accessories" />
+            <a class="btn"
+              href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html#features-multimedia"
+              target="_blank" rel="noopener noreferrer">More Info</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Maybach Red ===== -->
+    <section id="maybach" class="section maybach-red">
+      <img class="hero-image" src="./src/images/mercedes-maybach-red-luxury-sedan.png"
+        alt="Metallic red Mercedes-Maybach S-Class luxury sedan parked on modern white terrace overlooking ocean at sunset, rear three-quarter view showcasing elegant proportions and chrome details" />
+      <div class="container gutter stack">
+        <h2 class="section-title">Red as tentation</h2>
+        <p>
+          Good design is what drives us, and we're proud to share that
+          Mercedes-Maybach has already won the prestigious Best Design Award
+          2023, as judged by the world's best product designers.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Maybach Wheels ===== -->
+    <section class="section maybach-wheels">
+      <div class="container gutter">
+        <div class="split-layout">
+          <!-- Title -->
+          <h2 class="section-title">
+            <span>The Mercedes-Maybach </span>
+            <span>wheel programme</span>
+          </h2>
+
+          <!-- Image -->
+          <img class="card-media" src="./src/images/maybach-multispoke-wheel.png"
+            alt="Close-up of Mercedes-Maybach 21-inch forged multi-spoke wheel with intricate silver spokes, chrome center cap with three-pointed star, and low-profile tire" />
+
+          <!-- Content -->
+          <div class="maybach-content stack">
+            <p>
+              The exclusive Mercedes-Maybach wheel programme, e.g. with
+              optional 53.3 cm (21") Maybach forged wheels in multi-spoke
+              design.
+            </p>
+            <a class="btn btn-dark uppercase"
+              href="https://www.mercedes-benz.es/passengercars/models/saloon-long/maybach-s-class/overview.html"
+              target="_blank" rel="noopener noreferrer">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Appointment ===== -->
+    <section class="section section-tight appointment">
+      <div class="container gutter">
+        <div class="split-layout">
+          <div class="appointment-content stack">
+            <h2 class="sr-only">Appointment only</h2>
+            <p>
+              Ready to own the car of your dreams? Mercedes-Maybach are now
+              available at our dealers by appointment only.
+            </p>
+          </div>
+          <a class="btn uppercase" href="https://www.mercedes-benz.es/passengercars/test-drive.html" target="_blank"
+            rel="noopener noreferrer">Contact Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Newsletter Signup ===== -->
+
+    <section class="section newsletter-signup" id="newsletter" aria-labelledby="newsletter-title">
+      <div class="container gutter stack">
+        <p class="newsletter-kicker">Join the Power</p>
+
+        <h2 class="section-title" id="newsletter-title">
+          Sign up for our newsletter
+        </h2>
+
+        <form class="newsletter-form" id="newsletter-form">
+          <!-- Visual Wrapper for the Pill Input -->
+
+          <div class="form-group">
+            <div class="newsletter-sign-up-pill">
+              <label for="newsletter-email" class="sr-only">Email address</label>
+              <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="you@example.com"
+                required />
+              <button class="btn" type="submit">Subscribe</button>
+            </div>
+          </div>
+
+          <div class="form-check">
+            <input id="newsletter-consent" name="consent" type="checkbox" required />
+            <label for="newsletter-consent">
+              By signing up, I agree to the
+              <a class="link" href="#newsletter">privacy policy</a>.
+            </label>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container gutter">
+      <!-- Social Media -->
+      <div class="social">
+        <ul class="social-list" aria-label="Social media">
+          <li>
+            <a class="icon-link" href="#social-list" aria-label="Visit our Facebook page">
+              <img class="icon" src="./src/images/icon-facebook.svg" alt="Facebook" />
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="#social-list" aria-label="Follow us on Instagram">
+              <img class="icon" src="./src/images/icon-instagram.svg" alt="Instagram" />
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="#social-list" aria-label="Watch our videos on YouTube">
+              <img class="icon" src="./src/images/icon-youtube.svg" alt="YouTube" />
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="#social-list" aria-label="Connect with us on LinkedIn">
+              <img class="icon" src="./src/images/icon-linkedin.svg" alt="LinkedIn" />
+            </a>
+          </li>
+          <li>
+            <a class="icon-link" href="#social-list" aria-label="Follow us on TikTok">
+              <img class="icon" src="./src/images/icon-tiktok.svg" alt="TikTok" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer Navigation Grid -->
+      <div id="footer-nav-grid" class="section footer-nav-grid">
+        <!-- Explorer Navigation -->
+        <nav class="footer-nav" aria-label="Explorer">
+          <h3 class="footer-title">Explorer</h3>
+          <ul>
+            <li>
+              <a class="link" href="#footer-nav-grid">Electric Bikes</a>
+            </li>
+            <li><a class="link" href="#footer-nav-grid">City Bikes</a></li>
+            <li><a class="link" href="#footer-nav-grid">Kids' Bikes</a></li>
+            <li><a class="link" href="#footer-nav-grid">Accessories</a></li>
+            <li><a class="link" href="#footer-nav-grid">Outlet</a></li>
+            <li><a class="link" href="#footer-nav-grid">Business</a></li>
+            <li>
+              <a class="link" href="#footer-nav-grid">Insurance Electric</a>
+            </li>
+            <li><a class="link" href="#footer-nav-grid">Size Guide</a></li>
+          </ul>
+        </nav>
+
+        <!-- About Navigation -->
+        <nav class="footer-nav" aria-label="About">
+          <h3 class="footer-title">About</h3>
+          <ul>
+            <li><a class="link" href="#footer-nav-grid">About Us</a></li>
+            <li><a class="link" href="#footer-nav-grid">Journal</a></li>
+            <li><a class="link" href="#footer-nav-grid">Reviews</a></li>
+            <li><a class="link" href="#footer-nav-grid">Press</a></li>
+            <li><a class="link" href="#footer-nav-grid">Jobs</a></li>
+          </ul>
+        </nav>
+
+        <!-- Help Navigation -->
+        <nav class="footer-nav" aria-label="Help">
+          <h3 class="footer-title">Help</h3>
+          <ul>
+            <li><a class="link" href="#footer-nav-grid">Contact</a></li>
+            <li><a class="link" href="#footer-nav-grid">FAQ</a></li>
+            <li><a class="link" href="#footer-nav-grid">Delivery</a></li>
+            <li>
+              <a class="link" href="#footer-nav-grid">Assembly & manuals</a>
+            </li>
+            <li>
+              <a class="link" href="#footer-nav-grid">Payment options</a>
+            </li>
+            <li>
+              <a class="link" href="#footer-nav-grid">Privacy policy</a>
+            </li>
+            <li>
+              <a class="link" href="#footer-nav-grid">Terms & conditions</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
+  </footer>
 
-    <script src="src/js/main.js"></script>
-  </body>
+  <!-- ===== Modal: Newsletter confirmation ===== -->
+  <div class="modal-overlay" id="newsletter-modal" role="dialog" aria-modal="true" aria-hidden="true"
+    aria-labelledby="newsletter-modal-title" aria-describedby="newsletter-modal-desc">
+    <div class="modal-card stack" tabindex="-1">
+      <button class="btn-icon modal-close" type="button" aria-label="Close dialog">
+        <span aria-hidden="true">×</span>
+      </button>
+
+      <h2 class="section-title" id="newsletter-modal-title">
+        Check your inbox
+      </h2>
+      <p id="newsletter-modal-desc">
+        Please confirm your subscription using the link we sent you.
+      </p>
+
+      <button class="btn btn-dark modal-ok" type="button">OK</button>
+    </div>
+  </div>
+
+  <script src="src/js/main.js"></script>
+</body>
+
 </html>
